@@ -25,6 +25,7 @@
       box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
       padding: 20px;
       margin: 20px;
+      transition: all 0.3s;
 
       .listTitle {
         font-weight: 500;
@@ -33,4 +34,9 @@
       }
     }
   }
+}
+
+.home .homeContainer .listContainer:hover{
+  box-shadow: 2px 4px 10px 7px rgba(201, 201, 201, 0.47);
+
 }
