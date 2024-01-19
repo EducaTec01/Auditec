@@ -14,6 +14,7 @@
       width: 150px; // Ajusta el tamaño de acuerdo a tus necesidades
       height: auto; // Esto asegura que la proporción se mantenga
       margin-right: 10px; // Espaciado opcional
+      margin-top: 5px;
     }
   }
 
@@ -43,9 +44,12 @@
         align-items: center;
         padding: 5px;
         cursor: pointer;
+        transition: all 0.3s;
 
         &:hover {
           background-color: #ece8ff;
+          transform: translateX(10px);
+          width:87%;
         }
 
         .icon {
@@ -75,6 +79,7 @@
           border: 1px solid #2547ed;
           cursor: pointer;
           margin: 5px;
+          transition: all 0.3s;
 
           &:nth-child(1){
               background-color: whitesmoke;
@@ -85,6 +90,11 @@
           &:nth-child(3){
               background-color: darkblue;
           }
+      }
+
+      .colorOption:hover{
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+           
       }
   }
 }
