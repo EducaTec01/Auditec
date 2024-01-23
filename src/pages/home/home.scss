@@ -48,12 +48,13 @@
   }
 
   .home .homeContainer .widgets .widget {
-    flex: 0 0 calc(50% - 30px); /* Ajusta el ancho para que haya 2 elementos en cada fila con un espacio de 20px entre ellos */
+    flex: 0 0 calc(50% - 30px); 
   }
 }
 
 @media screen and (max-width: 1000px) {
   .home .homeContainer .charts {
-    
+    display: flex;
+    flex-direction: column;
   }
 }
