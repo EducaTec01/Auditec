@@ -2,7 +2,7 @@
   display: flex;
 
   .homeContainer {
-    flex: 6;
+    width: 85%;
 
     .widgets{
       display: flex;
@@ -36,6 +36,11 @@
   }
 }
 
+.home .homeContainer .container{
+  flex-direction: column;
+  display: flex;
+}
+
 .home .homeContainer .listContainer:hover{
   box-shadow: 2px 4px 10px 7px rgba(201, 201, 201, 0.47);
 }
@@ -53,8 +58,9 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .home .homeContainer .charts {
+  .home .homeContainer .container .charts {
     display: flex;
     flex-direction: column;
+    width: auto;
   }
 }
