@@ -27,7 +27,7 @@
     }
 
     .link {
-      width: max-content;
+      width: 100%;
       font-size: 12px;
       border-bottom: 1px solid gray;
     }
@@ -59,8 +59,4 @@
   transform: scale(1.03);
 }
 
-@media screen and (max-width: 1000px) {
-  .widget{
-  }
-}
 
