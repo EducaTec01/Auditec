@@ -8,6 +8,8 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { Link } from 'react-router-dom';
+
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
@@ -31,7 +33,9 @@ const Navbar = () => {
             />
           </div>
           <div className="item">
+          <Link to="/capacitacion" style={{ textDecoration: "none" }}>
             <FullscreenExitOutlinedIcon className="icon" />
+          </Link>
           </div>
           <div className="item">
             <NotificationsNoneOutlinedIcon className="icon" />
