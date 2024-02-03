@@ -11,7 +11,7 @@ const CapacitacionBody = () => {
                     <img src={people} alt="Personas Estudiando" />
                 </div>
                 <div className="frase">
-                    <p>Capacitacion para </p>
+                    <p>Capacitación para </p>
                     <p>Auditorias </p>
                 </div>
             </div>
@@ -60,6 +60,19 @@ const CapacitacionBody = () => {
                     </div>
                 </div>
             </section>
+            <footer>
+                <div className="footer">
+                    <div className="container">
+                        <div className="info">
+                            <p>
+                            Instituto Tecnológico de Tijuana <br />
+                            Calzada Del Tecnológico S/N, Fraccionamiento Tomas Aquino. Tijuana, Baja California. C.P. 22414 Teléfono: +52 (664) 607 8400 <br />
+                            Tecnológico Nacional de México - Algunos derechos reservados © 2014-2018
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </>
     );
 };
