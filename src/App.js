@@ -6,6 +6,8 @@ import New from "./pages/new/New";
 import Capacitacion from "./pages/capacitacion/capacitacion";
 import Navbar2 from "./components/navbar-2/Navbar-2";
 import CapacitacionBody from "./components/capacitacion-body/capacitacion-body";
+import Tutoriales from "./pages/tutoriales/tutoriales";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
@@ -39,13 +41,10 @@ function App() {
               />
             </Route>
 
-
-
-
-
             <Route path="capacitacion" element={<Capacitacion />} />
             <Route path="navbar2" element={<Navbar2 />} />
             <Route path="capacitacion-body" element={<CapacitacionBody />} />
+            <Route path="tutoriales" element={<Tutoriales />} />
 
           </Route>
         </Routes>
