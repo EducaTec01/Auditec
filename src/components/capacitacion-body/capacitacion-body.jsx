@@ -12,7 +12,7 @@ const CapacitacionBody = () => {
                 </div>
                 <div className="frase">
                     <p>Capacitación para </p>
-                    <p>Auditorias </p>
+                    <p>Auditorías </p>
                 </div>
             </div>
             <section className="section-2">
