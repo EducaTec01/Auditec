@@ -4,8 +4,7 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: #555;
-
+  
   .wrapper {
     width: 100%;
     padding: 20px;
@@ -18,6 +17,7 @@
       align-items: center;
       border: 0.5px solid lightgray;
       padding: 3px;
+      transition: all 0.3s;
 
       input {
         border: none;
@@ -39,6 +39,8 @@
         align-items: center;
         margin-right: 20px;
         position: relative;
+        transition: all 0.3s;
+        padding: 5px;
 
         .icon {
           font-size: 20px;
@@ -68,4 +70,13 @@
       }
     }
   }
+}
+
+.navbar .wrapper .search:hover{
+  filter: brightness(0.8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .wrapper .item:hover{
+  transform: scale(1.2);
 }
