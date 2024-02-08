@@ -15,7 +15,7 @@ const Tutoriales = () => {
                 <div className="left">
                     <div className="video">
                         <div className="titulo">
-                            <p>Tutorial de como hacer un tutorial</p>
+                            <p>Video de Prueba</p>
                         </div>
                         <div className="video-container">
                             <img src={miniatura} alt="miniatura" />
