@@ -41,6 +41,7 @@ body{
                     border-bottom: 1px solid #dddddd;
                     background-color: #f3f3f3;
                     line-height: 1.5; 
+                    transition: all 0.3s;
     
                     &:last-of-type {
                         border-bottom: 2px solid black;
@@ -48,6 +49,7 @@ body{
     
                     &:hover {
                         background-color: white;
+                        transform: scale(1.002);
                     }
     
                     a {
