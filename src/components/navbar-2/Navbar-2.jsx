@@ -12,7 +12,7 @@ const Navbar2 = () => {
             <ul className="lista2">
                 <li className="lista-elemento"><Link to={"/tutoriales"}>Tutoriales</Link></li>
                 <li className="lista-elemento"><Link to={"/asignaciones"}>Asignaciones</Link></li>
-                <li className="lista-elemento"><a href="#">Preguntas</a></li>
+                <li className="lista-elemento"><Link to={"/preguntas"}>Preguntas</Link></li>
                 <li className="lista-elemento"><a href="#">Inconformidades</a></li>
                 <li className="lista-elemento"><a href="#"><img className="profile-picture" alt="Logo" src={profile} /></a></li>
             </ul>

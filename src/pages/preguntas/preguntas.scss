@@ -1,0 +1,49 @@
+.section2 {
+
+    .titulo {
+
+        p {
+
+        }
+    }
+
+    .descripcion {
+        border-bottom: 2px solid black;
+        padding-bottom: 15px;
+
+        p{
+            font-size: 30px;
+            font-weight: 600;
+        }
+    }
+
+    .preguntas {
+        display: flex;
+
+        div.left, div.right{
+
+            div.container{
+                padding: 40px;
+                text-align: center;
+                
+                .pregunta{
+
+                    p{
+                        font-size: 25px;
+                        font-weight: 600;
+                    }
+                }
+    
+                .respuesta{
+                    display: flex;
+                    justify-content: center;
+    
+                    p{
+                        max-width: 50%;
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+}
