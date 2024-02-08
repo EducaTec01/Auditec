@@ -1,60 +1,75 @@
 body{
 
-    div.titulo{
-
-        p{
-            font-size: 50px;
-            font-weight: 700;
-        }
-    }
-
-    .content-table {
-        border-collapse: collapse;
-        margin: 25px 0;
-        font-size: 0.9em;
-        min-width: 400px;
-        border-radius: 5px 5px 0 0;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    .section2 {
+        display: flex;
+        flex-direction: column;
     
-        thead {
-            
-            tr {
-                background-color: black;
-                color: #ffffff;
-                text-align: left;
-                font-weight: bold;
+        .titulo {
+            margin: 1% 0 0;
+    
+            p {
+                font-size: 50px;
+                font-weight: 700;
             }
         }
     
-        th,
-        td {
-            padding: 12px 15px;
-        }
+        .content-table {
+            border-collapse: collapse;
+            font-size: 0.9em;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            width: 100%; 
     
-        tbody {
+            thead {
+                
+                tr {
+                    background-color: black;
+                    color: #ffffff;
+                    text-align: left;
+                    font-weight: bold;
 
-            tr {
-                border-bottom: 1px solid #dddddd;
+                }
+            }
     
-                &:nth-of-type(even) {
+            th,
+            td {
+                padding: 12px 15px; 
+                text-align: center;
+            }
+    
+            tbody {
+                tr {
+                    border-bottom: 1px solid #dddddd;
                     background-color: #f3f3f3;
-                    font-weight: 700;
-
-                }
+                    line-height: 1.5; 
+                    transition: all 0.3s;
     
-                &:last-of-type {
-                    border-bottom: 2px solid black;
-                }
+                    &:last-of-type {
+                        border-bottom: 2px solid black;
+                    }
     
-                a {
-                    display: flex;
-                    justify-content: center;
-
-                    img{
-                        width: 39px;
-                        height: auto;
-                        padding-top: 5px;
-                        border-radius: 30px;
+                    &:hover {
+                        background-color: white;
+                        transform: scale(1.002);
+                    }
+    
+                    a {
+                        display: flex;
+                        justify-content: center;
+                        cursor: default;
+    
+                        img {
+                            width: 39px;
+                            height: auto;
+                            padding-top: 5px;
+                            border-radius: 30px;
+                            transition: all 0.3s;
+                            cursor: pointer;
+    
+                            &:hover {
+                                transform: translateX(5px); 
+                            }
+                        }
                     }
                 }
             }
@@ -62,4 +77,3 @@ body{
     }
     
 }
-

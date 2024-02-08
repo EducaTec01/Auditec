@@ -5,11 +5,12 @@ import arrow from "./arrow.png"
 const Asignaciones = () => {
     return (
       <body>
-            <header>
-                <nav>
-                    <Navbar2 />
-                </nav>
-            </header>
+        <header>
+            <nav>
+                <Navbar2 />
+            </nav>
+        </header>
+        <div className="section2">
             <div className="titulo">
                 <p>Asignaciones</p>
             </div>
@@ -82,6 +83,7 @@ const Asignaciones = () => {
                     </tr>
                 </tbody>
             </table>
+        </div>
       </body>
     );
   };

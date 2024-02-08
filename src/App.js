@@ -8,6 +8,7 @@ import Navbar2 from "./components/navbar-2/Navbar-2";
 import CapacitacionBody from "./components/capacitacion-body/capacitacion-body";
 import Tutoriales from "./pages/tutoriales/tutoriales";
 import Asignaciones from "./pages/asignaciones/asignaciones"
+import Preguntas from "./pages/preguntas/preguntas"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
@@ -47,7 +48,7 @@ function App() {
             <Route path="capacitacion-body" element={<CapacitacionBody />} />
             <Route path="tutoriales" element={<Tutoriales />} />
             <Route path="asignaciones" element={<Asignaciones />} />
-
+            <Route path="preguntas" element={<Preguntas />} />
 
           </Route>
         </Routes>
