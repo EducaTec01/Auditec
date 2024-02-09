@@ -19,7 +19,7 @@ const Preguntas = () => {
                     <p>Preguntas concurrentes</p>
                 </div>
                 <div className="boton">
-                    <a href="#"><img src={arrow} alt="arrow" /></a>
+                    <a href="/formulario"><img src={arrow} alt="arrow" /></a>
                 </div>
             </div>
             <div className="preguntas">

@@ -10,6 +10,7 @@ import Tutoriales from "./pages/tutoriales/tutoriales";
 import Asignaciones from "./pages/asignaciones/asignaciones"
 import Asignacion from "./pages/asignacion/asignacion"
 import Preguntas from "./pages/preguntas/preguntas"
+import Formulario from "./pages/formulario/formulario"
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -52,6 +53,8 @@ function App() {
             <Route path="asignaciones" element={<Asignaciones />} />
             <Route path="asignacion" element={<Asignacion />} />
             <Route path="preguntas" element={<Preguntas />} />
+            <Route path="formulario" element={<Formulario />} />
+
 
           </Route>
         </Routes>
