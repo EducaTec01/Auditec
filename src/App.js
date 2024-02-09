@@ -8,9 +8,12 @@ import Navbar2 from "./components/navbar-2/Navbar-2";
 import CapacitacionBody from "./components/capacitacion-body/capacitacion-body";
 import Tutoriales from "./pages/tutoriales/tutoriales";
 import Asignaciones from "./pages/asignaciones/asignaciones"
+import AsignacionesJefa from "./pages/asignacionesJefa/asignacionesJefa"
 import Asignacion from "./pages/asignacion/asignacion"
+import AsignacionFormulario from "./pages/asignacionFormulario/asignacionFormulario"
 import Preguntas from "./pages/preguntas/preguntas"
 import Formulario from "./pages/formulario/formulario"
+
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -51,7 +54,9 @@ function App() {
             <Route path="capacitacion-body" element={<CapacitacionBody />} />
             <Route path="tutoriales" element={<Tutoriales />} />
             <Route path="asignaciones" element={<Asignaciones />} />
+            <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
             <Route path="asignacion" element={<Asignacion />} />
+            <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
             <Route path="preguntas" element={<Preguntas />} />
             <Route path="formulario" element={<Formulario />} />
 
