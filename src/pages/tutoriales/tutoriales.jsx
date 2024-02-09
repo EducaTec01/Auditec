@@ -22,7 +22,7 @@ const Tutoriales = () => {
                         </div>
                     </div>
                     <div className="contenedor">
-                        <p></p>
+                        
                     </div>
                 </div>
             </section>

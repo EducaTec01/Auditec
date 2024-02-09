@@ -7,13 +7,39 @@
         }
     }
 
-    .descripcion {
+    .contenedor{
+        display: flex;
+        justify-content: space-between;
         border-bottom: 2px solid black;
         padding-bottom: 15px;
 
-        p{
-            font-size: 30px;
-            font-weight: 600;
+        .descripcion {
+            
+    
+            p{
+                font-size: 30px;
+                font-weight: 600;
+            }
+        }
+
+        .boton{
+
+            a{
+
+            }
+
+            img{
+                width: 40px;
+                border-radius: 30px;
+                margin-left: 30px;
+
+                transition: all 0.3s;
+                cursor: pointer;
+
+                &:hover {
+                    transform: translateX(5px); 
+                }
+            }
         }
     }
 
@@ -26,7 +52,7 @@
                 padding: 40px;
                 text-align: center;
                 opacity: 0;
-                animation: appear 1.1s ease-in-out forwards;
+                animation: appear 0.8s ease-in-out forwards;
                 
                 .pregunta{
 

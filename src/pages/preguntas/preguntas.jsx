@@ -1,5 +1,6 @@
 import Navbar2 from "../../components/navbar-2/Navbar-2";
 import "./preguntas.scss"
+import arrow from "./arrow.png"
 
 const Preguntas = () => {
     return (
@@ -11,10 +12,15 @@ const Preguntas = () => {
         </header>
         <div className="section2">
             <div className="titulo">
-                <p>Preguntas</p>
+                <p>Preguntas e Instrucciones</p>
             </div>
-            <div className="descripcion">
-                <p>Preguntas concurrentes</p>
+            <div className="contenedor">
+                <div className="descripcion">
+                    <p>Preguntas concurrentes</p>
+                </div>
+                <div className="boton">
+                    <a href="#"><img src={arrow} alt="arrow" /></a>
+                </div>
             </div>
             <div className="preguntas">
                 <div className="left">

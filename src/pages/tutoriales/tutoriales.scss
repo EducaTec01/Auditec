@@ -3,11 +3,12 @@ body{
 }
 
 .section2{
-    background: linear-gradient(to right, #F0F0F0, #E5E5E5, #D9D9D9);
+    background: #E5E5E5;
     display: flex;
     padding: 2% 3% 1%;
     gap: 20px;
     width: 100%;
+    
     
     .left{
         display: flex;
@@ -55,6 +56,7 @@ body{
             border-radius: 20px;
             box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
             transition: all 0.3s;
+            border: none;
 
             &:hover{
                 box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
