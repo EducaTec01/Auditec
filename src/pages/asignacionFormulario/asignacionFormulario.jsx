@@ -1,6 +1,7 @@
 import Navbar2 from "../../components/navbar-2/Navbar-2";
 import "./asignacionFormulario.scss"
 import React, { useState } from 'react';
+import Sidebar from "../../components/sidebar/Sidebar";
 
 const Formulario = () => {
     const [valorCampoPregunta1, setValorCampoPregunta1] = useState('');
@@ -53,7 +54,7 @@ const Formulario = () => {
                 </div>
             </div>
         </header>
-        <div className="formulario-body">
+        <div className="body">
           <div className="pasos">
             <div className="paso">
               <div className="numero">
