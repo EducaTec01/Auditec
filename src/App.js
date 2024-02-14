@@ -1,3 +1,10 @@
+import HistorialComponent from "./pages/Historial/RHistorial";
+import HistorialGComponent from "./pages/Historial#/RHistorial#";
+import InconformidadesComponent from "./pages/Inconformidades/Inconformidades";
+import InconformidadesGComponent from "./pages/Inconformities#/Inconformidades#";
+import VigenciasComponent from "./pages/Vigencias/Vigencias";
+import VigenciasGComponent from "./pages/Vigencias#/Vigencias#";
+
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
@@ -35,6 +42,17 @@ function App() {
                 element={<New inputs={productInputs} title="Add New Product" />}
               />
             </Route>
+
+            <Route path="historialCompanent" element={<HistorialComponent />} />
+            <Route path="historialGCompanent" element={<HistorialGComponent />} />
+            <Route path="inconformidadesComponent" element={<InconformidadesComponent />} />
+            <Route path="inconformidadesGComponent" element={<InconformidadesGComponent />} />
+            <Route path="vigenciasComponent" element={<VigenciasComponent />} />
+            <Route path="vigenciasGComponent" element={<VigenciasGComponent />} />
+
+            
+
+
           </Route>
         </Routes>
       </BrowserRouter>
