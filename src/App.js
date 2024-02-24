@@ -8,8 +8,13 @@ import Navbar2 from "./components/navbar-2/Navbar-2";
 import CapacitacionBody from "./components/capacitacion-body/capacitacion-body";
 import Tutoriales from "./pages/tutoriales/tutoriales";
 import Asignaciones from "./pages/asignaciones/asignaciones"
+
 import Reportes from "./pages/reportes/reportes"
 import HistorialesJefa from "./pages/historialesJefa/historialesJefa"
+import Asignacion from "./pages/asignacion/asignacion"
+import Preguntas from "./pages/preguntas/preguntas"
+import Formulario from "./pages/formulario/formulario"
+
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
@@ -52,6 +57,9 @@ function App() {
             <Route path="historialesJefa" element={<HistorialesJefa/>}/>
             {/* <Route path="historialesJefa2" element={<HistorialesJefa2/>}/> */}
             <Route path="reportes" element={<Reportes/>}/>
+            <Route path="asignacion" element={<Asignacion />} />
+            <Route path="preguntas" element={<Preguntas />} />
+            <Route path="formulario" element={<Formulario />} />
 
 
           </Route>
