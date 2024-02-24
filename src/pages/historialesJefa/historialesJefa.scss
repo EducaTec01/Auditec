@@ -1,44 +1,57 @@
-div.titulo{
+// historialesJefa.scss
 
-  p{
-      font-size: 50px;
-      font-weight: 700;
+.historiales-jefa {
+  header {
+    nav {
+      // Estilos para el navbar
+    }
   }
-}
-.container {
-  display: flex;
-}
 
-.sidebar {
-  width: 15%; /* Ajusta el ancho del sidebar según sea necesario */
-}
+  .container {
+    display: flex;
 
-.content-container {
-  flex: 1; /* El contenido ocupará todo el espacio restante */
-  border-collapse: collapse;
-  font-size: 0.9em;
-  min-width: 400px;
-  border-radius: 5px 5px 0 0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
+    .content-container {
+      flex: 1;
+      border-radius: 5px 5px 0 0;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
-.content-table {
-  width: 100%; /* Ajusta el ancho de la tabla según sea necesario */
-  margin: auto; /* Centra la tabla horizontalmente */
-  border-collapse: collapse; /* Fusiona los bordes de las celdas */
-  font-size: 16px; /* Tamaño de fuente para el contenido de la tabla */
-}
+      .titulo {
+        p {
+          font-size: 50px;
+          font-weight: 700;
+        }
+      }
 
-.content-table th,
-.content-table td {
-  padding: 12px 15px;
-}
+      .content-table {
+        width: 100%;
+        margin: auto;
+        border-collapse: collapse;
+        font-size: 16px;
 
-.content-table th {
-  background-color: black; /* Color de fondo para las celdas de encabezado */
-  text-align: left; /* Alinea el texto del encabezado a la izquierda */
-}
+        th, td {
+          padding: 12px 15px;
+        }
 
-.content-table tbody tr:last-child td {
-  border-bottom: none; /* Elimina el borde inferior de la última fila de la tabla */
+        th {
+          background-color: black;
+          text-align: left;
+          color: white; // Cambia el color del texto del encabezado a blanco
+        }
+
+        tbody tr {
+          background-color: white; // Fondo blanco para todas las filas de la tabla
+        }
+
+        tbody tr:last-child td {
+          border-bottom: none;
+        }
+
+        tbody tr td a img.arrow {
+          max-width: 40px;
+          height: auto;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
 }
