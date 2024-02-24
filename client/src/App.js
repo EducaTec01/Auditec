@@ -11,6 +11,7 @@ import Asignaciones from "./pages/asignaciones/asignaciones"
 
 import Reportes from "./pages/reportes/reportes"
 import HistorialesJefa from "./pages/historialesJefa/historialesJefa"
+import HistorialesJefa2 from "./pages/historialesJefa2/historialesJefa2"
 import Asignacion from "./pages/asignacion/asignacion"
 import Preguntas from "./pages/preguntas/preguntas"
 import Formulario from "./pages/formulario/formulario"
@@ -55,7 +56,7 @@ function App() {
             <Route path="tutoriales" element={<Tutoriales />} />
             <Route path="asignaciones" element={<Asignaciones />} />
             <Route path="historialesJefa" element={<HistorialesJefa/>}/>
-            {/* <Route path="historialesJefa2" element={<HistorialesJefa2/>}/> */}
+            <Route path="historialesJefa2" element={<HistorialesJefa2/>}/>
             <Route path="reportes" element={<Reportes/>}/>
             <Route path="asignacion" element={<Asignacion />} />
             <Route path="preguntas" element={<Preguntas />} />
