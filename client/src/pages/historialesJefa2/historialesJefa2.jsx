@@ -1,5 +1,6 @@
 import Navbar2 from "../../components/navbar-2/Navbar-2"
 import Sidebar from "../../components/sidebar/Sidebar";
+import PrintButton from '../../components/PrintButton';
 import "./historialesJefa2.scss"
 import arrow from "./arrow.png"
 import {
@@ -33,6 +34,7 @@ const HistorialesJefa2 = ({ aspect, title }) => {
         <div className="content-container">
           <div className="titulo">
             <p>Historial</p>
+            <PrintButton />
           </div>
           <div className="chart">
                 <div className="title">{title}</div>
