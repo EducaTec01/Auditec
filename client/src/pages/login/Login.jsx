@@ -4,12 +4,12 @@ import "./login.scss"
 const Login = () => {
 
   const  [password, setPassword] = useState ('')
-  const  [user , setUser] = useState ('')
+  const  [username, setUsername] = useState ('')
 
   const handdleLogin = (e) =>{
     e.preventDefault();
     const data = {
-      user: user,
+      username: username,
       password: password
     };
 
@@ -33,7 +33,7 @@ const Login = () => {
     <div>
       <form>
         <label>User:</label>
-        <input onChange={(event) => {setUser(event.target.value)} } placeholder="user" type="text"/>
+        <input onChange={(event) => {setUsername(event.target.value)} } placeholder="username" type="text"/>
         <label>Password:</label>
         <input onChange={(event) => {setPassword(event.target.value)}} placeholder="password" type="password"/>
         <button onClick={handdleLogin}>LOGIN</button>
