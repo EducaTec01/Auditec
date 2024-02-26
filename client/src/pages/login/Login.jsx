@@ -1,11 +1,12 @@
 import { useState } from "react"
 import "./login.scss"
+import Capacitacion from "../capacitacion/capacitacion";
 
 const Login = () => {
 
   const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
-    const [loginSuccessful, setLoginSuccessful] = useState(false);
+  const [username, setUsername] = useState('');
+  const [loginSuccessful, setLoginSuccessful] = useState(false);
 
     const handdleLogin = (e) =>{
         e.preventDefault();
@@ -26,6 +27,7 @@ const Login = () => {
                 if(result.token){
                     localStorage.setItem('token', result.token)
                     setLoginSuccessful(true);
+                    
                 } else {
                     setLoginSuccessful(false);
                 }
@@ -35,65 +37,70 @@ const Login = () => {
             })
     }
 
-  return (
-    <div className="login">         
-      <div className="loginL">
-       
-        <div className="loginLogo">
-          <p>Imagen Logo ITT</p>
-          <p>Imagen Logo Auditec</p>
-        </div>
-
-        <div className="loginBienvenida">
-          <p className="textoBienvenida">Bienvenido</p>     
-          <form className="flex flex-col pt-3 md:pt-8">
-            <div className="flex flex-col pt-4">
-              <label htmlFor="email" className="text-lg">
-                Usuario
-              </label>
-              <input onChange={(event)=>{setUsername(event.target.value)}}
-                      placeholder="username"
-                      type="text" 
-                      className="shadow appearance-none border rounded-lg py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+    return (
+      <>
+        {loginSuccessful ? <Capacitacion />:
+          <div className="custom-form">
+            <div className="login">
+              <div className="loginL">
+                <div className="loginLogo">
+                  <p>Imagen Logo ITT</p>
+                  <p>Imagen Logo Auditec</p>
+                </div>
+  
+                <div className="loginBienvenida">
+                  <p className="textoBienvenida">Bienvenido</p>
+                  <form className="flex flex-col pt-3 md:pt-8" onSubmit={handdleLogin}>
+                    <div className="flex flex-col pt-4">
+                      <label htmlFor="email" className="text-lg">
+                        Usuario
+                      </label>
+                      <input
+                        onChange={(event) => { setUsername(event.target.value) }}
+                        placeholder="username"
+                        type="text"
+                        className="shadow appearance-none border rounded-lg py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
                       />
-                      
-            </div>
-
-            <div className="flex flex-col pt-4">
-              <label htmlFor="password" className="text-lg">
-                Contraseña
-              </label>
-              <input onChange={(event)=>{setPassword(event.target.value)}}
-                      placeholder="password"
-                      type="password" 
-                      className="shadow appearance-none border rounded-lg py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                    </div>
+  
+                    <div className="flex flex-col pt-4">
+                      <label htmlFor="password" className="text-lg">
+                        Contraseña
+                      </label>
+                      <input
+                        onChange={(event) => { setPassword(event.target.value) }}
+                        placeholder="password"
+                        type="password"
+                        className="shadow appearance-none border rounded-lg py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
                       />
+                    </div>
+  
+                    <div className="flex flex-col pt-4">
+                      <button
+                        type="submit"
+                        className="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-5 rounded-md"
+                      >
+                        Iniciar Sesión
+                      </button>
+                    </div>
+  
+                    <div className="text-center pt-12 pb-12">
+                      <p>
+                        ¿Olvidaste tu contraseña? <a href="register.html" className="underline font-semibold">Haz clic.</a>
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+  
+              <div className="loginR">
+                <p>Imagen Logo</p>
+              </div>
             </div>
+          </div>
+        }
+      </>
+    );
+  };
 
-            <div className="flex flex-col pt-4">
-              <button type="submit" className="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-5 rounded-md">
-                Iniciar Sesión
-              </button>
-            </div>
-
-            <div className="text-center pt-12 pb-12">
-              <p>
-                ¿Olvidaste tu contraseña? <a href="register.html" className="underline font-semibold">Haz clic.</a>
-              </p>
-            </div>
-        </form>
-      </div>  
-        </div>
-
-          
-
-      <div className="loginR">
-       
-        <p>Imagen Logo</p>
-
-      </div>
-    </div>
-  );
-};      
-
-export default Login
+export default Login;
