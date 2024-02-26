@@ -17,6 +17,10 @@ import Preguntas from "./pages/preguntas/preguntas"
 import Formulario from "./pages/formulario/formulario"
 
 
+import AsignacionFormulario from "./pages/asignacionFormulario/asignacionFormulario"
+import AsignacionesJefa from "./pages/asignacionesJefa/asignacionesJefa"
+
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
@@ -62,6 +66,8 @@ function App() {
             <Route path="preguntas" element={<Preguntas />} />
             <Route path="formulario" element={<Formulario />} />
 
+            <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
+            <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
 
           </Route>
         </Routes>
