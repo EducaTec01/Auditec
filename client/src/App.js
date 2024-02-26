@@ -9,6 +9,10 @@ import CapacitacionBody from "./components/capacitacion-body/capacitacion-body";
 import Tutoriales from "./pages/tutoriales/tutoriales";
 import Asignaciones from "./pages/asignaciones/asignaciones"
 
+import AsignacionFormulario from "./pages/asignacionFormulario/asignacionFormulario"
+import AsignacionesJefa from "./pages/asignacionesJefa/asignacionesJefa"
+
+
 import Reportes from "./pages/reportes/reportes"
 import HistorialesJefa from "./pages/historialesJefa/historialesJefa"
 import HistorialesJefa2 from "./pages/historialesJefa2/historialesJefa2"
@@ -55,6 +59,9 @@ function App() {
             <Route path="capacitacion-body" element={<CapacitacionBody />} />
             <Route path="tutoriales" element={<Tutoriales />} />
             <Route path="asignaciones" element={<Asignaciones />} />
+            <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
+            <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
+
             <Route path="historialesJefa" element={<HistorialesJefa/>}/>
             <Route path="historialesJefa2" element={<HistorialesJefa2/>}/>
             <Route path="reportes" element={<Reportes/>}/>
