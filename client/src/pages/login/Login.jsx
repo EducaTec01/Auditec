@@ -1,6 +1,9 @@
 import { useState } from "react"
 import "./login.scss"
 import Capacitacion from "../capacitacion/capacitacion";
+import logoImage from "../../components/login/galgo.jpg";
+import logoImageITT from "../../components/login/ITTLogo.png";
+import logoAuditec from "../../components/sidebar/logo-transparente.png";
 
 const Login = () => {
 
@@ -44,8 +47,8 @@ const Login = () => {
             <div className="login">
               <div className="loginL">
                 <div className="loginLogo">
-                  <p>Imagen Logo ITT</p>
-                  <p>Imagen Logo Auditec</p>
+                  <img src={logoImageITT} alt="ITTLogo" className="logo"/>
+                  <img src={logoAuditec} alt="ITTLogo" className="logo"/>
                 </div>
   
                 <div className="loginBienvenida">
@@ -94,7 +97,7 @@ const Login = () => {
               </div>
   
               <div className="loginR">
-                <p>Imagen Logo</p>
+                <img src={logoImage} alt="galgo" className="loginGalgo"/>
               </div>
             </div>
           </div>
