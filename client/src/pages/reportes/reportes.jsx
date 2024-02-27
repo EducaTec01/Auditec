@@ -2,7 +2,7 @@ import React from "react";
 import Navbar2 from "../../components/navbar-2/Navbar-2"
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./reportes.scss";
-import {Radar} from 'react-chartjs-2'
+//import {Radar} from 'react-chartjs-2'
 import { ResponsiveContainer } from "recharts";
 import {
     Legend,
