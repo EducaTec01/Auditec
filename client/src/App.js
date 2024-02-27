@@ -20,11 +20,6 @@ import Asignacion from "./pages/asignacion/asignacion"
 import Preguntas from "./pages/preguntas/preguntas"
 import Formulario from "./pages/formulario/formulario"
 
-
-import AsignacionFormulario from "./pages/asignacionFormulario/asignacionFormulario"
-import AsignacionesJefa from "./pages/asignacionesJefa/asignacionesJefa"
-
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
@@ -39,7 +34,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
+            <Route index element={<Login />} />
             <Route path="login" element={<Login />} />
             <Route path="users">
               <Route index element={<List />} />

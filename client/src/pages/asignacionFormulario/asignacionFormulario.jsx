@@ -1,6 +1,7 @@
 import Navbar2 from "../../components/navbar-2/Navbar-2";
 import "./asignacionFormulario.scss";
 import React, { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
 
 const AsignacionFormulario = () => {
@@ -18,7 +19,7 @@ const AsignacionFormulario = () => {
     document.getElementById('creationDate').min = today; // Establecer la fecha mínima para el input de fecha de creación
     document.getElementById('deadline').min = today; // Establecer la fecha mínima para el input de fecha límite
     setFechaCreacion(today); // Establecer la fecha de creación por defecto
-    setFechaLímite(today);
+    setFechaLimite(today);
   }, []);
 
   return (    
@@ -85,11 +86,17 @@ const AsignacionFormulario = () => {
                 onChange={(event) => setComentarios(event.target.value)} 
                 id="comments" value={comentarios}></textarea>
             </div>
+          </div>          
+          {/* Botón "Crear asignación" debajo de la caja de comentarios */}
+          <div className="create-button">
+            <Link to="/asignacionesJefa" className="boton">Crear asignación</Link>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+
 
 export default AsignacionFormulario;

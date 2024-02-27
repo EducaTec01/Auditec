@@ -2,6 +2,7 @@ import Navbar2 from "../../components/navbar-2/Navbar-2";
 import "./asignacionesJefa.scss"
 import arrow from "./arrow.png"
 import Sidebar from "../../components/sidebar/Sidebar";
+import { Link } from "react-router-dom";
 
 const Asignaciones = () => {
     return (
@@ -14,13 +15,15 @@ const Asignaciones = () => {
                     <div className="titulo">
                         <p>Asignaciones</p>
                     </div>
-                    <button className="boton">Crear asignación</button>
+                    <Link to="/asignacionFormulario" className="boton" style={{ textDecoration: 'none' }}>
+                        Crear asignación
+                    </Link>
                 </div>
                 
                 <table class="content-table">
                     <thead>
                         <tr>
-                            <th>Asignacion</th>
+                            <th>Asignación</th>
                             <th>Fecha de Vencimiento</th>
                             <th>Departamento</th>
                             <th>Ir</th>
