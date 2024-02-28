@@ -1,4 +1,5 @@
-const db = require('../database/db');
+const db = require('../models/db');
+
 
 const Asignacion = function(asignacion) {
     this.numero = asignacion.numero;
@@ -7,7 +8,7 @@ const Asignacion = function(asignacion) {
 };
 
 Asignacion.create = (nuevaAsignacion, result) => {
-    db.query("INSERT INTO asignaciones SET ?", nuevaAsignacion, (err, res) => {
+    db.query("INSERT INTO Asignacion SET ?", nuevaAsignacion, (err, res) => {
         if (err) {
             console.error("Error al crear una nueva asignación: ", err);
             result(err, null);
@@ -19,11 +20,11 @@ Asignacion.create = (nuevaAsignacion, result) => {
     });
 };
 
-Asignacion.getAll = result => {
-    db.query("SELECT * FROM asignaciones", (err, res) => {
+Asignacion.getAll = (result) => {
+    db.query("SELECT * FROM Asignacion", (err, res) => {
         if (err) {
             console.error("Error al obtener las asignaciones: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
 
@@ -33,7 +34,7 @@ Asignacion.getAll = result => {
 };
 
 Asignacion.findById = (asignacionId, result) => {
-    db.query(`SELECT * FROM asignaciones WHERE id = ${asignacionId}`, (err, res) => {
+    db.query("SELECT * FROM Asignacion WHERE id = ?", asignacionId, (err, res) => {
         if (err) {
             console.error("Error al encontrar la asignación: ", err);
             result(err, null);
@@ -53,12 +54,12 @@ Asignacion.findById = (asignacionId, result) => {
 
 Asignacion.updateById = (id, asignacion, result) => {
     db.query(
-        "UPDATE asignaciones SET numero = ?, fecha = ?, estado = ? WHERE id = ?",
+        "UPDATE Asignacion SET numero = ?, fecha = ?, estado = ? WHERE id = ?",
         [asignacion.numero, asignacion.fecha, asignacion.estado, id],
         (err, res) => {
             if (err) {
                 console.error("Error al actualizar la asignación: ", err);
-                result(null, err);
+                result(err, null);
                 return;
             }
 
@@ -75,10 +76,10 @@ Asignacion.updateById = (id, asignacion, result) => {
 };
 
 Asignacion.remove = (id, result) => {
-    db.query("DELETE FROM asignaciones WHERE id = ?", id, (err, res) => {
+    db.query("DELETE FROM Asignacion WHERE id = ?", id, (err, res) => {
         if (err) {
             console.error("Error al eliminar la asignación: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
 

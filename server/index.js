@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const router = require("./api/endpoints");
+const router = require("./api/endPoints");
 
 
 app.use('/', router);

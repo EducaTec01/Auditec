@@ -1,17 +1,15 @@
 const express = require('express');
-const { ping } = require('../controllers/pingController');
 const router = express.Router();
 
-const asignacionController = require('../controller/asignacionController');
+const asignacionController = require('../controllers/asignacionController');
 
 // Rutas para CRUD de asignaciones
-router.post('/asignacion', asignacionController.create);
-router.get('/asignacion', asignacionController.readAll);
-router.get('/asignacion/:id', asignacionController.readOne);
-router.patch('/asignacion/:id', asignacionController.update);
-router.delete('/asignacion/:id', asignacionController.delete);
+   router.post('/asignaciones', asignacionController.create);
+   router.get('/asignaciones', asignacionController.getAll);
+   router.get('/asignaciones/:id', asignacionController.findById);
+   router.patch('/asignaciones/:id', asignacionController.updateById);
+   router.delete('/asignaciones/:id', asignacionController.remove);
 
 
-router.get('/ping', ping);
 
 module.exports = router;
