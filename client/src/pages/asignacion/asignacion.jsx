@@ -1,83 +1,69 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import arrow from "./arrow.png";
+import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar2 from "../../components/navbar-2/Navbar-2";
-import "./asignacion.scss"
-import arrow from "./arrow.png"
-import React, { useState } from 'react';
 
 const Asignacion = () => {
-    const [valorCampoNomenclatura, setValorCampoNomenclatura] = useState('');
-    const [valorCampoComentario, setValorCampoComentario] = useState('');
+  const { id } = useParams(); // Obtener el ID de la asignación de la URL
+  const [asignacion, setAsignacion] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const handleInputChangeNomenclatura = (event) => {
-        setValorCampoNomenclatura(event.target.value);
-    };
+  useEffect(() => {
+    fetchAsignacion(id);
+  }, [id]);
 
-    const handleInputChangeComentario = (event) => {
-        setValorCampoComentario(event.target.value);
-    };
-
-    return (
-      <body>
-        <header>
-            <nav>
-                <Navbar2 />
-            </nav>
-            <div className="section2">
-                <div className="encabezado">
-                    <div className="titulo">
-                        <p>Asignacion #1</p>
-                    </div>
-                    <div className="info">
-                        <p>Fecha limite: 07/03/2024</p>
-                        <a href="/preguntas"><img src={arrow} alt="arrow" /></a>
-                    </div>
-                </div>
-                <div className="cuerpo">
-                    <div className="left">
-                        <div className="detalles">
-                            <div className="detalle">
-                                <p>Departamento: Sistemas Computacionales</p>
-                            </div>
-                            <div className="detalle">
-                                <p>Area: Laboratorios</p>
-                            </div>
-                            <div className="detalle">
-                                <p>Encargado: John Smith</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="right">
-                        <div className="container-nomenclatura">
-                            <div className="titulo-nomenclatura">
-                                <p>Nomenclatura</p>
-                            </div>
-                            <div className="campo-nomenclatura">
-                                <input
-                                    type="text"
-                                    value={valorCampoNomenclatura}
-                                    onChange={handleInputChangeNomenclatura}
-                                    placeholder=""
-                                />
-                            </div>
-                        </div>
-                        <div className="container-comentario">
-                            <div className="titulo-comentario">
-                                <p>Comentario</p>
-                            </div>
-                            <div className="campo-comentario">
-                                <input
-                                    type="text"
-                                    value={valorCampoComentario}
-                                    onChange={handleInputChangeComentario}
-                                    placeholder=""
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-      </body>
-    );
+  const fetchAsignacion = (id) => {
+    fetch(`http://localhost:3001/asignacion`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error asdafaegfvla asignación");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setAsignacion(data);
+        setLoading(false);
+        setError(null);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setLoading(false);
+        setError(error.message);
+      });
   };
-  
-  export default Asignacion;
+
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <body>
+      <div className="section1">
+        <Sidebar />
+        <div className="section2">
+          <Navbar2 />
+          <div className="encabezado">
+          <div className="titulo">
+            <p>Asignación #{asignacion?.id}</p>
+            </div>
+            <div className="info">
+              <p>Fecha límite: {asignacion?.fecha_final}</p>
+              <a href="/preguntas"><img src={arrow} alt="arrow" /></a>
+            </div>
+          </div>
+          <div className="cuerpo">
+            {/* Renderizar otros detalles de la asignación */}
+          </div>
+        </div>
+      </div>
+    </body>
+  );
+};
+
+export default Asignacion;

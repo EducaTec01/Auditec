@@ -11,5 +11,6 @@ router.post('/login', login);
 
 router.get('/asignacionesgetAll', Asignacion.getAll);
 router.post('/asignacionesCreate', Asignacion.create);
+router.get('/asignacion', Asignacion.findById);
 
 module.exports = router;
