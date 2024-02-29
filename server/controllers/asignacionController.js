@@ -1,4 +1,4 @@
-const db = require('../database/db');
+const db = require('../models/db');
 
 const Asignacion = function(asignacion) {
     this.numero = asignacion.numero;
@@ -7,33 +7,33 @@ const Asignacion = function(asignacion) {
 };
 
 Asignacion.create = (nuevaAsignacion, result) => {
-    db.query("INSERT INTO asignaciones SET ?", nuevaAsignacion, (err, res) => {
+    const { fecha_inicio, fecha_final, departamento, auditor, encargado, nomenclatura, comentarios, estado } = nuevaAsignacion;
+    db.query("INSERT INTO Asignacion (fecha_inicio, fecha_final, departamento, auditor, encargado, nomenclatura, comentarios, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [fecha_inicio, fecha_final, departamento, auditor, encargado, nomenclatura, comentarios, estado], (err, res) => {
         if (err) {
             console.error("Error al crear una nueva asignación: ", err);
-            result(err, null);
-            return;
+            return result(err, null); // Devolvemos el error a la función de retorno de llamada
         }
 
         console.log("Nueva asignación creada: ", { id: res.insertId, ...nuevaAsignacion });
-        result(null, { id: res.insertId, ...nuevaAsignacion });
+        result(null, { id: res.insertId, ...nuevaAsignacion }); // Devolvemos el resultado a la función de retorno de llamada
     });
 };
 
-Asignacion.getAll = result => {
-    db.query("SELECT * FROM asignaciones", (err, res) => {
+Asignacion.getAll = (req, res) => {
+    db.query("SELECT * FROM Asignacion", (err, result) => {
         if (err) {
             console.error("Error al obtener las asignaciones: ", err);
-            result(null, err);
+            res.status(500).json({ error: "Error al obtener las asignaciones" });
             return;
         }
 
-        console.log("Asignaciones encontradas: ", res);
-        result(null, res);
+        console.log("Asignaciones encontradas: ", result);
+        res.json(result);
     });
 };
 
 Asignacion.findById = (asignacionId, result) => {
-    db.query(`SELECT * FROM asignaciones WHERE id = ${asignacionId}`, (err, res) => {
+    db.query(`SELECT * FROM Asignacion WHERE id = ${asignacionId}`, (err, res) => {
         if (err) {
             console.error("Error al encontrar la asignación: ", err);
             result(err, null);
@@ -53,7 +53,7 @@ Asignacion.findById = (asignacionId, result) => {
 
 Asignacion.updateById = (id, asignacion, result) => {
     db.query(
-        "UPDATE asignaciones SET numero = ?, fecha = ?, estado = ? WHERE id = ?",
+        "UPDATE Asignacion SET numero = ?, fecha = ?, estado = ? WHERE id = ?",
         [asignacion.numero, asignacion.fecha, asignacion.estado, id],
         (err, res) => {
             if (err) {
@@ -75,7 +75,7 @@ Asignacion.updateById = (id, asignacion, result) => {
 };
 
 Asignacion.remove = (id, result) => {
-    db.query("DELETE FROM asignaciones WHERE id = ?", id, (err, res) => {
+    db.query("DELETE FROM Asignacion WHERE id = ?", id, (err, res) => {
         if (err) {
             console.error("Error al eliminar la asignación: ", err);
             result(null, err);
