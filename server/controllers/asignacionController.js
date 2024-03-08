@@ -43,24 +43,25 @@ Asignacion.getAll = (req, res) => {
     });
 };
 
-Asignacion.findById = (asignacionId, result) => {
-    db.query(`SELECT * FROM Asignacion WHERE id = ${asignacionId}`, (err, res) => {
-        if (err) {
-            console.error("Error al encontrar la asignación: ", err);
-            result(err, null);
-            return;
-        }
-
-        if (res.length) {
-            console.log("Asignación encontrada: ", res[0]);
-            result(null, res[0]);
-            return;
-        }
-
-        // No se encontró ninguna asignación con el ID especificado
-        result({ kind: "not_found" }, null);
+Asignacion.findById = (req, res) => {
+    const asignacionId = req.params.id;
+    db.query(`SELECT * FROM Asignacion WHERE id = ?`, asignacionId, (err, result) => {
+      if (err) {
+        console.error("Error al encontrar la asignación: ", err);
+        res.status(500).json({ error: "Error al encontrar la asignación" });
+        return;
+      }
+  
+      if (result.length === 0) {
+        res.status(404).json({ error: "Asignación no encontrada" });
+        return;
+      }
+  
+      console.log("Asignación encontrada: ", result[0]);
+      res.json(result[0]);
     });
-};
+  };
+  
 
 Asignacion.updateById = (id, asignacion, result) => {
     db.query(

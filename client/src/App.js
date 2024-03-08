@@ -36,6 +36,7 @@ function App() {
           <Route path="/">
             <Route index element={<Login />} />
             <Route path="login" element={<Login />} />
+            <Route path="home" element={<Home />} />
             <Route path="users">
               <Route index element={<List />} />
               <Route path=":userId" element={<Single />} />
@@ -64,7 +65,7 @@ function App() {
             <Route path="historialesJefa" element={<HistorialesJefa/>}/>
             <Route path="historialesJefa2" element={<HistorialesJefa2/>}/>
             <Route path="reportes" element={<Reportes/>}/>
-            <Route path="asignacion" element={<Asignacion />} />
+            <Route path="asignacion/:id" element={<Asignacion />} />
             <Route path="preguntas" element={<Preguntas />} />
             <Route path="formulario" element={<Formulario />} />
 
