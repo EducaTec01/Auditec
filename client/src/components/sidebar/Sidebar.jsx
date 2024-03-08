@@ -23,9 +23,11 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
+        {/* 
         <Link to="/home" style={{ textDecoration: "none" }}>
           <img src={logoImage} alt="Logo" className="logo"/>
         </Link>
+        */}
       </div>
       <div className="center">
         <ul>
