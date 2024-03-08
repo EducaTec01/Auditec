@@ -1,9 +1,8 @@
-
-import "./asignacionFormulario.scss";
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar2 from "../../components/navbar-2/Navbar-2";
+import ErrorMessageModal from "../../components/ErrorMessageModal"; // Importa el componente ErrorMessageModal
+import "./asignacionFormulario.scss";
 
 const AsignacionFormulario = () => {
   const [fechaCreacion, setFechaCreacion] = useState('');
@@ -11,9 +10,9 @@ const AsignacionFormulario = () => {
   const [nomenclatura, setNomenclatura] = useState('');
   const [departamento, setDepartamento] = useState('');
   const [auditor, setAuditor] = useState('');
-  const [area, setArea] = useState('');
   const [encargado, setEncargado] = useState('');
   const [comentarios, setComentarios] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
@@ -25,6 +24,11 @@ const AsignacionFormulario = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (new Date(fechaLimite) < new Date(fechaCreacion)) {
+      setError("La fecha límite no puede ser anterior a la fecha de creación");
+      return; // Detener el envío del formulario si la fecha límite es anterior a la fecha de creación
+    }
 
     try {
       const nuevaAsignacion = {
@@ -53,8 +57,13 @@ const AsignacionFormulario = () => {
       window.location.href = '/asignacionesJefa'; // Redirigir a la página de asignacionesJefa
     } catch (error) {
       console.error('Error al crear la asignación:', error);
+      setError("Error al crear la asignación: " + error.message);
       // Manejar el error adecuadamente
     }
+  };
+
+  const handleCloseErrorModal = () => {
+    setError('');
   };
 
   return (    
@@ -103,12 +112,6 @@ const AsignacionFormulario = () => {
                   type="text" id="auditor" value={auditor} />
               </div>
               <div className="column">
-                <label htmlFor="area">Área</label>
-                <input 
-                  onChange={(event) => setArea(event.target.value)} 
-                  type="text" id="area" value={area} />
-              </div>
-              <div className="column">
                 <label htmlFor="responsible">Encargado</label>
                 <input 
                   onChange={(event) => setEncargado(event.target.value)} 
@@ -129,6 +132,9 @@ const AsignacionFormulario = () => {
           </form>
         </div>
       </div>
+      {error && (
+        <ErrorMessageModal message={error} onClose={handleCloseErrorModal} />
+      )}
     </div>
   );
 };

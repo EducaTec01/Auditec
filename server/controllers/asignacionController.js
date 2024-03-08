@@ -6,16 +6,27 @@ const Asignacion = function(asignacion) {
     this.estado = asignacion.estado;
 };
 
-Asignacion.create = (nuevaAsignacion, result) => {
-    const { fecha_inicio, fecha_final, departamento, auditor, encargado, nomenclatura, comentarios, estado } = nuevaAsignacion;
-    db.query("INSERT INTO Asignacion (fecha_inicio, fecha_final, departamento, auditor, encargado, nomenclatura, comentarios, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [fecha_inicio, fecha_final, departamento, auditor, encargado, nomenclatura, comentarios, estado], (err, res) => {
+Asignacion.create = (nuevaAsignacion, res) => {
+    const fecha_inicio = nuevaAsignacion.body.fecha_inicio;
+    const fecha_final = nuevaAsignacion.body.fecha_final;
+    const departamento = nuevaAsignacion.body.departamento;
+    const auditor = nuevaAsignacion.body.auditor;
+    const encargado = nuevaAsignacion.body.encargado;
+    const nomenclatura = nuevaAsignacion.body.nomenclatura;
+    const comentarios = nuevaAsignacion.body.comentarios;
+    const estado = nuevaAsignacion.body.estado;
+
+    console.log("Valores de nuevaAsignacion:", nuevaAsignacion.body.estado);
+    db.query("INSERT INTO Asignacion (fecha_inicio, fecha_final, departamento, auditor, encargado, nomenclatura, comentarios, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [fecha_inicio, fecha_final, departamento, auditor, encargado, nomenclatura, comentarios, estado],
+    (err, result) => {
         if (err) {
             console.error("Error al crear una nueva asignación: ", err);
             return result(err, null); // Devolvemos el error a la función de retorno de llamada
         }
-
-        console.log("Nueva asignación creada: ", { id: res.insertId, ...nuevaAsignacion });
-        result(null, { id: res.insertId, ...nuevaAsignacion }); // Devolvemos el resultado a la función de retorno de llamada
+        else{
+            res.send("Empleado registrado con éxito");
+        }
+    
     });
 };
 
