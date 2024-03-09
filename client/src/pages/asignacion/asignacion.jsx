@@ -9,8 +9,6 @@ const Asignacion = () => {
   const [asignacion, setAsignacion] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [valorCampoNomenclatura, setValorCampoNomenclatura] = useState('');
-  const [valorCampoComentario, setValorCampoComentario] = useState('');
 
   useEffect(() => {
     fetchAsignacion(id);
@@ -39,14 +37,6 @@ const Asignacion = () => {
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return new Date(dateString).toLocaleDateString(undefined, options);
-  };
-
-  const handleInputChangeNomenclatura = (event) => {
-    setValorCampoNomenclatura(event.target.value);
-  };
-
-  const handleInputChangeComentario = (event) => {
-    setValorCampoComentario(event.target.value);
   };
 
   if (loading) {
@@ -85,33 +75,11 @@ const Asignacion = () => {
                           <div className="detalle">
                               <p>Encargado: {asignacion.encargado}</p>
                           </div>
-                      </div>
-                  </div>
-                  <div className="right">
-                      <div className="container-nomenclatura">
-                          <div className="titulo-nomenclatura">
-                              <p>Nomenclatura</p>
+                          <div className="detalle">
+                              <p>Comentarios: {asignacion.comentarios}</p>
                           </div>
-                          <div className="campo-nomenclatura">
-                              <input
-                                  type="text"
-                                  value={valorCampoNomenclatura}
-                                  onChange={handleInputChangeNomenclatura}
-                                  placeholder=""
-                              />
-                          </div>
-                      </div>
-                      <div className="container-comentario">
-                          <div className="titulo-comentario">
-                              <p>Comentario</p>
-                          </div>
-                          <div className="campo-comentario">
-                              <input
-                                  type="text"
-                                  value={valorCampoComentario}
-                                  onChange={handleInputChangeComentario}
-                                  placeholder=""
-                              />
+                          <div className="detalle">
+                              <p>Nomenclatura: {asignacion.nomenclatura}</p>
                           </div>
                       </div>
                   </div>

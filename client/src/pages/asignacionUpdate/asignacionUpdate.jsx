@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar2 from "../../components/navbar-2/Navbar-2";
-import ErrorMessageModal from "../../components/ErrorMessageModal"; // Importa el componente ErrorMessageModal
-import "./asignacionFormulario.scss";
+import ErrorMessageModal from "../../components/ErrorMessageModal";
+import "./asignacionUpdate.scss";
 
-const AsignacionFormulario = () => {
+const AsignacionUpdate = () => {
+  const { id } = useParams(); // Obtener el ID de la asignación de la URL
   const [fechaCreacion, setFechaCreacion] = useState('');
   const [fechaLimite, setFechaLimite] = useState('');
   const [nomenclatura, setNomenclatura] = useState('');
@@ -12,22 +14,42 @@ const AsignacionFormulario = () => {
   const [auditor, setAuditor] = useState('');
   const [encargado, setEncargado] = useState('');
   const [comentarios, setComentarios] = useState('');
-  const [departamentos, setDepartamentos] = useState([]); // Estado para almacenar los departamentos
+  const [departamentos, setDepartamentos] = useState([]);
   const [error, setError] = useState('');
-
+  
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('creationDate').min = today;
-    document.getElementById('deadline').min = today;
-    setFechaCreacion(today);
-    setFechaLimite(today);
-    
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/asignacion/${id}`);
+        if (!response.ok) {
+          throw new Error('Error al obtener la asignación');
+        }
+        const data = await response.json();
+        
+        // Convertir la fecha de inicio y fecha final al formato "yyyy-MM-dd"
+        const fechaInicioFormatted = new Date(data.fecha_inicio).toISOString().split('T')[0];
+        const fechaFinalFormatted = new Date(data.fecha_final).toISOString().split('T')[0];
+  
+        setFechaCreacion(fechaInicioFormatted);
+        setFechaLimite(fechaFinalFormatted);
+        setNomenclatura(data.nomenclatura);
+        setDepartamento(data.departamento);
+        setAuditor(data.auditor);
+        setEncargado(data.encargado);
+        setComentarios(data.comentarios);
+      } catch (error) {
+        console.error('Error al obtener la asignación:', error);
+        setError("Error al obtener la asignación: " + error.message);
+      }
+    };
+  
+    fetchData(); // Llamada a la función para obtener la asignación al cargar el componente
     fetchDepartamentos(); // Llamada a la función para obtener los departamentos al cargar el componente
-  }, []);
-
+  }, [id]);
+  
   const fetchDepartamentos = async () => {
     try {
-      const response = await fetch('http://localhost:3001/departamentos'); // Endpoint para obtener los departamentos
+      const response = await fetch('http://localhost:3001/departamentos');
       if (!response.ok) {
         throw new Error('Error al obtener los departamentos');
       }
@@ -41,14 +63,13 @@ const AsignacionFormulario = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (new Date(fechaLimite) < new Date(fechaCreacion)) {
       setError("La fecha límite no puede ser anterior a la fecha de creación");
       return;
     }
-
-    try {
-      const nuevaAsignacion = {
+    try {      
+      const asignacionActualizada = {
         fecha_inicio: fechaCreacion,
         fecha_final: fechaLimite,
         departamento,
@@ -56,27 +77,34 @@ const AsignacionFormulario = () => {
         encargado,
         nomenclatura,
         comentarios,
-        estado: 'Pendiente'
+        estado: 'Pendiente',
+        identificador: 1
       };
 
-      const response = await fetch('http://localhost:3001/asignacionesCreate', {
-        method: 'POST',
+      // Formatear las fechas en el formato "yyyy-MM-dd"
+      const fechaInicioFormatted = new Date(fechaCreacion).toISOString().split('T')[0];
+      const fechaFinalFormatted = new Date(fechaLimite).toISOString().split('T')[0];
+      asignacionActualizada.fecha_inicio = fechaInicioFormatted;
+      asignacionActualizada.fecha_final = fechaFinalFormatted;
+
+      const response = await fetch(`http://localhost:3001/asignacion/update/${id}`, {
+        method: 'PUT', // o 'PATCH' dependiendo de la API
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(nuevaAsignacion)
+        body: JSON.stringify(asignacionActualizada)
       });
 
       if (!response.ok) {
-        throw new Error('Error al crear la asignación');
+        throw new Error('Error al actualizar la asignación');
       }
 
       window.location.href = '/asignacionesJefa';
     } catch (error) {
-      console.error('Error al crear la asignación:', error);
-      setError("Error al crear la asignación: " + error.message);
+      console.error('Error al actualizar la asignación:', error);
+      setError("Error al actualizar la asignación: " + error.message);
     }
-  };
+  }
 
   const handleCloseErrorModal = () => {
     setError('');
@@ -89,7 +117,7 @@ const AsignacionFormulario = () => {
         <div className="section2">
           <Navbar2 />
           <div className="top-section">
-            <h2>Asignación</h2>
+            <h2>Asignación #{id}</h2>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="row">
@@ -119,7 +147,7 @@ const AsignacionFormulario = () => {
                   onChange={(event) => setDepartamento(event.target.value)} 
                   value={departamento}
                   id="department"
-                  style={{ fontSize: "24px"}} // Establece el tamaño de la letra en 24px
+                  style={{ fontSize: "24px" }}
                 >
                   <option value="" disabled hidden>
                     Selecciona un departamento
@@ -153,7 +181,7 @@ const AsignacionFormulario = () => {
               </div>
             </div>
             <div className="create-button">
-              <button type="submit" className="boton">Crear asignación</button>
+              <button type="submit" className="boton">Actualizar asignación</button>
             </div>
           </form>
         </div>
@@ -165,4 +193,4 @@ const AsignacionFormulario = () => {
   );
 };
 
-export default AsignacionFormulario;
+export default AsignacionUpdate;
