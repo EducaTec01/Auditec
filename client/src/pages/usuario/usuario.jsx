@@ -1,14 +1,13 @@
-import "./usuario.scss"
 import React, { useState, useEffect } from "react";
 import Navbar2 from "../../components/navbar-2/Navbar-2";
-import Sidebar from "../../components/sidebar/Sidebar"
+import Sidebar from "../../components/sidebar/Sidebar";
 import readIcon from "./read.png";
 import deleteIcon from "./delete.png";
 import editIcon from "./edit.png";
 import { Link } from "react-router-dom";
 
 const Usuario = () => {
-  const [usuarios] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -20,9 +19,13 @@ const Usuario = () => {
     fetch("http://localhost:3001/usuariogetAll")
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error al obtener los usuarios 123");
+          throw new Error("Error al obtener los usuarios");
         }
         return response.json();
+      })
+      .then((data) => {
+        setUsuarios(data); // Actualizar el estado de usuarios con los datos obtenidos
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -31,7 +34,6 @@ const Usuario = () => {
       });
   };
 
-  // Función para manejar la confirmación y eliminar la asignación
   const handleDeleteConfirmation = (id) => {
     const confirmacion = window.confirm("¿Estás seguro de que quieres eliminar este Usuario?");
     if (confirmacion) {
@@ -39,7 +41,6 @@ const Usuario = () => {
     }
   };
 
-  // Función para eliminar la asignación
   const handleDelete = (id) => {
     fetch(`http://localhost:3001/usuario/delete/${id}`, {
       method: "DELETE"
@@ -48,7 +49,7 @@ const Usuario = () => {
       if (!response.ok) {
         throw new Error("Error al eliminar el usuario");
       }
-      // Actualizar la lista de asignaciones después de la eliminación
+      // Actualizar la lista de usuarios después de la eliminación
       fetchUsuarios();
     })
     .catch((error) => {
@@ -66,59 +67,55 @@ const Usuario = () => {
   }
 
   return (
-    <body>
-      <div className="section1">
-        <Sidebar />
-        <div className="section2">
-          <Navbar2 />
-          <div className="contenedor">
-            <div className="titulo">
-              <p>Usuarios</p>
-            </div>
-            {/* Usar Link en lugar de <a> */}
-            <Link to="/usuarioFormulario" className="boton">Crear usuario</Link>
+    <div className="section1">
+      <Sidebar />
+      <div className="section2">
+        <Navbar2 />
+        <div className="contenedor">
+          <div className="titulo">
+            <p>Usuarios</p>
           </div>
-          {usuarios.length === 0 ? (
-            <div className="mensaje-vacio">No hay usuarios.</div>
-          ) : (
-            <table className="content-table">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Correo Electronico</th>
-                  <th>id</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {usuarios.map((usuario) => (
-                  <tr key={usuario.id}>
-                    <td>{usuario.id}</td>
-                    <td>{usuario.auditor}</td>
-                    <td>{usuario.correoElectronico}</td>
-                    <td>
-                      <div className="acciones">
-                        <a href={`/usuario/${usuario.id}`}>
-                          <img src={readIcon} alt="read" />
-                        </a>
-                        {/* Icono de eliminar con confirmación */}
-                        <a href="#" onClick={() => handleDeleteConfirmation(usuario.id)}>
-                          <img src={deleteIcon} alt="delete" />
-                        </a>
-                        <a href={`/usuarioUpdate/${usuario.id}`}>
-                          <img src={editIcon} alt="edit" />
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+          <Link to="/usuarioFormulario" className="boton">Crear usuario</Link>
         </div>
+        {usuarios.length === 0 ? (
+          <div className="mensaje-vacio">No hay usuarios.</div>
+        ) : (
+          <table className="content-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Correo Electrónico</th>
+                <th>ID</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usuarios.map((usuario) => (
+                <tr key={usuario.id}>
+                  <td>{usuario.nombre}</td>
+                  <td>{usuario.correoElectronico}</td>
+                  <td>{usuario.id}</td>
+                  <td>
+                    <div className="acciones">
+                      <Link to={`/usuario/${usuario.id}`}>
+                        <img src={readIcon} alt="read" />
+                      </Link>
+                      <a href="#" onClick={() => handleDeleteConfirmation(usuario.id)}>
+                        <img src={deleteIcon} alt="delete" />
+                      </a>
+                      <Link to={`/usuarioUpdate/${usuario.id}`}>
+                        <img src={editIcon} alt="edit" />
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
-    </body>
+    </div>
   );
 };
 
-export default Usuario
+export default Usuario;
