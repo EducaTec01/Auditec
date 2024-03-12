@@ -11,7 +11,7 @@ import Asignaciones from "./pages/asignaciones/asignaciones"
 
 import AsignacionFormulario from "./pages/asignacionFormulario/asignacionFormulario"
 import AsignacionesJefa from "./pages/asignacionesJefa/asignacionesJefa"
-
+import AsignacionUpdate from "./pages/asignacionUpdate/asignacionUpdate"
 
 import Reportes from "./pages/reportes/reportes"
 import HistorialesJefa from "./pages/historialesJefa/historialesJefa"
@@ -37,6 +37,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="home" element={<Home />} />
             <Route path="login" element={<Login />} />
+            <Route path="home" element={<Home />} />
             <Route path="users">
               <Route index element={<List />} />
               <Route path=":userId" element={<Single />} />
@@ -61,11 +62,12 @@ function App() {
             <Route path="asignaciones" element={<Asignaciones />} />
             <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
             <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
+            <Route path="asignacionUpdate/:id" element={<AsignacionUpdate />} />
 
             <Route path="historialesJefa" element={<HistorialesJefa/>}/>
             <Route path="historialesJefa2" element={<HistorialesJefa2/>}/>
             <Route path="reportes" element={<Reportes/>}/>
-            <Route path="asignacion" element={<Asignacion />} />
+            <Route path="asignacion/:id" element={<Asignacion />} />
             <Route path="preguntas" element={<Preguntas />} />
             <Route path="formulario" element={<Formulario />} />
 

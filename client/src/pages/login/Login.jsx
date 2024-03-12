@@ -1,6 +1,6 @@
 import { useState } from "react"
 import "./login.scss"
-import Capacitacion from "../capacitacion/capacitacion";
+import Home from "../home/Home";
 import logoImage from "../../components/login/galgo.jpg";
 import logoImageITT from "../../components/login/ITTLogo.png";
 import logoAuditec from "../../components/sidebar/logo-transparente.png";
@@ -42,7 +42,7 @@ const Login = () => {
 
     return (
       <>
-        {loginSuccessful ? <Capacitacion />:
+        {loginSuccessful ? <Home />:
           <div className="custom-form">
             <div className="login">
               <div className="loginL">
