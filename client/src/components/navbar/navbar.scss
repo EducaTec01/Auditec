@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   font-size: 14px;
+  z-index: 1;
   
   .wrapper {
     width: 100%;
@@ -77,6 +78,6 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.navbar .wrapper .item:hover{
+.navbar .wrapper .item:hover:not(.profile-item) {
   transform: scale(1.2);
 }
