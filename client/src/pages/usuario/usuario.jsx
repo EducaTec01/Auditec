@@ -97,7 +97,7 @@ const Usuario = () => {
                   <td>{usuario.id}</td>
                   <td>
                     <div className="acciones">
-                      <Link to={`/usuario/${usuario.id}`}>
+                      <Link to={`/usuario1/${usuario.id}`}>
                         <img src={readIcon} alt="read" />
                       </Link>
                       <a href="#" onClick={() => handleDeleteConfirmation(usuario.id)}>

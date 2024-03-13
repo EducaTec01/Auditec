@@ -12,7 +12,7 @@ Usuario.create = (nuevoUsuario, res) => {
     const password = nuevoUsuario.body.contraseña;
     const nombre = nuevoUsuario.body.nombre;
     const user = nuevoUsuario.body.usuario;
-    const correoElectronico = nuevoUsuario.body.correo;
+    const correoElectronico = nuevoUsuario.body.correoElectronico;
 
     // console.log("Valores de nuevoUsuario:", nuevoUsuario.body.estado);
     db.query("INSERT INTO Login (user, password, correoElectronico, nombre) VALUES (?, ?, ?, ?)", [user, password, correoElectronico, nombre],
@@ -102,7 +102,7 @@ Usuario.delete = (req, res) => {
             return;
         }
 
-        console.log("Usuario eliminado con ID: ", asignacionId);
+        console.log("Usuario eliminado con ID: ", usuarioId);
         res.json({ message: "Usuario eliminado correctamente" });
     });
 };
