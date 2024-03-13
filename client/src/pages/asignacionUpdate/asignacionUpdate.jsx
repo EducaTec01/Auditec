@@ -115,7 +115,6 @@ const AsignacionUpdate = () => {
       <div className="section1">
         <Sidebar />
         <div className="section2">
-          <Navbar2 />
           <div className="top-section">
             <h2>Asignación #{id}</h2>
           </div>
