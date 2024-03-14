@@ -4,6 +4,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
+import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -15,6 +16,7 @@ import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import logoImage from './logo.png';
+import HelpIcon from '@mui/icons-material/Help';
 //Mis logos
 
 const Sidebar = () => {
@@ -31,18 +33,30 @@ const Sidebar = () => {
       </div>
       <div className="center">
         <ul>
-          <p className="title">MAIN</p>
+          <p className="title">MENÚ</p>
           <Link to="/home" style={{ textDecoration: "none" }}>
             <li>
               <DashboardIcon className="icon" />
-              <span>Dashboard</span>
+              <span>Inicio</span>
             </li>
           </Link>
           <p className="title">LISTS</p>
           <Link to="/usuario" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
-              <span>Users</span>
+              <span>Usuarios</span>
+            </li>
+          </Link>
+          <Link to="/tutoriales" style={{ textDecoration: "none" }}>
+            <li>
+              <HelpIcon className="icon" />
+              <span>Tutoriales</span>
+            </li>
+          </Link>
+          <Link to="/asignacionesJefa" style={{ textDecoration: "none" }}>
+            <li>
+              <AutoAwesomeMotionIcon className="icon" />
+              <span>Asignaciones</span>
             </li>
           </Link>
           <Link to="/historialesJefa" style={{ textDecoration: "none" }}>
@@ -54,7 +68,7 @@ const Sidebar = () => {
           <Link to="/reportes" style={{ textDecoration: "none" }}>
             <li>
               <CreditCardIcon className="icon" />
-              <span>reportes</span>
+              <span>Reportes</span>
             </li>
           </Link>
 

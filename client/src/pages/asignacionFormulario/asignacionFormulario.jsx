@@ -87,7 +87,6 @@ const AsignacionFormulario = () => {
       <div className="section1">
         <Sidebar />
         <div className="section2">
-          <Navbar2 />
           <div className="top-section">
             <h2>Asignación</h2>
           </div>

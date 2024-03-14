@@ -25,12 +25,12 @@
 
   .center {
     padding-left: 10px;
-
+  
     ul {
       list-style: none;
       margin: 0;
       padding: 0;
-
+  
       .title {
         font-size: 10px;
         font-weight: bold;
@@ -38,34 +38,35 @@
         margin-top: 15px;
         margin-bottom: 5px;
       }
-
+  
       li {
         display: flex;
         align-items: center;
         padding: 5px;
         cursor: pointer;
         transition: all 0.3s;
-
+  
         &:hover {
           background-color: #ece8ff;
           transform: translateX(10px);
-          width:87%;
+          width: 87%;
         }
-
+  
         .icon {
           font-size: 18px;
           color: #2547ed;
         }
-
-        span{
-            font-size: 13px;
-            font-weight: 600;
-            color: #888;
-            margin-left: 10px;
+  
+        span {
+          font-size: 18px; /* Ajusta el tamaño de fuente según tus necesidades */
+          font-weight: 600;
+          color: #888;
+          margin-left: 10px;
         }
       }
     }
   }
+  
 
   .bottom{
       display: flex;

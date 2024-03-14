@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import arrow from "./arrow.png";
 import Navbar2 from "../../components/navbar-2/Navbar-2";
 import "./asignacion.scss";
+import Sidebar from "../../components/sidebar/Sidebar";
+
 
 const Asignacion = () => {
   const { id } = useParams(); // Obtener el ID de la asignación de la URL
@@ -49,10 +51,8 @@ const Asignacion = () => {
 
   return (
     <body>
-      <header>
-          <nav>
-              <Navbar2 />
-          </nav>
+      <div className="section1">
+        <Sidebar />
           <div className="section2">
               <div className="encabezado">
                   <div className="titulo">
@@ -85,7 +85,7 @@ const Asignacion = () => {
                   </div>
               </div>
           </div>
-      </header>
+       </div>
     </body>
   );
 };

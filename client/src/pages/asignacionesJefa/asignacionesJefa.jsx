@@ -81,7 +81,6 @@ const Asignaciones = () => {
       <div className="section1">
         <Sidebar />
         <div className="section2">
-          <Navbar2 />
           <div className="contenedor">
             <div className="titulo">
               <p>Asignaciones</p>
