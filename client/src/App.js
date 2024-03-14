@@ -73,6 +73,7 @@ function App() {
 
             <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
             <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
+            <Route path="single" element={<Single />} />
 
           </Route>
         </Routes>
