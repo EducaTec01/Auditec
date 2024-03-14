@@ -73,7 +73,6 @@ const UsuarioUpdate = () => {
       <div className="section1">
         <Sidebar />
         <div className="section2">
-          <Navbar2 />
           <div className="top-section">
             <h2>Usuario #{id}</h2>
           </div>

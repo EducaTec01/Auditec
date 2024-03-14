@@ -56,7 +56,6 @@ const UsuarioFormulario = () => {
       <div className="section1">
         <Sidebar />
         <div className="section2">
-          <Navbar2 />
           <div className="top-section">
             <h2>Usuario</h2>
           </div>

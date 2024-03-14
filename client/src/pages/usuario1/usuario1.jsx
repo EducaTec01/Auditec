@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import arrow from "./arrow.png";
 import Navbar2 from "../../components/navbar-2/Navbar-2";
+import Sidebar from "../../components/sidebar/Sidebar";
 import "./usuario1.scss";
 
 const Usuario1 = () => {
@@ -50,9 +51,7 @@ const Usuario1 = () => {
   return (
     <body>
       <header>
-          <nav>
-              <Navbar2 />
-          </nav>
+      <Sidebar />
           <div className="section2">
               <div className="encabezado">
                   <div className="titulo">
