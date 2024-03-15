@@ -16,7 +16,16 @@ import UsuarioUpdate from "./pages/usuarioUpdate/usuarioUpdate"
 
 import AsignacionFormulario from "./pages/asignacionFormulario/asignacionFormulario"
 import AsignacionesJefa from "./pages/asignacionesJefa/asignacionesJefa"
+
 import AsignacionUpdate from "./pages/asignacionUpdate/asignacionUpdate"
+
+
+import HistorialComponent from "./pages/Historial/RHistorial";
+import HistorialGComponent from "./pages/Historial#/RHistorial#";
+import InconformidadesComponent from "./pages/Inconformidades/Inconformidades";
+import InconformidadesGComponent from "./pages/Inconformidades#/Inconformidades#";
+import VigenciasComponent from "./pages/Vigencias/Vigencias";
+import VigenciasGComponent from "./pages/Vigencias#/Vigencias#";
 
 import Reportes from "./pages/reportes/reportes"
 import HistorialesJefa from "./pages/historialesJefa/historialesJefa"
@@ -82,6 +91,14 @@ function App() {
 
             <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
             <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
+
+            <Route path="historialCompanent" element={<HistorialComponent />} />
+            <Route path="historialGCompanent" element={<HistorialGComponent />} />
+            <Route path="inconformidadesComponent" element={<InconformidadesComponent />} />
+            <Route path="inconformidadesGComponent" element={<InconformidadesGComponent />} />
+            <Route path="vigenciasComponent" element={<VigenciasComponent />} />
+            <Route path="vigenciasGComponent" element={<VigenciasGComponent />} />
+
 
           </Route>
         </Routes>
