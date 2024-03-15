@@ -12,7 +12,8 @@ const AsignacionFormulario = () => {
   const [auditor, setAuditor] = useState('');
   const [encargado, setEncargado] = useState('');
   const [comentarios, setComentarios] = useState('');
-  const [departamentos, setDepartamentos] = useState([]); // Estado para almacenar los departamentos
+  const [departamentos, setDepartamentos] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -22,12 +23,13 @@ const AsignacionFormulario = () => {
     setFechaCreacion(today);
     setFechaLimite(today);
     
-    fetchDepartamentos(); // Llamada a la función para obtener los departamentos al cargar el componente
+    fetchDepartamentos();
+    fetchUsuarios();
   }, []);
 
   const fetchDepartamentos = async () => {
     try {
-      const response = await fetch('http://localhost:3001/departamentos'); // Endpoint para obtener los departamentos
+      const response = await fetch('http://localhost:3001/departamentos');
       if (!response.ok) {
         throw new Error('Error al obtener los departamentos');
       }
@@ -36,6 +38,20 @@ const AsignacionFormulario = () => {
     } catch (error) {
       console.error('Error al obtener los departamentos:', error);
       setError("Error al obtener los departamentos: " + error.message);
+    }
+  };
+
+  const fetchUsuarios = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/usuarioNombres');
+      if (!response.ok) {
+        throw new Error('Error al obtener los nombres de usuario');
+      }
+      const data = await response.json();
+      setUsuarios(data);
+    } catch (error) {
+      console.error('Error al obtener los nombres de usuario:', error);
+      setError("Error al obtener los nombres de usuario: " + error.message);
     }
   };
 
@@ -118,7 +134,7 @@ const AsignacionFormulario = () => {
                   onChange={(event) => setDepartamento(event.target.value)} 
                   value={departamento}
                   id="department"
-                  style={{ fontSize: "24px"}} // Establece el tamaño de la letra en 24px
+                  style={{ fontSize: "24px"}}
                 >
                   <option value="" disabled hidden>
                     Selecciona un departamento
@@ -132,9 +148,19 @@ const AsignacionFormulario = () => {
             <div className="row">
               <div className="column">
                 <label htmlFor="auditor">Auditor</label>
-                <input 
+                <select
                   onChange={(event) => setAuditor(event.target.value)} 
-                  type="text" id="auditor" value={auditor} />
+                  value={auditor}
+                  id="auditor"
+                  style={{ fontSize: "24px"}}
+                >
+                  <option value="" disabled hidden>
+                    Selecciona un auditor
+                  </option>
+                  {usuarios.map((usuario, index) => (
+                    <option key={index} value={usuario.nombre}>{usuario.nombre}</option>
+                  ))}
+                </select>
               </div>
               <div className="column">
                 <label htmlFor="responsible">Encargado</label>

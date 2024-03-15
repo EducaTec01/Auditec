@@ -91,6 +91,7 @@ function App() {
 
             <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
             <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
+            <Route path="single" element={<Single />} />
 
             <Route path="historialCompanent" element={<HistorialComponent />} />
             <Route path="historialGCompanent" element={<HistorialGComponent />} />

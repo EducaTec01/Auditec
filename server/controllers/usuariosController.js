@@ -80,7 +80,6 @@ Usuario.findById = (req, res) => {
         return;
       }
   
-      console.log("Usuario encontrado: ", result[0]);
       res.json(result[0]);
     });
 };
@@ -104,6 +103,19 @@ Usuario.delete = (req, res) => {
         console.log("Usuario eliminado con ID: ", usuarioId);
         res.json({ message: "Usuario eliminado correctamente" });
     });
+};
+
+Usuario.getAllNames = (req, res) => {
+  db.query("SELECT nombre FROM Login", (err, result) => {
+      if (err) {
+          console.error("Error al obtener los nombres de usuario: ", err);
+          res.status(500).json({ error: "Error al obtener los nombres de usuario" });
+          return;
+      }
+
+      console.log("Nombres de usuario encontrados: ", result);
+      res.json(result);
+  });
 };
 
 module.exports = Usuario;

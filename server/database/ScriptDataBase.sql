@@ -34,6 +34,20 @@ VALUES
 ('2024-03-05', '2024-03-20', 'Departamento C', 'Auditor 3', 'Encargado 3', 'Nomenclatura 3', 'Comentario 3','pausa');
 
 
+SET SQL_SAFE_UPDATES = 1;
+DELETE FROM Login;
+
+ALTER TABLE Login
+ADD correoElectronico VARCHAR(255),
+ADD nombre VARCHAR(255),
+ADD id INT AUTO_INCREMENT UNIQUE;
+
+INSERT INTO Login (user, password, correoElectronico, nombre) VALUES
+('usuario1', 'contraseña1', 'usuario1@example.com', 'nombre1'),
+('usuario2', 'contraseña2', 'usuario2@example.com', 'nombre2'),
+('usuario3', 'contraseña3', 'usuario3@example.com', 'nombre3'),
+('usuario4', 'contraseña4', 'usuario4@example.com', 'nombre4'),
+('usuario5', 'contraseña5', 'usuario5@example.com', 'nombre5');
 INSERT INTO Login (user, password) VALUES
 ('usuario1', 'contraseña1'),
 ('usuario2', 'contraseña2'),

@@ -50,7 +50,7 @@ const Usuario1 = () => {
 
   return (
     <body>
-      <header>
+      <div className="section1">
       <Sidebar />
           <div className="section2">
               <div className="encabezado">
@@ -68,19 +68,19 @@ const Usuario1 = () => {
                               <p>Nombre: {Usuario.nombre}</p>
                           </div>
                           <div className="detalle">
-                              <p>usuario: {Usuario.user}</p>
+                              <p>Usuario: {Usuario.user}</p>
                           </div>
                           <div className="detalle">
                               <p>Correo Electronico: {Usuario.correoElectronico}</p>
                           </div>
                           <div className="detalle">
-                              <p>contraseña: {Usuario.password}</p>
+                              <p>Contraseña: {Usuario.password}</p>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
-      </header>
+          </div>
     </body>
   );
 };

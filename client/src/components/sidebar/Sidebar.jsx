@@ -1,4 +1,5 @@
 import "./sidebar.scss";
+import Logo from "./logo-transparente.png";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
@@ -25,9 +26,11 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
+        {
         <Link to="/home" style={{ textDecoration: "none" }}>
           <img src={logoImage} alt="Logo" className="logo"/>
         </Link>
+        }
       </div>
       <div className="center">
         <ul>
