@@ -1,0 +1,108 @@
+.assignment-form {
+    position: relative;
+    font-size: 28px; /* Tamaño de fuente más grande */
+
+    .section1 {
+        display: flex;
+
+        .section2 {
+            width: 85%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+
+            .top-section {
+                text-align: center;
+                margin-bottom: 20px;
+
+                h2 {
+                    margin: 0;
+                }
+            }
+
+            .row {
+                display: flex;
+                margin-bottom: 20px;
+
+                .column {
+                    flex: 1;
+                    margin-right: 10px;
+                    display: flex;
+                    flex-direction: column;
+
+                    label {
+                        display: block;
+                        margin-bottom: 5px;
+                        text-align: center;
+                    }
+
+                    input[type='text'] {
+                        width: 100%;
+                        padding: 10px; /* Aumentar el relleno */
+                        border: 1px solid #ccc;
+                        border-radius: 3px;
+                        box-sizing: border-box;
+                        text-align: center;
+                        font-size: inherit; /* Heredar el tamaño de fuente */
+                    }
+
+                    textarea {
+                        width: 100%;
+                        padding: 10px; /* Aumentar el relleno */
+                        border: 1px solid #ccc;
+                        border-radius: 3px;
+                        box-sizing: border-box;
+                        font-size: 24px; /* Tamaño de fuente específico para textarea */
+                        resize: none;
+                    }
+
+                    /* Estilos para el calendario de fecha en Chrome */
+                    input[type='date'] {
+                        width: 100%; /* Ancho del input */
+                        padding: 12px; /* Aumenta el relleno */
+                        font-size: 24px; /* Tamaño de fuente para los campos de fecha */
+                        text-align: center;
+                    }
+
+                    input[type='date']::-webkit-calendar-picker-indicator {
+                        width: 32px; /* Ancho del icono del calendario */
+                        height: 32px; /* Altura del icono del calendario */
+                        padding: 8px; /* Aumenta el relleno */
+                    }
+                }
+
+                .column:last-child {
+                    margin-right: 0;
+                }
+            }
+
+            .create-button {
+                text-align: right;
+                margin-top: 20px;
+            }
+        }
+    }
+
+    .boton {
+        font-size: 28px;
+        background-color: #4caf50;
+        color: white;
+        padding: 15px 30px; /* Aumentar el relleno */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .boton:hover {
+        background-color: #45a049;
+    }  
+
+    input#nomenclature,
+    input#auditor,
+    input#responsible,
+    textarea#comments {
+        font-size: 24px; /* Establecer el tamaño de fuente para los campos específicos */
+    }
+}

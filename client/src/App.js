@@ -1,6 +1,6 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
-import List from "./pages/list/List";
+import List from "./pages/usuario/usuario";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import Capacitacion from "./pages/capacitacion/capacitacion";
@@ -8,6 +8,11 @@ import Navbar2 from "./components/navbar-2/Navbar-2";
 import CapacitacionBody from "./components/capacitacion-body/capacitacion-body";
 import Tutoriales from "./pages/tutoriales/tutoriales";
 import Asignaciones from "./pages/asignaciones/asignaciones"
+import Usuario from "./pages/usuario/usuario"
+import Usuario1 from "./pages/usuario1/usuario1"
+import UsuarioFormulario from "./pages/usuarioFormulario/usuarioFormulario"
+import UsuarioUpdate from "./pages/usuarioUpdate/usuarioUpdate"
+
 
 import AsignacionFormulario from "./pages/asignacionFormulario/asignacionFormulario"
 import AsignacionesJefa from "./pages/asignacionesJefa/asignacionesJefa"
@@ -55,6 +60,10 @@ function App() {
               />
             </Route>
 
+            <Route path="usuario" element ={<Usuario/>}></Route>
+            <Route path="/usuario1/:id" element ={<Usuario1/>}></Route>
+            <Route path="usuarioFormulario" element={<UsuarioFormulario />} />
+            <Route path="usuarioUpdate/:id" element={<UsuarioUpdate />} />
             <Route path="capacitacion" element={<Capacitacion />} />
             <Route path="navbar2" element={<Navbar2 />} />
             <Route path="capacitacion-body" element={<CapacitacionBody />} />

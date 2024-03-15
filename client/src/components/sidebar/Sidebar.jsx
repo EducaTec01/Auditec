@@ -25,11 +25,9 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        {/* 
         <Link to="/home" style={{ textDecoration: "none" }}>
           <img src={logoImage} alt="Logo" className="logo"/>
         </Link>
-        */}
       </div>
       <div className="center">
         <ul>
@@ -40,8 +38,8 @@ const Sidebar = () => {
               <span>Inicio</span>
             </li>
           </Link>
-          <p className="title">VISTAS</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
+          <p className="title">LISTS</p>
+          <Link to="/usuario" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
               <span>Usuarios</span>
