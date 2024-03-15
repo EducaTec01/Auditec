@@ -60,7 +60,7 @@ const Sidebar = () => {
           <Link to="/historialesJefa" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
-              <span>Historial</span>
+              <span>Historial Jefa</span>
             </li>
           </Link>
           <Link to="/reportes" style={{ textDecoration: "none" }}>
@@ -69,6 +69,43 @@ const Sidebar = () => {
               <span>Reportes</span>
             </li>
           </Link>
+          <Link to="/historialCompanent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>Historial</span>
+            </li>
+          </Link>
+          <Link to="/historialGCompanent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>Historial Preguntas</span>
+            </li>
+          </Link>
+          <Link to="/inconformidadesComponent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>Inconformidades</span>
+            </li>
+          </Link>
+          <Link to="/inconformidadesGComponent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>Inconformidades Preguntas</span>
+            </li>
+          </Link>
+          <Link to="/vigenciasComponent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>vigencias</span>
+            </li>
+          </Link>
+          <Link to="/vigenciasGComponent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>Vigencias preguntas</span>
+            </li>
+          </Link>
+
 
         </ul>
       </div>
