@@ -9,10 +9,11 @@ body{
 .section2{
     background: #E5E5E5;
     display: flex;
-    padding: 0 3% 0 0;
+    padding: 0;
     gap: 20px;
     width: 100%;
     margin: 0;
+    box-sizing: border-box;
     
     
     .left{
