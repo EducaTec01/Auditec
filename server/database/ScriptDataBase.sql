@@ -48,12 +48,6 @@ INSERT INTO Login (user, password, correoElectronico, nombre) VALUES
 ('usuario3', 'contraseña3', 'usuario3@example.com', 'nombre3'),
 ('usuario4', 'contraseña4', 'usuario4@example.com', 'nombre4'),
 ('usuario5', 'contraseña5', 'usuario5@example.com', 'nombre5');
-INSERT INTO Login (user, password) VALUES
-('usuario1', 'contraseña1'),
-('usuario2', 'contraseña2'),
-('usuario3', 'contraseña3'),
-('usuario4', 'contraseña4'),
-('usuario5', 'contraseña5');
 
 
 INSERT INTO Asignacion (fecha_inicio, fecha_final, departamento, auditor, encargado, nomenclatura, comentarios) VALUES
