@@ -7,12 +7,11 @@ import Sidebar from "../../components/sidebar/Sidebar";
 const Tutoriales = () => {
     return (
       <body>
-            <header>
-                
-            </header>
-            <section className="section2">
+        <div className="section1">
+        <Sidebar />
+        <div className="section2">
                 <div className="left">
-                    <Sidebar />
+                    
                     <div className="video">
                         <div className="titulo">
                             <p>Video</p>
@@ -24,7 +23,10 @@ const Tutoriales = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+            
+            
       </body>
     );
   };
