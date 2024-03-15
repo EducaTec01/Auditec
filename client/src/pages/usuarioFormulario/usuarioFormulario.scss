@@ -37,32 +37,17 @@
                         text-align: center;
                     }
 
-                    input[type='text'] {
-                        width: 100%;
-                        padding: 10px; /* Aumentar el relleno */
-                        border: 1px solid #ccc;
-                        border-radius: 3px;
-                        box-sizing: border-box;
-                        text-align: center;
-                        font-size: inherit; /* Heredar el tamaño de fuente */
-                    }
-
-                    textarea {
-                        width: 100%;
-                        padding: 10px; /* Aumentar el relleno */
-                        border: 1px solid #ccc;
-                        border-radius: 3px;
-                        box-sizing: border-box;
-                        font-size: 24px; /* Tamaño de fuente específico para textarea */
-                        resize: none;
-                    }
-
-                    /* Estilos para el calendario de fecha en Chrome */
+                    input[type='text'],
+                    input[type='password'],
+                    textarea,
                     input[type='date'] {
-                        width: 100%; /* Ancho del input */
-                        padding: 12px; /* Aumenta el relleno */
-                        font-size: 24px; /* Tamaño de fuente para los campos de fecha */
+                        width: 100%;
+                        padding: 10px; /* Aumentar el relleno */
+                        border: 1px solid #ccc;
+                        border-radius: 3px;
+                        box-sizing: border-box;
                         text-align: center;
+                        font-size: 24px; /* Tamaño de fuente para los campos de texto */
                     }
 
                     input[type='date']::-webkit-calendar-picker-indicator {
@@ -99,10 +84,15 @@
         background-color: #45a049;
     }  
 
-    input#nomenclature,
-    input#auditor,
-    input#responsible,
-    textarea#comments {
-        font-size: 24px; /* Establecer el tamaño de fuente para los campos específicos */
+    input.input-large,
+    textarea.input-large,
+    input[type='date'].input-large {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 24px; /* Tamaño de fuente para los campos de texto */
     }
 }

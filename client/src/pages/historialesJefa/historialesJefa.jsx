@@ -7,9 +7,6 @@ const HistorialesJefa = () => {
     return (
         <div className="historiales-jefa">
       <header>
-        <nav>
-          <Navbar2 />
-        </nav>
       </header>
       <div className="container">
         <Sidebar />

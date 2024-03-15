@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar2 from "../../components/navbar-2/Navbar-2";
-import ErrorMessageModal from "../../components/ErrorMessageModal"; // Importa el componente ErrorMessageModal
+import ErrorMessageModal from "../../components/ErrorMessageModal"; // Importa el nuevo componente
 import "./usuarioFormulario.scss";
 
 const UsuarioFormulario = () => {
@@ -9,6 +8,7 @@ const UsuarioFormulario = () => {
   const [usuario, setUsuario] = useState('');
   const [correoElectronico, setCorreoElectronico] = useState('');
   const [contraseña, setContraseña] = useState('');
+  const [confirmarContraseña, setConfirmarContraseña] = useState(''); // Nuevo estado para la confirmación de contraseña
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -18,7 +18,11 @@ const UsuarioFormulario = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Correo Electrónico:', correoElectronico);
+
+    if (contraseña !== confirmarContraseña) {
+      setError("La contraseña y la confirmación de contraseña no coinciden.");
+      return;
+    }
 
     try {
       const nuevoUsuario = {
@@ -62,16 +66,16 @@ const UsuarioFormulario = () => {
           <form onSubmit={handleSubmit}>
             <div className="row">
               <div className="column">
-                <label htmlFor="auditor">Nombre</label>
+                <label htmlFor="nombre">Nombre</label>
                 <input 
                   onChange={(event) => setNombre(event.target.value)} 
-                  type="text" id="auditor" value={nombre} />
+                  type="text" className="input-large" value={nombre} />
               </div>
               <div className="column">
-                <label htmlFor="auditor">Correo Electronico</label>
+                <label htmlFor="correoElectronico">Correo Electrónico</label>
                 <input 
                   onChange={(event) => setCorreoElectronico(event.target.value)} 
-                  type="text" id="auditor" value={correoElectronico} />
+                  type="text" className="input-large" value={correoElectronico} />
               </div>
             </div>
             <div className="row">
@@ -79,15 +83,23 @@ const UsuarioFormulario = () => {
                 <label htmlFor="contraseña">Contraseña</label>
                 <input 
                   onChange={(event) => setContraseña(event.target.value)} 
-                  id="comments" value={contraseña}></input>
+                  type="password" className="input-large" value={contraseña} />
               </div>
             </div>
             <div className="row">
               <div className="column">
-                <label htmlFor="comments">Usuario</label>
+                <label htmlFor="confirmarContraseña">Confirmar Contraseña</label>
+                <input 
+                  onChange={(event) => setConfirmarContraseña(event.target.value)} 
+                  type="password" className="input-large" value={confirmarContraseña} />
+              </div>
+            </div>
+            <div className="row">
+              <div className="column">
+                <label htmlFor="usuario">Usuario</label>
                 <input 
                   onChange={(event) => setUsuario(event.target.value)} 
-                  id="comments" value={usuario}></input>
+                  type="text" className="input-large" value={usuario} />
               </div>
             </div>
             <div className="create-button">
@@ -97,7 +109,7 @@ const UsuarioFormulario = () => {
         </div>
       </div>
       {error && (
-        <ErrorMessageModal message={error} onClose={handleCloseErrorModal} />
+        <ErrorMessageModal message={error} onClose={handleCloseErrorModal} /> // Renderiza el componente ErrorMessageModal
       )}
     </div>
   );
