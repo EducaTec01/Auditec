@@ -30,8 +30,9 @@ Usuario.create = (nuevoUsuario, res) => {
 
 Usuario.updateById = (req, res) => {
     const id = req.params.id; // Obtiene el ID de la asignación de los parámetros de la solicitud
+    const usuario = req.body; // Obtiene los datos actualizados de la asignación del cuerpo de la solicitud
   
-    const { user, password, correoElectronico, nombre } = req.body;
+    const { user, password, correoElectronico, nombre } = usuario;
   
     db.query(
       "UPDATE Login SET user = ?, password = ?, correoElectronico = ?, nombre = ? WHERE id = ?",
