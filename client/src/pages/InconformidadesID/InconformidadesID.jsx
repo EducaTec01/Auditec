@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from "../../components/sidebar/Sidebar";
-import './Inconformidades#.scss';
+import Sidebar from "../../components/sidebarAuditado/Sidebar";
+import './InconformidadesID.scss';
 
 const InconformidadesGComponent = () => {
     const [preguntasVinculacion, setPreguntasVinculacion] = useState([]);

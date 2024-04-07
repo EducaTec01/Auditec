@@ -17,6 +17,9 @@ import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import logoImage from './logo.png';
+import HistoryIcon from '@mui/icons-material/History';
+import ErrorIcon from '@mui/icons-material/Error';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import HelpIcon from '@mui/icons-material/Help';
 //Mis logos
 
@@ -42,44 +45,24 @@ const SidebarAuditado = () => {
             </li>
           </Link>
           <p className="title">LISTS</p>
-          <Link to="/historialCompanent" style={{ textDecoration: "none" }}>
+          <Link to="/vigenciasComponent" style={{ textDecoration: "none" }}>
             <li>
-              <CreditCardIcon className="icon" />
-              <span>Historial</span>
+              <CalendarTodayIcon className="icon" />
+              <span>Vigencias</span>
             </li>
           </Link>
-          <Link to="/historialGCompanent" style={{ textDecoration: "none" }}>
+          <Link to="/historialComponent" style={{ textDecoration: "none" }}>
             <li>
-              <CreditCardIcon className="icon" />
-              <span>Historial Preguntas</span>
+              <HistoryIcon className="icon" />
+              <span>Historial</span>
             </li>
           </Link>
           <Link to="/inconformidadesComponent" style={{ textDecoration: "none" }}>
             <li>
-              <CreditCardIcon className="icon" />
+              <ErrorIcon className="icon" />
               <span>Inconformidades</span>
             </li>
           </Link>
-          <Link to="/inconformidadesGComponent" style={{ textDecoration: "none" }}>
-            <li>
-              <CreditCardIcon className="icon" />
-              <span>Inconformidades Preguntas</span>
-            </li>
-          </Link>
-          <Link to="/vigenciasComponent" style={{ textDecoration: "none" }}>
-            <li>
-              <CreditCardIcon className="icon" />
-              <span>vigencias</span>
-            </li>
-          </Link>
-          <Link to="/vigenciasGComponent" style={{ textDecoration: "none" }}>
-            <li>
-              <CreditCardIcon className="icon" />
-              <span>Vigencias preguntas</span>
-            </li>
-          </Link>
-
-
         </ul>
       </div>
     </div>

@@ -85,12 +85,12 @@ const UsuarioUpdate = () => {
                   type="text" id="nomenclature" value={nombre} />
               </div>
               <div className="column">
-                <label htmlFor="nomenclature">Correo Electronico</label>
+                <label htmlFor="department">Correo Electronico</label>
                 <input
                   onChange={(event) => setCorreoElectronico(event.target.value)} 
                   value={correoElectronico}
-                  id="nomenclature"
-                  type="text"
+                  id="department"
+                  style={{ fontSize: "24px" }}
                 >
                 </input>
               </div>

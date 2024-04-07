@@ -1,13 +1,4 @@
-.vigencias-page{
-    display:flex;
-
-    .vigencias-content{
-        width: 85%;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;       
-    }
+.inconformidades-page{
 
     body {
         background-color: #f2f2f2; /* Fondo gris claro */
@@ -45,7 +36,7 @@
         color: #333; /* Color del texto en las celdas de encabezado */
     }
     
-    
+    /* Estilo para los botones de cambiar */
     .boton-cambiar {
         background-color: #000; /* Fondo negro */
         color: #fff; /* Texto blanco */
@@ -54,18 +45,4 @@
         border-radius: 5px; /* Borde redondeado */
         cursor: pointer; /* Cursor apuntador */
     }
-    .vigencias-page {
-        display: flex;
-      
-    }
-    
-    .vigencias-content {
-        opacity: 0;
-        transition: opacity 1.5s ease-in-out; /* Transición para la tabla */
-    }
-    
-    .vigencias-content.show {
-        opacity: 1;
-    }
-    
 }

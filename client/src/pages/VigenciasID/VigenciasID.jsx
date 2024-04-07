@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from "../../components/sidebar/Sidebar";
-import './Vigencias#.scss';
+import Sidebar from "../../components/sidebarAuditado/Sidebar";
+import './VigenciasID.scss';
 
 const VigenciasGComponent = () => {
   // Definimos un estado para almacenar las preguntas por tipo

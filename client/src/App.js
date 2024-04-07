@@ -15,12 +15,6 @@ import UsuarioUpdate from "./pages/usuarioUpdate/usuarioUpdate"
 import AsignacionFormulario from "./pages/asignacionFormulario/asignacionFormulario"
 import AsignacionesJefa from "./pages/asignacionesJefa/asignacionesJefa"
 import AsignacionUpdate from "./pages/asignacionUpdate/asignacionUpdate"
-import HistorialComponent from "./pages/Historial/RHistorial";
-import HistorialGComponent from "./pages/Historial#/RHistorial#";
-import InconformidadesComponent from "./pages/Inconformidades/Inconformidades";
-import InconformidadesGComponent from "./pages/Inconformidades#/Inconformidades#";
-import VigenciasComponent from "./pages/Vigencias/Vigencias";
-import VigenciasGComponent from "./pages/Vigencias#/Vigencias#";
 import Reportes from "./pages/reportes/reportes"
 import HistorialesJefa from "./pages/historialesJefa/historialesJefa"
 import HistorialesJefa2 from "./pages/historialesJefa2/historialesJefa2"
@@ -32,6 +26,15 @@ import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
 import React,{ useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
+
+import HistorialComponent from "./pages/Historial/RHistorial";
+import HistorialGComponent from "./pages/HistorialID/RHistorialID";
+import InconformidadesComponent from "./pages/Inconformidades/Inconformidades";
+import InconformidadesGComponent from "./pages/InconformidadesID/InconformidadesID";
+
+import VigenciasComponent from "./pages/Vigencias/Vigencias";
+import VigenciasGComponent from "./pages/VigenciasID/VigenciasID";
+
 import HomeAuditado from "./pages/homeAuditado/HomeAuditado";
 import HomeAuditor from "./pages/homeAuditor/homeAuditor";
 
@@ -86,6 +89,31 @@ function App() {
             </Route>
             {/* Sidebars */}
             <Route path="navbar2" element={<Navbar2 />} />
+            <Route path="capacitacion-body" element={<CapacitacionBody />} />
+            <Route path="tutoriales" element={<Tutoriales />} />
+            <Route path="asignaciones" element={<Asignaciones />} />
+            <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
+            <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
+            <Route path="asignacionUpdate/:id" element={<AsignacionUpdate />} />
+
+            <Route path="historialesJefa" element={<HistorialesJefa/>}/>
+            <Route path="historialesJefa2" element={<HistorialesJefa2/>}/>
+            <Route path="reportes" element={<Reportes/>}/>
+            <Route path="asignacion/:id" element={<Asignacion />} />
+            <Route path="preguntas" element={<Preguntas />} />
+            <Route path="formulario" element={<Formulario />} />
+
+            <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
+            <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
+            <Route path="single" element={<Single />} />
+
+            <Route path="historialComponent" element={<HistorialComponent />} />
+            <Route path="historialGComponent" element={<HistorialGComponent />} />
+            <Route path="inconformidadesComponent" element={<InconformidadesComponent />} />
+            <Route path="inconformidadesGComponent" element={<InconformidadesGComponent />} />
+            <Route path="vigenciasComponent" element={<VigenciasComponent />} />
+            <Route path="vigenciasGComponent" element={<VigenciasGComponent />} />
+
 
             {/* jefa */}
             <Route path="usuario" element ={<PrivateRoute element={Usuario}/>}/>

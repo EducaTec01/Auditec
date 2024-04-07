@@ -37,7 +37,7 @@ const Login = () => {
             switch(result.Acceso) {
               case 'Jefa':
                   console.log('Redirigiendo a homeJefa');
-                  navigate('/homeJefa');
+                  navigate('/home');
                   break;
               case 'Auditor':
                   console.log('Redirigiendo a homeAuditor');

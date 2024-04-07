@@ -1,4 +1,4 @@
-import SidebarAuditado from "../../components/sidebar/Sidebar";
+import SidebarAuditado from "../../components/sidebarAuditado/SidebarAuditado";
 import Navbar from "../../components/navbar/Navbar";
 import "./HomeAuditado.scss";
 import Widget from "../../components/widget/Widget";

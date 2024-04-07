@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from "../../components/sidebar/Sidebar";
-import "./RHistorial#.scss";
+import Sidebar from "../../components/sidebarAuditado/Sidebar";
+import "./RHistorialID.scss";
 
 const HistorialGComponent = () => {
     const [preguntasVinculacion, setPreguntasVinculacion] = useState([]);

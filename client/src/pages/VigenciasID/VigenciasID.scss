@@ -1,3 +1,15 @@
+.vigencias-page{
+    display:flex;
+
+    .vigencias-content{
+        width: 85%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;       
+    }
+
+
 body {
     background-color: #f2f2f2; /* Fondo gris claro */
     font-family: Arial, sans-serif;
@@ -71,4 +83,5 @@ button {
     border-radius: 5px; /* Borde redondeado */
     cursor: pointer; /* Cursor apuntador */
     margin-top: 20px; /* Margen superior */
+}
 }

@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import arrow from "./arrow.png";
-import Navbar2 from "../../components/navbar-2/Navbar-2";
 import "./asignacion.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 
-
 const Asignacion = () => {
-  const { id } = useParams(); // Obtener el ID de la asignación de la URL
+  const { id } = useParams();
   const [asignacion, setAsignacion] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,6 +38,19 @@ const Asignacion = () => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
+  const renderEstadoColor = (estado) => {
+    switch (estado) {
+      case 'Pendiente':
+        return 'red';
+      case 'Completado':
+        return 'green';
+      case 'Iniciado':
+        return 'gray';
+      default:
+        return 'black';
+    }
+  };
+
   if (loading) {
     return <div>Cargando...</div>;
   }
@@ -53,39 +63,40 @@ const Asignacion = () => {
     <body>
       <div className="section1">
         <Sidebar />
-          <div className="section2">
-              <div className="encabezado">
-                  <div className="titulo">
-                      <p>Asignación #{asignacion.id}</p>
-                  </div>
-                  <div className="info">
-                      <p>Fecha límite: {formatDate(asignacion.fecha_final)}</p>
-                      <a href="/preguntas"><img src={arrow} alt="arrow" /></a>
-                  </div>
-              </div>
-              <div className="cuerpo">
-                  <div className="left">
-                      <div className="detalles">
-                          <div className="detalle">
-                              <p>Departamento: {asignacion.departamento}</p>
-                          </div>
-                          <div className="detalle">
-                              <p>Auditor: {asignacion.auditor}</p>
-                          </div>
-                          <div className="detalle">
-                              <p>Encargado: {asignacion.encargado}</p>
-                          </div>
-                          <div className="detalle">
-                              <p>Comentarios: {asignacion.comentarios}</p>
-                          </div>
-                          <div className="detalle">
-                              <p>Nomenclatura: {asignacion.nomenclatura}</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+        <div className="section2">
+          <div className="encabezado">
+            <div className="titulo">
+              <p>Asignación #{asignacion.id}</p>
+            </div>
+            <div className="info">
+              <p style={{ color: renderEstadoColor(asignacion.estado) }}>Estado: {asignacion.estado}</p>
+              <p>Fecha límite: {formatDate(asignacion.fecha_final)}</p>
+              <button disabled>Reporte</button>
+            </div>
           </div>
-       </div>
+          <div className="cuerpo">
+            <div className="left">
+              <div className="detalles">
+                <div className="detalle">
+                  <p>Departamento: {asignacion.departamento}</p>
+                </div>
+                <div className="detalle">
+                  <p>Auditor: {asignacion.auditor}</p>
+                </div>
+                <div className="detalle">
+                  <p>Encargado: {asignacion.encargado}</p>
+                </div>
+                <div className="detalle">
+                  <p>Comentarios: {asignacion.comentarios}</p>
+                </div>
+                <div className="detalle">
+                  <p>Nomenclatura: {asignacion.nomenclatura}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </body>
   );
 };
