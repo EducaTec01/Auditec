@@ -1,4 +1,4 @@
-import "./sidebar.scss";
+import "./sidebarAuditor.scss";
 import Logo from "./logo-transparente.png";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -20,14 +20,14 @@ import logoImage from './logo.png';
 import HelpIcon from '@mui/icons-material/Help';
 //Mis logos
 
-const Sidebar = () => {
+const SidebarAuditor = () => {
   const { dispatch } = useContext(DarkModeContext);
   
   return (
     <div className="sidebar">
       <div className="top">
         {
-        <Link to="/home" style={{ textDecoration: "none" }}>
+        <Link to="/homeAuditor" style={{ textDecoration: "none" }}>
           <img src={logoImage} alt="Logo" className="logo"/>
         </Link>
         }
@@ -35,7 +35,7 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MENÚ</p>
-          <Link to="/home" style={{ textDecoration: "none" }}>
+          <Link to="/homeAuditor" style={{ textDecoration: "none" }}>
             <li>
               <DashboardIcon className="icon" />
               <span>Inicio</span>
@@ -48,22 +48,10 @@ const Sidebar = () => {
               <span>Usuarios</span>
             </li>
           </Link>
-          <Link to="/asignacionesJefa" style={{ textDecoration: "none" }}>
+          <Link to="/tutoriales" style={{ textDecoration: "none" }}>
             <li>
-              <AutoAwesomeMotionIcon className="icon" />
-              <span>Asignaciones</span>
-            </li>
-          </Link>
-          <Link to="/historialesJefa" style={{ textDecoration: "none" }}>
-            <li>
-              <StoreIcon className="icon" />
-              <span>Historial Jefa</span>
-            </li>
-          </Link>
-          <Link to="/reportes" style={{ textDecoration: "none" }}>
-            <li>
-              <CreditCardIcon className="icon" />
-              <span>Reportes</span>
+              <HelpIcon className="icon" />
+              <span>Tutoriales</span>
             </li>
           </Link>
         </ul>
@@ -72,4 +60,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SidebarAuditor;

@@ -20,14 +20,14 @@ import logoImage from './logo.png';
 import HelpIcon from '@mui/icons-material/Help';
 //Mis logos
 
-const Sidebar = () => {
+const SidebarAuditado = () => {
   const { dispatch } = useContext(DarkModeContext);
   
   return (
     <div className="sidebar">
       <div className="top">
         {
-        <Link to="/home" style={{ textDecoration: "none" }}>
+        <Link to="/homeAuditado" style={{ textDecoration: "none" }}>
           <img src={logoImage} alt="Logo" className="logo"/>
         </Link>
         }
@@ -35,41 +35,55 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MENÚ</p>
-          <Link to="/home" style={{ textDecoration: "none" }}>
+          <Link to="/homeAuditado" style={{ textDecoration: "none" }}>
             <li>
               <DashboardIcon className="icon" />
               <span>Inicio</span>
             </li>
           </Link>
           <p className="title">LISTS</p>
-          <Link to="/usuario" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Usuarios</span>
-            </li>
-          </Link>
-          <Link to="/asignacionesJefa" style={{ textDecoration: "none" }}>
-            <li>
-              <AutoAwesomeMotionIcon className="icon" />
-              <span>Asignaciones</span>
-            </li>
-          </Link>
-          <Link to="/historialesJefa" style={{ textDecoration: "none" }}>
-            <li>
-              <StoreIcon className="icon" />
-              <span>Historial Jefa</span>
-            </li>
-          </Link>
-          <Link to="/reportes" style={{ textDecoration: "none" }}>
+          <Link to="/historialCompanent" style={{ textDecoration: "none" }}>
             <li>
               <CreditCardIcon className="icon" />
-              <span>Reportes</span>
+              <span>Historial</span>
             </li>
           </Link>
+          <Link to="/historialGCompanent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>Historial Preguntas</span>
+            </li>
+          </Link>
+          <Link to="/inconformidadesComponent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>Inconformidades</span>
+            </li>
+          </Link>
+          <Link to="/inconformidadesGComponent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>Inconformidades Preguntas</span>
+            </li>
+          </Link>
+          <Link to="/vigenciasComponent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>vigencias</span>
+            </li>
+          </Link>
+          <Link to="/vigenciasGComponent" style={{ textDecoration: "none" }}>
+            <li>
+              <CreditCardIcon className="icon" />
+              <span>Vigencias preguntas</span>
+            </li>
+          </Link>
+
+
         </ul>
       </div>
     </div>
   );
 };
 
-export default Sidebar;
+export default SidebarAuditado;
