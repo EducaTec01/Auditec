@@ -2,22 +2,15 @@ import "./sidebar.scss";
 import Logo from "./logo-transparente.png";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import StoreIcon from "@mui/icons-material/Store";
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
-import InsertChartIcon from "@mui/icons-material/InsertChart";
-import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
-import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import logoImage from './logo.png';
 import HelpIcon from '@mui/icons-material/Help';
+import HistoryIcon from '@mui/icons-material/History';
+import ErrorIcon from '@mui/icons-material/Error';
 //Mis logos
 
 const Sidebar = () => {
@@ -42,31 +35,24 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className="title">General</p>
-          <Link to="/usuario" style={{ textDecoration: "none" }}>
+          <Link to="/vigenciasComponent" style={{ textDecoration: "none" }}>
             <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Usuarios</span>
+              <CalendarTodayIcon className="icon" />
+              <span>Vigencias</span>
             </li>
           </Link>
-          <Link to="/asignacionesJefa" style={{ textDecoration: "none" }}>
+          <Link to="/historialComponent" style={{ textDecoration: "none" }}>
             <li>
-              <AutoAwesomeMotionIcon className="icon" />
-              <span>Asignaciones</span>
-            </li>
-          </Link>
-          <Link to="/historialesJefa" style={{ textDecoration: "none" }}>
-            <li>
-              <StoreIcon className="icon" />
+              <HistoryIcon className="icon" />
               <span>Historial</span>
             </li>
           </Link>
-          <Link to="/reportes" style={{ textDecoration: "none" }}>
+          <Link to="/inconformidadesComponent" style={{ textDecoration: "none" }}>
             <li>
-              <CreditCardIcon className="icon" />
-              <span>Reportes</span>
+              <ErrorIcon className="icon" />
+              <span>Inconformidades</span>
             </li>
-          </Link>
-
+          </Link>         
         </ul>
       </div>
     </div>

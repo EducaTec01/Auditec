@@ -1,0 +1,84 @@
+.historial-page{
+    display:flex;
+    .historial-content{
+        width: 85%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+    }
+    body {
+    background-color: #f2f2f2; /* Fondo gris claro */
+    font-family: Arial, sans-serif;
+   
+}
+
+h1 {
+    color: #333; /* Color del título principal */
+    margin-bottom: 20px; /* Añade margen inferior al título */
+}
+
+.tabla-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; /* Añade margen inferior entre tablas */
+}
+
+table {
+    width: 100%; /* Ancho del 48% para las tablas */
+    border-collapse: collapse;
+    border-radius: 10px; /* Redondea los bordes de la tabla */
+    overflow: hidden; /* Oculta las esquinas redondeadas de las celdas */
+    margin-bottom: 10px; /* Añade margen inferior a la tabla */
+}
+
+caption {
+    padding: 10px;
+    font-weight: bold;
+    color: #fff; /* Color del texto en los títulos de las tablas */
+    background-color: #333; /* Color de fondo gris oscuro para los títulos de las tablas */
+}
+
+th, td {
+    padding: 15px; /* Aumenta el espacio entre el contenido y los bordes */
+    text-align: left;
+    background-color: #fff; /* Fondo blanco para las celdas de pregunta y respuesta */
+}
+
+th {
+    color: #333; /* Color del texto en las celdas de encabezado */
+}
+
+/* Estilo para las celdas de subtítulos "Pregunta" y "Respuesta" */
+th:first-child,
+td:first-child {
+    color: #333; /* Color del texto en las celdas de subtítulo */
+}
+
+/* Estilo para el input */
+input {
+    width: 100%; /* Ocupa el 100% del ancho de la celda */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+}
+
+/* Estilo para los botones */
+button {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    padding: 10px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Borde redondeado */
+    cursor: pointer; /* Cursor apuntador */
+}
+
+.boton-continuar {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    padding: 10px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Borde redondeado */
+    cursor: pointer; /* Cursor apuntador */
+    margin-top: 20px; /* Margen superior */
+}
+}

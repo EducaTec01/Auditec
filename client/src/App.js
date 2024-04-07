@@ -31,6 +31,15 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 
+import HistorialComponent from "./pages/Historial/RHistorial";
+import HistorialGComponent from "./pages/HistorialID/RHistorialID";
+import InconformidadesComponent from "./pages/Inconformidades/Inconformidades";
+import InconformidadesGComponent from "./pages/InconformidadesID/InconformidadesID";
+
+import VigenciasComponent from "./pages/Vigencias/Vigencias";
+import VigenciasGComponent from "./pages/VigenciasID/VigenciasID";
+
+
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
@@ -83,6 +92,13 @@ function App() {
             <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
             <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
             <Route path="single" element={<Single />} />
+
+            <Route path="historialComponent" element={<HistorialComponent />} />
+            <Route path="historialGComponent" element={<HistorialGComponent />} />
+            <Route path="inconformidadesComponent" element={<InconformidadesComponent />} />
+            <Route path="inconformidadesGComponent" element={<InconformidadesGComponent />} />
+            <Route path="vigenciasComponent" element={<VigenciasComponent />} />
+            <Route path="vigenciasGComponent" element={<VigenciasGComponent />} />
 
           </Route>
         </Routes>

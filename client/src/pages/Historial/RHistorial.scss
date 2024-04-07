@@ -1,0 +1,72 @@
+.historial-page
+{
+    display:flex;
+    .historial-content{
+        width: 85%;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    body {
+        background-color: #f2f2f2; /* Fondo gris claro */
+        font-family: Arial, sans-serif;
+        margin: 20px; /* Añade margen al cuerpo */
+    }
+    
+    h1 {
+        color: #333; /* Color del título principal */
+        margin-bottom: 20px; /* Añade margen inferior al título */
+    }
+    
+    table {
+        width: 100%; /* Ancho del 60% para la tabla */
+        border-collapse: collapse;
+        border-radius: 10px; /* Redondea los bordes de la tabla */
+        overflow: hidden; /* Oculta las esquinas redondeadas de las celdas */
+        margin: 20px auto; /* Centra la tabla con margen superior e inferior */
+    }
+    
+    caption {
+        padding: 10px;
+        font-weight: bold;
+        color: #fff; /* Color del texto en el título de la tabla */
+        background-color: #444; /* Color de fondo gris oscuro para el título de la tabla */
+    }
+    
+    th, td {
+        padding: 15px; /* Aumenta el espacio entre el contenido y los bordes */
+        text-align: left;
+        background-color: #fff; /* Fondo blanco para las celdas de la tabla */
+    }
+    
+    th {
+        color: #333; /* Color del texto en las celdas de encabezado */
+    }
+    
+    /* Estilo para los botones de seleccionar */
+    
+    .boton-seleccionar {
+        background-image: url('view.png');
+        background-size: cover; /* Para ajustar la imagen al tamaño del botón */
+        width: 50px; /* Ancho del botón */
+        height: 50px; /* Alto del botón */
+        border: none; /* Para eliminar el borde del botón */
+        color: rgb(141, 128, 128); /* Color del texto del botón */
+        cursor: pointer; /* Cambiar el cursor al pasar por encima del botón */
+        background-color: rgb(194, 194, 194); /* Color de fondo del botón */
+    }
+    
+    .historial-page {
+        display: flex;
+    }
+            
+    .historial-content {
+        opacity: 0;
+        transition: opacity 1.5s ease-in-out;
+    }
+    
+    .historial-content.show {
+        opacity: 1;
+    }     
+}

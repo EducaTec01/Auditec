@@ -1,0 +1,104 @@
+.sidebar {
+  width: 15%;
+  border-right: 0.5px solid rgb(230, 227, 227);
+  min-height: 100vh;
+  background-color: white;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+
+  .top {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .logo {
+      width: 150px; // Ajusta el tamaño de acuerdo a tus necesidades
+      height: auto; // Esto asegura que la proporción se mantenga
+      margin-right: 10px; // Espaciado opcional
+      margin-top: 5px;
+    }
+  }
+
+  hr {
+    height: 0;
+    border: 0.5px solid rgb(230, 227, 227);
+  }
+
+  .center {
+    padding-left: 10px;
+  
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+  
+      .title {
+        font-size: 10px;
+        font-weight: bold;
+        color: #999;
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+  
+      li {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+  
+        &:hover {
+          background-color: #ece8ff;
+          transform: translateX(10px);
+          width: 87%;
+        }
+  
+        .icon {
+          font-size: 18px;
+          color: #2547ed;
+        }
+  
+        span {
+          font-size: 18px; /* Ajusta el tamaño de fuente según tus necesidades */
+          font-weight: 600;
+          color: #888;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+  
+
+  .bottom{
+      display: flex;
+      align-items: center;
+      margin: 10px;
+
+      .colorOption{
+          width: 20px;
+          height: 20px;
+          border-radius: 5px;
+          border: 1px solid #2547ed;
+          cursor: pointer;
+          margin: 5px;
+          transition: all 0.3s;
+
+          &:nth-child(1){
+              background-color: whitesmoke;
+          }
+          &:nth-child(2){
+              background-color: #333;
+          }
+          &:nth-child(3){
+              background-color: darkblue;
+          }
+      }
+
+      .colorOption:hover{
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+           
+      }
+  }
+}

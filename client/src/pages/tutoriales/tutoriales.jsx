@@ -2,7 +2,7 @@ import Navbar2 from "../../components/navbar-2/Navbar-2";
 import "./tutoriales.scss"
 import miniatura from "./miniatura-prueba.png"
 import profile from "./profile-picture.png"
-import Sidebar from "../../components/sidebar/Sidebar";
+import Sidebar from "../../components/sidebarAuditor/Sidebar";
 
 const Tutoriales = () => {
     return (
