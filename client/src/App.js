@@ -133,8 +133,8 @@ function App() {
             <Route path="asignacionesAuditor" element={<PrivateRoute2 element={AsignacionesAuditor}/>}/>
             
             {/* Auditado */}        
-            <Route path="/historialCompanent" element={<PrivateRoute3 element={HistorialComponent} />} />
-            <Route path="/historialGCompanent" element={<PrivateRoute3 element={HistorialGComponent} />} />
+            <Route path="/historialComponent" element={<PrivateRoute3 element={HistorialComponent} />} />
+            <Route path="/historialGComponent" element={<PrivateRoute3 element={HistorialGComponent} />} />
             <Route path="/inconformidadesComponent" element={<PrivateRoute3 element={InconformidadesComponent} />} />
             <Route path="/inconformidadesGComponent" element={<PrivateRoute3 element={InconformidadesGComponent} />} />
             <Route path="/vigenciasComponent" element={<PrivateRoute3 element={VigenciasComponent} />} />
