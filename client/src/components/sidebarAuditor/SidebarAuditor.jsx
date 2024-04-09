@@ -19,7 +19,7 @@ const SidebarAuditor = () => {
     <div className="sidebar">
       <div className="top">
         {
-        <Link to="/home" style={{ textDecoration: "none" }}>
+        <Link to="/homeAuditor" style={{ textDecoration: "none" }}>
           <img src={logoImage} alt="Logo" className="logo"/>
         </Link>
         }
@@ -27,7 +27,7 @@ const SidebarAuditor = () => {
       <div className="center">
         <ul>
           <p className="title">MENÚ</p>
-          <Link to="/home" style={{ textDecoration: "none" }}>
+          <Link to="/homeAuditor" style={{ textDecoration: "none" }}>
             <li>
               <DashboardIcon className="icon" />
               <span>Inicio</span>

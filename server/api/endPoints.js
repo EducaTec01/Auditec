@@ -5,14 +5,16 @@ const { ping } = require('../controllers/pingController');
 const { login } = require('../controllers/loginController');
 const { rhistorial } = require('../controllers/rhistorialController');
 const { preguntas } = require('../controllers/preguntasController');
-const {ppreguntas} = require('../controllers/ppreguntasController');    
-const {ipreguntas} = require('../controllers/ipreguntasController');   
+const { ppreguntas} = require('../controllers/ppreguntasController');    
+const { ipreguntas} = require('../controllers/ipreguntasController');   
 const { vigencias } = require('../controllers/vigenciasController');    
 const { inconformidades } = require('../controllers/inconformidadesController');    
 const Asignacion = require('../controllers/asignacionController');
 const Departamento = require('../controllers/departamentosController');
 
 const Usuario = require('../controllers/usuariosController');
+
+const Formulario = require('../controllers/formularioController'); 
 
 router.get('/ping', ping);
 
@@ -37,5 +39,7 @@ router.get('/usuario/:id', Usuario.findById);
 router.delete('/usuario/delete/:id', Usuario.delete);
 router.put('/usuario/update/:id', Usuario.updateById);
 router.get('/usuarioNombres', Usuario.getAllNames);
+
+router.get('/formulario/preguntas', Formulario.Preguntas);
 
 module.exports = router;
