@@ -29,10 +29,11 @@ const Login = () => {
     })
     .then(response => response.json())
     .then(result => {
-        if (result.token && result.Acceso) {
+        console.log(result); 
+        if (result.token && result.Acceso && result.nombre) {
             sessionStorage.setItem('token', result.token);
             sessionStorage.setItem('Acceso', result.Acceso);
-
+            sessionStorage.setItem('nombre', result.nombre);
             // Redirige al usuario según su tipo de acceso
             switch(result.Acceso) {
               case 'Jefa':
