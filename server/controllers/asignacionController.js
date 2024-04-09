@@ -57,7 +57,7 @@ Asignacion.updateById = (req, res) => {
 };
 
 Asignacion.getAll = (req, res) => {
-    db.query("SELECT * FROM Asignacion", (err, result) => {
+    db.query("SELECT * FROM Asignacion WHERE nombre = ?", (err, result) => {
         if (err) {
             console.error("Error al obtener las asignaciones: ", err);
             res.status(500).json({ error: "Error al obtener las asignaciones" });
@@ -67,6 +67,23 @@ Asignacion.getAll = (req, res) => {
         console.log("Asignaciones encontradas: ", result);
         res.json(result);
     });
+};
+
+Asignacion.getAllnom = (req, res) => {
+  const { nombre } = req.params; // Extrae el nombre de los parámetros de la ruta
+  console.log(nombre)
+  const query = "SELECT * FROM Asignacion WHERE auditor = ?";
+
+  db.query(query, [nombre], (err, result) => {
+      if (err) {
+          console.error("Error al obtener las asignaciones: ", err);
+          res.status(500).json({ error: "Error al obtener las asignaciones" });
+          return;
+      }
+
+      console.log("Asignaciones encontradas: ", result);
+      res.json(result);
+  });
 };
 
 Asignacion.findById = (req, res) => {
