@@ -1,7 +1,7 @@
 const db = require('../models/db');
 
 module.exports.rhistorial= (req, res) => {
-    const consult = 'SELECT * FROM Auditorias';
+    const consult = 'SELECT * FROM Asignacion';
 
     try {
         db.query(consult, (err, results) => {

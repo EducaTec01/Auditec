@@ -8,10 +8,10 @@ module.exports.vigencias = (req, res) => {
 
     if (mesActual <= 6) {
         // Si estamos en el primer semestre del año
-        consult = `SELECT * FROM Auditorias WHERE YEAR(fecha_subida) = ${añoActual} AND MONTH(fecha_subida) <= 6`;
+        consult = `SELECT * FROM Asignacion WHERE YEAR(fecha_inicio) = ${añoActual} AND MONTH(fecha_inicio) <= 6`;
     } else {
         // Si estamos en el segundo semestre del año
-        consult = `SELECT * FROM Auditorias WHERE YEAR(fecha_subida) = ${añoActual} AND MONTH(fecha_subida) > 6`;
+        consult = `SELECT * FROM Asignacion WHERE YEAR(fecha_inicio) = ${añoActual} AND MONTH(fecha_inicio) > 6`;
     }
 
     try {

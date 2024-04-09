@@ -12,7 +12,7 @@ const HistorialComponent = () => {
             .then(data => {
                 const historialFormateado = data.map(item => ({
                     ...item,
-                    fecha_subida: new Date(item.fecha_subida).toLocaleDateString('es-MX'),
+                    fecha_inicio: new Date(item.fecha_inicio).toLocaleDateString('es-MX'),
                 }));
 
                 setHistorial(historialFormateado);
@@ -38,8 +38,8 @@ const HistorialComponent = () => {
 
                     {historial.map((rhistorial, index) => (
                         <tr key={index}>
-                            <td>{rhistorial.n_auditoria}</td>
-                            <td>{rhistorial.fecha_subida}</td>
+                            <td>{rhistorial.id}</td>
+                            <td>{rhistorial.fecha_inicio}</td>
                             <td>{rhistorial.departamento}</td>
                             <td><button className="boton-seleccionar"></button></td>
                         </tr>

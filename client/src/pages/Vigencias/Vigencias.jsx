@@ -32,7 +32,7 @@ const VigenciasComponent = () => {
                 <h1>Vigencias</h1>
 
                 <table border="1">
-                    <caption>Historial de Auditorías</caption>
+                    <caption>Historial de Vigencias</caption>
                     <tr>
                         <th>Auditoria</th>
                         <th>Fecha de Asignacion</th>
@@ -42,8 +42,8 @@ const VigenciasComponent = () => {
 
                     {historial.map((rhistorial, index) => (
                         <tr key={index}>
-                            <td>{rhistorial.n_auditoria}</td>
-                            <td>{rhistorial.fecha_subida}</td>
+                            <td>{rhistorial.id}</td>
+                            <td>{rhistorial.fecha_inicio}</td>
                             <td>{rhistorial.departamento}</td>
                             <td><button className="boton-seleccionar"></button></td>
                         </tr>
