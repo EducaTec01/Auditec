@@ -57,7 +57,7 @@ Asignacion.updateById = (req, res) => {
 };
 
 Asignacion.getAll = (req, res) => {
-    db.query("SELECT * FROM Asignacion WHERE nombre = ?", (err, result) => {
+    db.query("SELECT * FROM Asignacion", (err, result) => {
         if (err) {
             console.error("Error al obtener las asignaciones: ", err);
             res.status(500).json({ error: "Error al obtener las asignaciones" });

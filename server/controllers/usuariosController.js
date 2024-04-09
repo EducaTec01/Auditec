@@ -106,7 +106,7 @@ Usuario.delete = (req, res) => {
 };
 
 Usuario.getAllNames = (req, res) => {
-  db.query("SELECT nombre FROM Login", (err, result) => {
+  db.query("SELECT nombre FROM Login WHERE Acceso = 'Auditor'", (err, result) => {
       if (err) {
           console.error("Error al obtener los nombres de usuario: ", err);
           res.status(500).json({ error: "Error al obtener los nombres de usuario" });

@@ -42,5 +42,8 @@ router.put('/usuario/update/:id', Usuario.updateById);
 router.get('/usuarioNombres', Usuario.getAllNames);
 
 router.get('/formulario/preguntas', Formulario.Preguntas);
+router.get('/formulario/:id/respuestas', Formulario.VerRespuestas);
+
+router.post('/formulario/:id/respuestasUpdate', Formulario.Respuestas);
 
 module.exports = router;

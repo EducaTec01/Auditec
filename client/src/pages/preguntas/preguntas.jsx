@@ -1,25 +1,21 @@
-import Navbar2 from "../../components/navbar-2/Navbar-2";
 import "./preguntas.scss"
 import arrow from "./arrow.png"
+
+import SidebarAuditor from "../../components/sidebarAuditor/SidebarAuditor";
 
 const Preguntas = () => {
     return (
       <body>
-        <header>
-            <nav>
-                <Navbar2 />
-            </nav>
-        </header>
+        <div className="section1">
+            
+        <SidebarAuditor />
         <div className="section2">
             <div className="titulo">
                 <p>Preguntas e Instrucciones</p>
             </div>
             <div className="contenedor">
                 <div className="descripcion">
-                    <p>Preguntas concurrentes</p>
-                </div>
-                <div className="boton">
-                    <a href="/formulario"><img src={arrow} alt="arrow" /></a>
+                    <p>Preguntas recurrentes</p>
                 </div>
             </div>
             <div className="preguntas">
@@ -61,6 +57,10 @@ const Preguntas = () => {
                 </div>
             </div>
         </div>
+
+
+        </div>
+        
       </body>
     );
   };

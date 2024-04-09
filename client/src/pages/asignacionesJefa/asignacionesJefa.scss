@@ -108,6 +108,7 @@ body {
                 flex: 1; /* Ajusta el ancho de cada acción para ocupar igualmente el espacio disponible */
                 text-align: center; /* Alinea el texto en el centro */
                 margin: 0 5px; /* Agrega un pequeño margen entre las imágenes */
+                
               }
             }
           }
@@ -115,6 +116,8 @@ body {
       }
     }
   }
+
+  
 
   .mensaje-vacio {
     font-size: 30px;

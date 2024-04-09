@@ -153,8 +153,7 @@ function App() {
             <Route path="/tutoriales" element={<PrivateRoute2 element={Tutoriales} />} />
             <Route path="/asignacion/:id" element={<PrivateRoute2 element={Asignacion} />} />
             <Route path="/preguntas" element={<PrivateRoute2 element={Preguntas} />} />
-            <Route path="/formulario" element={<PrivateRoute2 element={Formulario} />} />
-            <Route path="/asignacionFormulario" element={<PrivateRoute2 element={AsignacionFormulario} />} />
+            <Route path="/asignacion/:id/formulario" element={<PrivateRoute2 element={Formulario} />} />
             <Route path="/single" element={<PrivateRoute2 element={Single} />} />
             <Route path="/homeAuditor" element={<PrivateRoute2 element={HomeAuditor}/>}/>
             <Route path="asignacionesAuditor" element={<PrivateRoute2 element={AsignacionesAuditor}/>}/>

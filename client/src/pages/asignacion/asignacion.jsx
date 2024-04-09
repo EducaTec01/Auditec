@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom"; // Importa Link desde react-router-dom
 import "./asignacion.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 
@@ -71,7 +71,6 @@ const Asignacion = () => {
             <div className="info">
               <p style={{ color: renderEstadoColor(asignacion.estado) }}>Estado: {asignacion.estado}</p>
               <p>Fecha límite: {formatDate(asignacion.fecha_final)}</p>
-              <button disabled>Reporte</button>
             </div>
           </div>
           <div className="cuerpo">
@@ -95,10 +94,14 @@ const Asignacion = () => {
               </div>
             </div>
           </div>
+          <div className="report">
+            {/* Utiliza Link para dirigirte a la nueva ruta */}
+            <Link to={`/asignacion/${asignacion.id}/formulario`}className="button">Realizar Formulario</Link>
+          </div>
         </div>
       </div>
     </body>
-  );
+  );  
 };
 
 export default Asignacion;

@@ -9,15 +9,12 @@ import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
-import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import AssessmentIcon from '@mui/icons-material/Assessment';
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import logoImage from './logo.png';
-import HelpIcon from '@mui/icons-material/Help';
+import HistoryIcon from '@mui/icons-material/History';
 //Mis logos
 
 const Sidebar = () => {
@@ -56,13 +53,13 @@ const Sidebar = () => {
           </Link>
           <Link to="/historialesJefa" style={{ textDecoration: "none" }}>
             <li>
-              <StoreIcon className="icon" />
+              <HistoryIcon className="icon" />
               <span>Historial</span>
             </li>
           </Link>
           <Link to="/reportes" style={{ textDecoration: "none" }}>
             <li>
-              <CreditCardIcon className="icon" />
+              <AssessmentIcon className="icon" />
               <span>Reportes</span>
             </li>
           </Link>
