@@ -26,15 +26,12 @@ import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
 import React,{ useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
-
 import HistorialComponent from "./pages/Historial/RHistorial";
 import HistorialGComponent from "./pages/HistorialID/RHistorialID";
 import InconformidadesComponent from "./pages/Inconformidades/Inconformidades";
 import InconformidadesGComponent from "./pages/InconformidadesID/InconformidadesID";
-
 import VigenciasComponent from "./pages/Vigencias/Vigencias";
 import VigenciasGComponent from "./pages/VigenciasID/VigenciasID";
-
 import HomeAuditado from "./pages/homeAuditado/HomeAuditado";
 import HomeAuditor from "./pages/homeAuditor/homeAuditor";
 
@@ -44,21 +41,41 @@ const PrivateRoute = ({ element: Element, ...rest }) => {
   const isAuthenticated = sessionStorage.getItem('token');
   const userAccess = sessionStorage.getItem('Acceso');
 
-  return isAuthenticated && userAccess === 'Jefa' ? <Element {...rest} /> : <Navigate to="/home" />;
+  return isAuthenticated && userAccess === 'Jefa' ? <Element {...rest} /> : <Navigate to="/login" />;
 };
 
 const PrivateRoute2 = ({ element: Element, ...rest }) => {
   const isAuthenticated = sessionStorage.getItem('token');
   const userAccess = sessionStorage.getItem('Acceso');
 
-  return isAuthenticated && userAccess === 'Auditor' ? <Element {...rest} /> : <Navigate to="/homeAuditor" />;
+  return isAuthenticated && userAccess === 'Auditor' ? <Element {...rest} /> : <Navigate to="/login" />;
 };
 
 const PrivateRoute3 = ({ element: Element, ...rest }) => {
   const isAuthenticated = sessionStorage.getItem('token');
   const userAccess = sessionStorage.getItem('Acceso');
 
-  return isAuthenticated && userAccess === 'auditado' ? <Element {...rest} /> : <Navigate to="/HomeAuditado" />;
+  return isAuthenticated && userAccess === 'auditado' ? <Element {...rest} /> : <Navigate to="/login" />;
+};
+
+const CatchAll = () => {
+  const isAuthenticated = sessionStorage.getItem('token');
+  const userAccess = sessionStorage.getItem('Acceso');
+
+  if (isAuthenticated && userAccess) {
+    switch (userAccess) {
+      case 'Jefa':
+        return <Navigate to="/home" />;
+      case 'Auditor':
+        return <Navigate to="/homeAuditor" />;
+      case 'auditado':
+        return <Navigate to="/homeAuditado" />;
+      default:
+        return <Navigate to="/login" />;
+    }
+  } else {
+    return <Navigate to="/login" />;
+  }
 };
 
 function App() {
@@ -86,34 +103,7 @@ function App() {
                 path="new"
                 element={<New inputs={productInputs} title="Add New Product" />}
               />
-            </Route>
-            {/* Sidebars */}
-            <Route path="navbar2" element={<Navbar2 />} />
-            <Route path="capacitacion-body" element={<CapacitacionBody />} />
-            <Route path="tutoriales" element={<Tutoriales />} />
-            <Route path="asignaciones" element={<Asignaciones />} />
-            <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
-            <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
-            <Route path="asignacionUpdate/:id" element={<AsignacionUpdate />} />
-
-            <Route path="historialesJefa" element={<HistorialesJefa/>}/>
-            <Route path="historialesJefa2" element={<HistorialesJefa2/>}/>
-            <Route path="reportes" element={<Reportes/>}/>
-            <Route path="asignacion/:id" element={<Asignacion />} />
-            <Route path="preguntas" element={<Preguntas />} />
-            <Route path="formulario" element={<Formulario />} />
-
-            <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
-            <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
-            <Route path="single" element={<Single />} />
-
-            <Route path="historialComponent" element={<HistorialComponent />} />
-            <Route path="historialGComponent" element={<HistorialGComponent />} />
-            <Route path="inconformidadesComponent" element={<InconformidadesComponent />} />
-            <Route path="inconformidadesGComponent" element={<InconformidadesGComponent />} />
-            <Route path="vigenciasComponent" element={<VigenciasComponent />} />
-            <Route path="vigenciasGComponent" element={<VigenciasGComponent />} />
-
+            </Route>           
 
             {/* jefa */}
             <Route path="usuario" element ={<PrivateRoute element={Usuario}/>}/>
@@ -150,6 +140,7 @@ function App() {
             <Route path="homeAuditado" element={<PrivateRoute3 element={HomeAuditado}/>}/>
             
           </Route>
+          <Route path="*" element={<CatchAll />} />
         </Routes>
       </BrowserRouter>
     </div>
