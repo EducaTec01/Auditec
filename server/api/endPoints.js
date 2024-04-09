@@ -31,6 +31,7 @@ router.delete('/asignacion/delete/:id', Asignacion.delete);
 router.put('/asignacion/update/:id', Asignacion.updateById);
 router.get('/departamentos', Departamento.getAll);
 router.get(`/asignacionesAllAuditor/:nombre`, Asignacion.getAllnom);
+router.get('/asignacionesgetAllpast', Asignacion.getAllpast);
 
 router.get('/usuariogetAll', Usuario.getAll);
 router.post('/usuarioCreate', Usuario.create);
@@ -38,5 +39,6 @@ router.get('/usuario/:id', Usuario.findById);
 router.delete('/usuario/delete/:id', Usuario.delete);
 router.put('/usuario/update/:id', Usuario.updateById);
 router.get('/usuarioNombres', Usuario.getAllNames);
+router.get('/usuarioAcceso', Usuario.getAllAcceso);
 
 module.exports = router;

@@ -57,7 +57,7 @@ Asignacion.updateById = (req, res) => {
 };
 
 Asignacion.getAll = (req, res) => {
-    db.query("SELECT * FROM Asignacion WHERE nombre = ?", (err, result) => {
+    db.query("SELECT * FROM Asignacion", (err, result) => {
         if (err) {
             console.error("Error al obtener las asignaciones: ", err);
             res.status(500).json({ error: "Error al obtener las asignaciones" });
@@ -82,6 +82,21 @@ Asignacion.getAllnom = (req, res) => {
       }
 
       console.log("Asignaciones encontradas: ", result);
+      res.json(result);
+  });
+};
+
+Asignacion.getAllpast = (req, res) => {
+  const query = "SELECT * FROM Asignacion WHERE fecha_final < CURDATE()";
+
+  db.query(query, (err, result) => {
+      if (err) {
+          console.error("Error al obtener las asignaciones pasadas: ", err);
+          res.status(500).json({ error: "Error al obtener las asignaciones pasadas" });
+          return;
+      }
+
+      console.log("Asignaciones pasadas encontradas: ", result);
       res.json(result);
   });
 };

@@ -6,6 +6,7 @@ const Usuario = function(usuario) {
   this.user = usuario.user;
   this.password = usuario.password;
   this.correoElectronico = usuario.correoElectronico;
+  this.Acceso = usuario.Acceso;
 };
 
 Usuario.create = (nuevoUsuario, res) => {
@@ -13,16 +14,20 @@ Usuario.create = (nuevoUsuario, res) => {
     const nombre = nuevoUsuario.body.nombre;
     const user = nuevoUsuario.body.usuario;
     const correoElectronico = nuevoUsuario.body.correoElectronico;
+    const Acceso = nuevoUsuario.body.acceso
 
+    if (!contraseña || !nombre || !usuario || !correoElectronico || !acceso) {
+      return res.status(400).send("Todos los campos son obligatorios.");
+  }
     // console.log("Valores de nuevoUsuario:", nuevoUsuario.body.estado);
-    db.query("INSERT INTO Login (user, password, correoElectronico, nombre) VALUES (?, ?, ?, ?)", [user, password, correoElectronico, nombre],
+    db.query("INSERT INTO Login (user, password, correoElectronico, nombre, Acceso) VALUES (?, ?, ?, ?, ?)", [usuario, contraseña, correoElectronico, nombre, acceso],
     (err, result) => {
         if (err) {
             console.error("Error al crear un nuevo usuario: ", err);
-            return result(err, null); // Devolvemos el error a la función de retorno de llamada
+            return res.status(500).send("Error al crear un nuevo usuario."); // Devolvemos el error al frontend
         }
         else{
-            res.send("Empleado registrado con éxito");
+            res.status(200).send("Empleado registrado con éxito");
         }
     
     });
@@ -116,6 +121,21 @@ Usuario.getAllNames = (req, res) => {
       console.log("Nombres de usuario encontrados: ", result);
       res.json(result);
   });
+};
+
+Usuario.getAllAcceso = (req, res) => {
+  db.query("SELECT Acceso FROM Login", (err, result) => {
+    if (err) {
+        console.error("Error al obtener los nombres de Acceso: ", err);
+        res.status(500).json({ error: "Error al obtener los nombres de Acceso" });
+        return;
+    }
+
+    const nombresAcceso = result.map(row => row.Acceso); // Extrae los nombres de acceso de los resultados
+
+    console.log("Nombres de Acceso encontrados: ", nombresAcceso);
+    res.json(nombresAcceso); // Devuelve solo los nombres de acceso
+});
 };
 
 module.exports = Usuario;
