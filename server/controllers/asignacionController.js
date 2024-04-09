@@ -86,6 +86,21 @@ Asignacion.getAllnom = (req, res) => {
   });
 };
 
+Asignacion.getAllpast = (req, res) => {
+  const query = "SELECT * FROM Asignacion WHERE fecha_final < CURDATE()";
+
+  db.query(query, (err, result) => {
+      if (err) {
+          console.error("Error al obtener las asignaciones pasadas: ", err);
+          res.status(500).json({ error: "Error al obtener las asignaciones pasadas" });
+          return;
+      }
+
+      console.log("Asignaciones pasadas encontradas: ", result);
+      res.json(result);
+  });
+};
+
 Asignacion.findById = (req, res) => {
     const asignacionId = req.params.id;
     db.query(`SELECT * FROM Asignacion WHERE id = ?`, asignacionId, (err, result) => {

@@ -105,33 +105,6 @@ function App() {
                 element={<New inputs={productInputs} title="Add New Product" />}
               />
             </Route>
-            {/* Sidebars */}
-            <Route path="navbar2" element={<Navbar2 />} />
-            <Route path="capacitacion-body" element={<CapacitacionBody />} />
-            <Route path="tutoriales" element={<Tutoriales />} />
-            <Route path="asignaciones" element={<Asignaciones />} />
-            <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
-            <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
-            <Route path="asignacionUpdate/:id" element={<AsignacionUpdate />} />
-
-            <Route path="historialesJefa" element={<HistorialesJefa/>}/>
-            <Route path="historialesJefa2" element={<HistorialesJefa2/>}/>
-            <Route path="reportes" element={<Reportes/>}/>
-            <Route path="asignacion/:id" element={<Asignacion />} />
-            <Route path="preguntas" element={<Preguntas />} />
-            <Route path="formulario" element={<Formulario />} />
-
-            <Route path="asignacionesJefa" element={<AsignacionesJefa />} />
-            <Route path="asignacionFormulario" element={<AsignacionFormulario />} />
-            <Route path="single" element={<Single />} />
-
-            <Route path="historialComponent" element={<HistorialComponent />} />
-            <Route path="historialGComponent" element={<HistorialGComponent />} />
-            <Route path="inconformidadesComponent" element={<InconformidadesComponent />} />
-            <Route path="inconformidadesGComponent" element={<InconformidadesGComponent />} />
-            <Route path="vigenciasComponent" element={<VigenciasComponent />} />
-            <Route path="vigenciasGComponent" element={<VigenciasGComponent />} />
-
 
             {/* jefa */}
             <Route path="usuario" element ={<PrivateRoute element={Usuario}/>}/>
