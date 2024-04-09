@@ -40,7 +40,7 @@ const SidebarAuditor = () => {
               <span>Tutoriales</span>
             </li>
           </Link>
-          <Link to="/asignaciones" style={{ textDecoration: "none" }}>
+          <Link to="/asignacionesAuditor" style={{ textDecoration: "none" }}>
             <li>
               <AutoAwesomeMotionIcon className="icon" />
               <span>Asignaciones</span>

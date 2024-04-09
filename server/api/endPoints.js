@@ -32,6 +32,7 @@ router.get('/asignacion/:id', Asignacion.findById);
 router.delete('/asignacion/delete/:id', Asignacion.delete);
 router.put('/asignacion/update/:id', Asignacion.updateById);
 router.get('/departamentos', Departamento.getAll);
+router.get(`/asignacionesAllAuditor/:nombre`, Asignacion.getAllnom);
 
 router.get('/usuariogetAll', Usuario.getAll);
 router.post('/usuarioCreate', Usuario.create);
