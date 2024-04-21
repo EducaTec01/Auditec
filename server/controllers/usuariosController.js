@@ -59,16 +59,15 @@ Usuario.updateById = (req, res) => {
 };
 
 Usuario.getAll = (req, res) => {
-    db.query("SELECT * FROM Login", (err, result) => {
-        if (err) {
-            console.error("Error al obtener los Usuarios: ", err);
-            res.status(500).json({ error: "Error al obtener los Usuarios" });
-            return;
-        }
-
-        console.log("Usuarios encontrados: ", result);
-        res.json(result);
-    });
+  db.query("SELECT * FROM Login WHERE Acceso != 'Jefa' AND Acceso !='INACTIVO'", (err, result) => {
+      if (err) {
+          console.error("Error al obtener los usuarios: ", err);
+          res.status(500).json({ error: "Error al obtener los usuarios" });
+          return;
+      }
+      console.log("Usuarios encontrados: ", result);
+      res.json(result);
+  });
 };
 
 Usuario.findById = (req, res) => {
@@ -89,25 +88,22 @@ Usuario.findById = (req, res) => {
     });
 };
 
-// Función para eliminar una asignación por ID
+// Método para cambiar el acceso de un usuario a 'INACTIVO' por su ID
 Usuario.delete = (req, res) => {
-    const usuarioId = req.params.id;
-    const q = "DELETE FROM Login WHERE id = ?"
-    db.query(q, [usuarioId], (err, result) => {
-        if (err) {
-            console.error("Error al eliminar el usuario: ", err);
-            res.status(500).json({ error: "Error al eliminar el usuario" });
-            return;
-        }
-
-        if (result.affectedRows === 0) {
-            res.status(404).json({ error: "Usuario no encontrado" });
-            return;
-        }
-
-        console.log("Usuario eliminado con ID: ", usuarioId);
-        res.json({ message: "Usuario eliminado correctamente" });
-    });
+  const { id } = req.params;
+  db.query(
+      "UPDATE Login SET Acceso = 'INACTIVO' WHERE id = ?",
+      [id],
+      (err, result) => {
+          if (err) {
+              console.error("Error al cambiar el acceso del usuario: ", err);
+              res.status(500).json({ error: "Error al cambiar el acceso del usuario" });
+              return;
+          }
+          console.log("Acceso del usuario cambiado a INACTIVO: ", result);
+          res.json(result);
+      }
+  );
 };
 
 Usuario.getAllNames = (req, res) => {

@@ -12,11 +12,22 @@ const { inconformidades } = require('../controllers/inconformidadesController');
 const Asignacion = require('../controllers/asignacionController');
 const Departamento = require('../controllers/departamentosController');
 
+const Auditoria = require('../controllers/auditoriasController');
+
 const Usuario = require('../controllers/usuariosController');
 
 const Formulario = require('../controllers/formularioController'); 
 
 router.get('/ping', ping);
+
+/////////////////////////////////////Auditorias/////////////////////////////////////
+router.get('/auditorias', Auditoria.getAll)
+// Ruta para actualizar una auditoria por su id
+router.put('/auditoria/:idAuditoria', Auditoria.updateById);
+router.put('/auditoria/delete/:id', Auditoria.delete);
+// Ruta para verificar si un nombre de auditoria ya existe
+router.get('/auditoria/check-roomname/:nombreAuditoria/:idAuditoria', Auditoria.checkRoomname);
+router.post('/auditoria/create', Auditoria.create);
 
 router.post('/login', login);
 router.get('/rhistorial', rhistorial);  
@@ -35,10 +46,10 @@ router.get('/departamentos', Departamento.getAll);
 router.get(`/asignacionesAllAuditor/:nombre`, Asignacion.getAllnom);
 router.get('/asignacionesgetAllpast', Asignacion.getAllpast);
 
-router.get('/usuariogetAll', Usuario.getAll);
+router.get('/usuarios', Usuario.getAll);
 router.post('/usuarioCreate', Usuario.create);
 router.get('/usuario/:id', Usuario.findById);
-router.delete('/usuario/delete/:id', Usuario.delete);
+router.put('/usuario/delete/:id', Usuario.delete);
 router.put('/usuario/update/:id', Usuario.updateById);
 router.get('/usuarioNombres', Usuario.getAllNames);
 router.get('/usuarioAcceso', Usuario.getAllAcceso);

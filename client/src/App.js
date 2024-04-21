@@ -24,6 +24,7 @@ import Formulario from "./pages/formulario/formulario"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
+import Ajustes from "./pages/ajustes/Ajustes";
 import React,{ useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import HistorialComponent from "./pages/Historial/RHistorial";
@@ -118,7 +119,8 @@ function App() {
             <Route path="historialesJefa" element ={<PrivateRoute element={HistorialesJefa}/>}/>
             <Route path="historialesJefa2" element ={<PrivateRoute element={HistorialesJefa2}/>}/>
             <Route path="reportes" element ={<PrivateRoute element={Reportes}/>}/>
-            <Route path="home" element={<PrivateRoute element={Home}/>}/>
+            <Route path="home" element={<PrivateRoute element={Home}/>}/>            
+            <Route path="ajustes" element={<PrivateRoute element={Ajustes}/>}/>
 
             {/* Auditor */}
             <Route path="/capacitacion" element={<PrivateRoute2 element={Capacitacion} />} />

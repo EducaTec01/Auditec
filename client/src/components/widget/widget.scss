@@ -1,62 +1,60 @@
 .widget {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  padding: 10px;
-  -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-  border-radius: 10px;
-  height: 100px;
+  padding: 1.5vw; // Utilizar unidades de medida relativas, como vw (viewport width) o vh (viewport height)
+  box-shadow: 0.2vw 0.4vw 1vw 0.2vw rgba(0, 0, 0, 0.47); // Utilizar unidades de medida relativas para la sombra
+  border-radius: 1vw; // Utilizar unidades de medida relativas para el radio del borde
   transition: all 0.3s;
+  background-color: white;
 
-  .left,
-  .right {
+  .left {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
+    .lefts {
+      display: flex;
+      flex-direction: column;
+    }
     .title {
       font-weight: bold;
-      font-size: 14px;
-      color: rgb(160, 160, 160);
+      font-size: 1.5vw; // Utilizar unidades de medida relativas para el tamaño del título
+      color: black;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .icon {
+      padding: 0.5vw;
+      align-items: center;
+      display: flex;
+      font-size: 4vw; // Utilizar unidades de medida relativas para el tamaño del icono
     }
 
     .counter {
-      font-size: 28px;
+      font-size: 1.3vw; // Utilizar unidades de medida relativas para el tamaño de la descripción
       font-weight: 300;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-
+  }
+  .right {
+    display: flex;
+    align-items: flex-end;
     .link {
       width: 100%;
-      font-size: 12px;
-      border-bottom: 1px solid gray;
-    }
-
-    .percentage {
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-
-      &.positive {
-        color: green;
-      }
-      &.negative {
-        color: red;
-      }
+      font-size: 1vw; // Utilizar unidades de medida relativas para el tamaño del enlace
+      border-bottom: 0.1vw solid gray; // Utilizar unidades de medida relativas para el grosor del borde
+      padding-right: 1.5vw; // Utilizar unidades de medida relativas para el espaciado
     }
 
     .icon {
-      font-size: 18px;
-      padding: 5px;
-      border-radius: 5px;
-      align-self: flex-end;
+      width: auto;
+      font-size: 1.5vw;
+      border-radius: 0.5vw;
     }
   }
 }
 
-.widget:hover{
-  box-shadow: 2px 4px 10px 5px rgba(201, 201, 201, 0.47);
+.widget:hover {
+  box-shadow: 0.2vw 0.4vw 1vw 0.5vw rgba(201, 201, 201, 0.47); // Utilizar unidades de medida relativas para la sombra en el estado hover
   transform: scale(1.03);
 }
-
-

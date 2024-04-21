@@ -15,40 +15,29 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import logoImage from './logo.png';
 import HistoryIcon from '@mui/icons-material/History';
+import SettingsIcon from '@mui/icons-material/Settings';
 //Mis logos
 
-const Sidebar = () => {
-  const { dispatch } = useContext(DarkModeContext);
-  
+
+const Sidebar = () => {  
   return (
     <div className="sidebar">
       <div className="top">
-        {
-        <Link to="/home" style={{ textDecoration: "none" }}>
-          <img src={logoImage} alt="Logo" className="logo"/>
-        </Link>
-        }
+        <img src={logoImage} alt="Logo" className="logo"/>
       </div>
       <div className="center">
         <ul>
-          <p className="title">MENÚ</p>
+          <p className="title">Menú</p>
           <Link to="/home" style={{ textDecoration: "none" }}>
             <li>
               <DashboardIcon className="icon" />
               <span>Inicio</span>
             </li>
           </Link>
-          <p className="title">General</p>
-          <Link to="/usuario" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Usuarios</span>
-            </li>
-          </Link>
           <Link to="/asignacionesJefa" style={{ textDecoration: "none" }}>
             <li>
-              <AutoAwesomeMotionIcon className="icon" />
-              <span>Asignaciones</span>
+              <AutoAwesomeMotionIcon  className="icon" />
+              <span>Auditorias</span>
             </li>
           </Link>
           <Link to="/historialesJefa" style={{ textDecoration: "none" }}>
@@ -61,6 +50,16 @@ const Sidebar = () => {
             <li>
               <AssessmentIcon className="icon" />
               <span>Reportes</span>
+            </li>
+          </Link>
+        </ul>
+        <hr className="linea" />
+        <ul className="general">
+          <p className="title">General</p>          
+          <Link to="/ajustes" style={{ textDecoration: "none" }}>
+            <li>
+              <SettingsIcon className="icon" />
+              <span>Ajustes</span>
             </li>
           </Link>
         </ul>

@@ -1,78 +1,47 @@
 .home {
-  display: flex;
+  display: flex;  
 
-  .homeContainer {
+  .homeContainer {    
     width: 85%;
-    background-color: white; //Need to Fix
-
-    .container{
-
-      .widgets{
-        display: flex;
-        padding: 20px;
-        gap: 20px;
-      }
+    .containers{
       
-      .charts {
-        padding: 5px 20px;
-        flex-direction: row;
-        flex: 1;
-        display: flex;
-        padding: 20px;
-        gap: 20px;
+      background-color: #F9F9F9; //Need to Fix
+      height: 90%;
+      display: flex;
+      .containerL{
+        width: 50%;
+        padding: 30px;
+        height: 100%;      
+        .widgets{
+          height: 100%;          
+          flex-direction: column;
+          display: flex;      
+          gap: 20px;
+          .widget{
+            height: 50%;
+          }
+        }      
       }
-      .listContainer {
-        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-        padding: 20px;
-        margin: 20px;
-        transition: all 0.3s;
-  
-        .listTitle {
-          font-weight: 500;
-          color: gray;
-          margin-bottom: 15px;
-        }
+      .containerR{
+        width: 50%;
+        padding: 30px;    
+        .widgets{
+          height: 100%;          
+          flex-direction: column;
+          display: flex;      
+          gap: 20px;
+          .widget{
+            height: 100%;
+          }
+        }      
       }
-    }
+    }    
   }
-}
-
-.home .homeContainer .container{
-  flex-direction: column;
-  display: flex;
 }
 
 .home .homeContainer .listContainer:hover{
   box-shadow: 2px 4px 10px 7px rgba(201, 201, 201, 0.47);
 }
 
-@media screen and (max-width: 1500px) {
-  .home .homeContainer .widgets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
 
-  .home .homeContainer .widgets .widget {
-    flex: 0 0 calc(50% - 30px); 
-  }
 
-  .home .homeContainer .charts{
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-
-  .home .homeContainer .widgets .widget {
-    flex: 0 0 calc(100% - 30px); 
-  }
-  
-  .home .homeContainer .container .charts {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-  }
-}

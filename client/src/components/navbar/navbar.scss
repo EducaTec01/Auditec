@@ -1,83 +1,47 @@
 .navbar {
-  height: 50px;
-  border-bottom: 0.5px solid rgb(231, 228, 228);
+  height: 10vh; /* Utiliza unidades de medida relativas para establecer la altura */
+  border-bottom: 1px solid #ccc;
+  background-color: white;
   display: flex;
-  align-items: center;
-  font-size: 14px;
-  z-index: 1;
-  
+
   .wrapper {
     width: 100%;
-    padding: 20px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: center; /* Centra verticalmente los elementos dentro de .wrapper */
+    
 
-    .search {
-      display: flex;
-      align-items: center;
-      border: 0.5px solid lightgray;
-      padding: 3px;
-      transition: all 0.3s;
-
-      input {
-        border: none;
-        outline: none;
-        background: transparent;
-
-        &::placeholder {
-          font-size: 12px;
-        }
-      }
+    .center-text {
+      justify-content: center;
+      text-align: center;
+      margin-left: auto;
+      margin-right: 2vw; /* Utiliza unidades de medida relativas para establecer el margen derecho */
+      font-size: 1.2vw; /* Utiliza unidades de medida relativas para el tamaño de fuente */
+    }
+    .nombre{
+      font-weight: bold;
     }
 
     .items {
       display: flex;
       align-items: center;
+      margin-right: 2vw; /* Utiliza unidades de medida relativas para establecer el margen derecho */
 
       .item {
         display: flex;
-        align-items: center;
-        margin-right: 20px;
         position: relative;
         transition: all 0.3s;
-        padding: 5px;
-
-        .icon {
-          font-size: 20px;
-        }
+        padding: 0.5vw; /* Utiliza unidades de medida relativas para el padding */
 
         .avatar {
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
+          width: 2.5vw; /* Utiliza unidades de medida relativas para el ancho */
+          height: auto; /* Utiliza unidades de medida relativas para la altura */
         }
-
-        .counter {
-          width: 15px;
-          height: 15px;
-          background-color: red;
-          border-radius: 50%;
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 10px;
-          font-weight: bold;
-          position: absolute;
-          top: -5px;
-          right: -5px;
-        }
+      }
+      .item .avatar:hover {
+        border-radius: 0.5vw;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Define el sombreado con una sombra suave */
+        transform: scale(1.1);
       }
     }
   }
-}
-
-.navbar .wrapper .search:hover{
-  filter: brightness(0.8);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.navbar .wrapper .item:hover:not(.profile-item) {
-  transform: scale(1.2);
 }
