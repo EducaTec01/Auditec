@@ -3,7 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import "./CreateUserComponent.scss";
 
 const CreateUserComponent = ({ onCancel, onSave }) => {
-  const initialUser = { nombreUsuario: "", Nombre: "", Clave: "", RepetirClave: "", Acceso: "Veterinario" };
+  const initialUser = { user: "", nombre: "", password: "", RepetirClave: "", Acceso: "Auditor", correoElectronico:""};
   const [modifiedUser, setModifiedUser] = useState(initialUser);
   const [showPassword, setShowPassword] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
@@ -15,19 +15,19 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
 
   useEffect(() => {
     if (passwordChanged) {
-      setPasswordMatchError(modifiedUser.RepetirClave !== modifiedUser.Clave);
+      setPasswordMatchError(modifiedUser.RepetirClave !== modifiedUser.password);
     }
-  }, [modifiedUser.Clave, modifiedUser.RepetirClave, passwordChanged]);
+  }, [modifiedUser.password, modifiedUser.RepetirClave, passwordChanged]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     let newValue = value;
 
-    if (name === "nombreUsuario") {
+    if (name === "user") {
       newValue = newValue.replace(/[^A-Za-zñÑ0-9]/g, '');
       setUsernameLengthError(newValue.length < 6);
       setUsernameExistsError(false); // Reiniciar el estado de error de nombre de usuario existente al cambiar el nombre de usuario
-    } else if (name === "Nombre") {
+    } else if (name === "nombre") {
       newValue = newValue.replace(/[^A-Za-zñÑ\s]+/g, '').replace(/\s{2,}/g, ' ');
       const nameParts = newValue.split(" ");
       setFullNameFormatError(nameParts.length < 2 || nameParts.some(part => part.length === 0));
@@ -35,12 +35,12 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
 
     setModifiedUser({ ...modifiedUser, [name]: newValue });
 
-    if (name === "Clave") {
+    if (name === "password") {
       setPasswordMatchError(newValue !== modifiedUser.RepetirClave);
       setPasswordRequirementsError(!validatePassword(newValue));
       setPasswordChanged(true);
     } else if (name === "RepetirClave" && passwordChanged) {
-      setPasswordMatchError(newValue !== modifiedUser.Clave);
+      setPasswordMatchError(newValue !== modifiedUser.password);
     }
   };
 
@@ -54,12 +54,12 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
   };
 
   const handleSave = () => {  
-    if (modifiedUser.nombreUsuario.trim() === '') {
+    if (modifiedUser.user.trim() === '') {
       setUsernameLengthError(true);
       return;
     }
   
-    if (modifiedUser.Nombre.trim() === '') {
+    if (modifiedUser.nombre.trim() === '') {
       setFullNameFormatError(true);
       return;
     }
@@ -68,18 +68,18 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
       return;
     }
   
-    if (modifiedUser.Clave !== modifiedUser.RepetirClave) {
+    if (modifiedUser.password !== modifiedUser.RepetirClave) {
       setPasswordMatchError(true);
       return;
     }
   
-    if (!validatePassword(modifiedUser.Clave)) {
+    if (!validatePassword(modifiedUser.password)) {
       setPasswordRequirementsError(true);
       return;
     }
   
     // Verificar si el nombre de usuario ya existe
-    fetch(`http://localhost:3001/usuario/check-username/${modifiedUser.nombreUsuario}`)
+    fetch(`http://localhost:3001/usuario/check-username/${modifiedUser.user}`)
       .then(response => response.json())
       .then(data => {
         if (data.exists) {
@@ -109,19 +109,21 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
     <div className="create-user">
       <h2>Crear Usuario</h2>
       <div className="container">
-        <label htmlFor="nombreUsuario">Usuario</label>
-        <input type="text" name="nombreUsuario" value={modifiedUser.nombreUsuario} onChange={handleInputChange} />
+        <label htmlFor="correoElectronico">Correo Electrónico</label>
+        <input type="text" name="correoElectronico" value={modifiedUser.correoElectronico} onChange={handleInputChange} />
+        <label htmlFor="user">Usuario</label>
+        <input type="text" name="user" value={modifiedUser.user} onChange={handleInputChange} />
         {usernameLengthError && <span style={{ color: 'red' }}>El nombre de usuario debe tener al menos 6 caracteres</span>}
         {usernameExistsError && <span style={{ color: 'red' }}>El nombre de usuario ya está en uso. Por favor, elija otro.</span>} {/* Nuevo mensaje de error */}
         <label htmlFor="nombre">Nombre Completo</label>
-        <input type="text" name="Nombre" value={modifiedUser.Nombre} onChange={handleInputChange} />
+        <input type="text" name="nombre" value={modifiedUser.nombre} onChange={handleInputChange} />
         {fullNameFormatError && <span style={{ color: 'red' }}>El nombre completo debe tener al menos un nombre y un apellido</span>}
         <label htmlFor="clave">Contraseña</label>
         <div className="password-input-container">
           <input
             type={showPassword ? "text" : "password"}
-            name="Clave"
-            value={modifiedUser.Clave}
+            name="password"
+            value={modifiedUser.password}
             onChange={handleInputChange}
           />
           <div className="icon">
@@ -141,8 +143,8 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
         {passwordMatchError && !passwordRequirementsError && <span style={{ color: 'red' }}>Las contraseñas no coinciden</span>}
         <label htmlFor="acceso">Tipo de Acceso</label>
         <select name="Acceso" value={modifiedUser.Acceso} onChange={handleInputChange}>
-          <option value="Veterinario">Veterinario</option>
-          <option value="Recepcionista">Recepcionista</option>
+          <option value="Auditor">Auditor</option>
+          <option value="auditado">Auditado</option>
         </select>
         <div className="actions">
           <button 

@@ -3,7 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import "./ModifyUserComponent.scss";
 
 const ModifyUserComponent = ({ user, onCancel, onSave }) => {
-  const initialUser = user || { nombre: "", Nombre: "", password: "", RepetirClave: "", Acceso: "" };
+  const initialUser = user || { user: "", nombre: "", password: "", RepetirClave: "", Acceso: "Auditor", correoElectronico:""};
   const [modifiedUser, setModifiedUser] = useState(initialUser);
   const [showPassword, setShowPassword] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
@@ -23,7 +23,7 @@ const ModifyUserComponent = ({ user, onCancel, onSave }) => {
     const { name, value } = e.target;
     let newValue = value; // Remove leading and trailing whitespaces
 
-    if (name === "nombreUsuario") {
+    if (name === "user") {
       newValue = newValue.replace(/[^A-Za-z]/g, ''); // Remove non-alphabetic characters
       setUsernameLengthError(newValue.length < 6); // Check username length
     } else if (name === "nombre") {
@@ -85,13 +85,16 @@ const ModifyUserComponent = ({ user, onCancel, onSave }) => {
     <div className="modify-user">
       <h2>Modificar Usuario</h2>
       <div className="container">
-        <label htmlFor="nombreUsuario">Usuario</label>
-        <input type="text" name="nombreUsuario" value={modifiedUser.user} onChange={handleInputChange} readOnly style={{ opacity: 0.7, backgroundColor: 'rgba(0, 0, 0, 0.1)' }}/>
+        <label htmlFor="correoElectronico">Correo Electrónico</label>
+        <input type="text" name="correoElectronico" value={modifiedUser.correoElectronico} onChange={handleInputChange} readOnly style={{ opacity: 0.7, backgroundColor: 'rgba(0, 0, 0, 0.1)' }}/>
+        
+        <label htmlFor="user">Usuario</label>
+        <input type="text" name="user" value={modifiedUser.user} onChange={handleInputChange} readOnly style={{ opacity: 0.7, backgroundColor: 'rgba(0, 0, 0, 0.1)' }}/>
         {usernameLengthError && <span style={{ color: 'red' }}>El nombre de usuario debe tener al menos 6 caracteres</span>}
         <label htmlFor="nombre">Nombre Completo</label>
         <input type="text" name="nombre" value={modifiedUser.nombre} onChange={handleInputChange} />
         {fullNameFormatError && <span style={{ color: 'red' }}>El nombre completo debe tener al menos un nombre y un apellido</span>}
-        <label htmlFor="clave">Contraseña</label>
+        <label htmlFor="password">Contraseña</label>
         <div className="password-input-container">
           <input
             type={showPassword ? "text" : "password"}
@@ -119,7 +122,7 @@ const ModifyUserComponent = ({ user, onCancel, onSave }) => {
         <label htmlFor="acceso">Tipo de Acceso</label>
         <select name="Acceso" value={modifiedUser.Acceso} onChange={handleInputChange}>
           <option value="Auditor">Auditor</option>
-          <option value="Auditado">Auditado</option>
+          <option value="auditado">Auditado</option>
         </select>
         <div className="actions">
           <button 

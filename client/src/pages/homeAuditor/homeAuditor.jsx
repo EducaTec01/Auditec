@@ -12,22 +12,19 @@ const homeAuditor = () => {
       <SidebarAuditor />
       <div className="homeContainer">
         <Navbar />
-        <div className="container">
-          <div className="widgets">
-            <Widget className="widget" type="user" />
-            <Widget className="widget" type="order" />
-            <Widget className="widget" type="earning" />
-            <Widget className="widget" type="balance" />
+        <div className="containers">
+          <div className="containerL">
+            <div className="widgets">
+              <Widget className="widget" type="asignaciones" />
+              <Widget className="widget" type="departamentos" />
+            </div>
           </div>
-          <div className="charts">
-            <Featured />
-            <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
+          <div className="containerR">
+            <div className="widgets">
+              <Widget className="widget" type="graficas" />
+            </div>
           </div>
-          <div className="listContainer">
-            <div className="listTitle">Latest Transactions</div>
-            <Table />
-          </div>
-        </div>
+        </div>  
       </div>
     </div>
   );

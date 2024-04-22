@@ -67,10 +67,10 @@ const CreateAuditComponent = ({ onCancel, onSave }) => {
         {auditNameExistsError && <span style={{ color: 'red' }}>Ya existe auditoria para este departamento. Por favor, elija otro.</span>}
         <label htmlFor="descripcion">Descripción:</label>
         <input type="text" name="Descripcion" value={modifiedAudit.Descripcion} onChange={handleInputChange} />
-        <label htmlFor="horarioInicio">Horario de Inicio:</label>
+        <label htmlFor="horarioInicio">Fecha de Inicio:</label>
         <input type="time" name="horarioInicio" value={modifiedAudit.horarioInicio} onChange={handleInputChange} />
         {startTimeError && <span style={{ color: 'red' }}>La hora de inicio debe ser menor que la hora de cierre.</span>}
-        <label htmlFor="horarioFinal">Horario de Cierre:</label>
+        <label htmlFor="horarioFinal">Fecha Final:</label>
         <input type="time" name="horarioFinal" value={modifiedAudit.horarioFinal} onChange={handleInputChange} />
         {endTimeError && <span style={{ color: 'red' }}>La hora de cierre debe ser mayor que la hora de inicio.</span>}
         <div className="actions">
