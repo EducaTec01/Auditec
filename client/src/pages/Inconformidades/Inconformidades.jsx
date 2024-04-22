@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from "../../components/sidebarAuditado/Sidebar";
+import Sidebar from "../../components/sidebarAuditado/SidebarAuditado";
 import "./Inconformidades.scss";
 
 const InconformidadesComponent = () => {

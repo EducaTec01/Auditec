@@ -27,6 +27,22 @@ Usuario.create = (req, res) => {
   );
 };
 
+Usuario.checkUsername = (req, res) => {
+  const { nombreUsuario } = req.params;
+  db.query(
+      "SELECT COUNT(*) AS count FROM Login WHERE user = ?",
+      [nombreUsuario],
+      (err, result) => {
+          if (err) {
+              console.error("Error al verificar el nombre de usuario: ", err);
+              res.status(500).json({ error: "Error al verificar el nombre de usuario" });
+              return;
+          }
+          const exists = result[0].count > 0;
+          res.json({ exists });
+      }
+  );
+};
 
 Usuario.updateById = (req, res) => {
     const id = req.params.id; // Obtiene el ID de la asignación de los parámetros de la solicitud

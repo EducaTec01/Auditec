@@ -24,7 +24,7 @@ const homeAuditor = () => {
               <Widget className="widget" type="graficas" />
             </div>
           </div>
-        </div>  
+        </div>
       </div>
     </div>
   );
