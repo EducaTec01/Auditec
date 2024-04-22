@@ -1,17 +1,23 @@
 body{
-    background-color: #E5E5E5;
+    background-color: #ffffff;
     margin: 0;
 }
 .section1{
     display: flex;
 }
 
+.nav{
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+}
+
 .section2{
-    background: #E5E5E5;
+    background: #ffffff;
     display: flex;
     padding: 0;
     gap: 20px;
-    width: 100%;
+    height: 90vh;
     margin: 0;
     box-sizing: border-box;
     

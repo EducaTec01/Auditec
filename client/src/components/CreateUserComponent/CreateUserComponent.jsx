@@ -3,7 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import "./CreateUserComponent.scss";
 
 const CreateUserComponent = ({ onCancel, onSave }) => {
-  const initialUser = { nombreUsuario: "", Nombre: "", Clave: "", RepetirClave: "", Acceso: "Veterinario" };
+  const initialUser = { user: "", nombre: "", password: "",correoElectronico: "", RepetirClave: "", Acceso: "" };
   const [modifiedUser, setModifiedUser] = useState(initialUser);
   const [showPassword, setShowPassword] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState(false);
@@ -15,9 +15,9 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
 
   useEffect(() => {
     if (passwordChanged) {
-      setPasswordMatchError(modifiedUser.RepetirClave !== modifiedUser.Clave);
+      setPasswordMatchError(modifiedUser.RepetirClave !== modifiedUser.password);
     }
-  }, [modifiedUser.Clave, modifiedUser.RepetirClave, passwordChanged]);
+  }, [modifiedUser.password, modifiedUser.RepetirClave, passwordChanged]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +40,7 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
       setPasswordRequirementsError(!validatePassword(newValue));
       setPasswordChanged(true);
     } else if (name === "RepetirClave" && passwordChanged) {
-      setPasswordMatchError(newValue !== modifiedUser.Clave);
+      setPasswordMatchError(newValue !== modifiedUser.password);
     }
   };
 
@@ -54,12 +54,12 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
   };
 
   const handleSave = () => {  
-    if (modifiedUser.nombreUsuario.trim() === '') {
+    if (modifiedUser.user.trim() === '') {
       setUsernameLengthError(true);
       return;
     }
   
-    if (modifiedUser.Nombre.trim() === '') {
+    if (modifiedUser.nombre.trim() === '') {
       setFullNameFormatError(true);
       return;
     }
@@ -68,18 +68,18 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
       return;
     }
   
-    if (modifiedUser.Clave !== modifiedUser.RepetirClave) {
+    if (modifiedUser.password !== modifiedUser.RepetirClave) {
       setPasswordMatchError(true);
       return;
     }
   
-    if (!validatePassword(modifiedUser.Clave)) {
+    if (!validatePassword(modifiedUser.password)) {
       setPasswordRequirementsError(true);
       return;
     }
   
     // Verificar si el nombre de usuario ya existe
-    fetch(`http://localhost:3001/usuario/check-username/${modifiedUser.nombreUsuario}`)
+    fetch(`http://localhost:3001/usuario/check-username/${modifiedUser.user}`)
       .then(response => response.json())
       .then(data => {
         if (data.exists) {
@@ -110,18 +110,18 @@ const CreateUserComponent = ({ onCancel, onSave }) => {
       <h2>Crear Usuario</h2>
       <div className="container">
         <label htmlFor="nombreUsuario">Usuario</label>
-        <input type="text" name="nombreUsuario" value={modifiedUser.nombreUsuario} onChange={handleInputChange} />
+        <input type="text" name="nombreUsuario" value={modifiedUser.user} onChange={handleInputChange} />
         {usernameLengthError && <span style={{ color: 'red' }}>El nombre de usuario debe tener al menos 6 caracteres</span>}
         {usernameExistsError && <span style={{ color: 'red' }}>El nombre de usuario ya está en uso. Por favor, elija otro.</span>} {/* Nuevo mensaje de error */}
         <label htmlFor="nombre">Nombre Completo</label>
-        <input type="text" name="Nombre" value={modifiedUser.Nombre} onChange={handleInputChange} />
+        <input type="text" name="Nombre" value={modifiedUser.nombre} onChange={handleInputChange} />
         {fullNameFormatError && <span style={{ color: 'red' }}>El nombre completo debe tener al menos un nombre y un apellido</span>}
         <label htmlFor="clave">Contraseña</label>
         <div className="password-input-container">
           <input
             type={showPassword ? "text" : "password"}
             name="Clave"
-            value={modifiedUser.Clave}
+            value={modifiedUser.password}
             onChange={handleInputChange}
           />
           <div className="icon">

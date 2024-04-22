@@ -47,12 +47,13 @@ router.get(`/asignacionesAllAuditor/:nombre`, Asignacion.getAllnom);
 router.get('/asignacionesgetAllpast', Asignacion.getAllpast);
 
 router.get('/usuarios', Usuario.getAll);
-router.post('/usuarioCreate', Usuario.create);
+router.post('/usuario/create', Usuario.create);
 router.get('/usuario/:id', Usuario.findById);
 router.put('/usuario/delete/:id', Usuario.delete);
 router.put('/usuario/update/:id', Usuario.updateById);
 router.get('/usuarioNombres', Usuario.getAllNames);
 router.get('/usuarioAcceso', Usuario.getAllAcceso);
+router.get('/usuario/check-username/:nombreUsuario', Usuario.checkUsername);
 
 router.get('/formulario/preguntas', Formulario.Preguntas);
 router.get('/formulario/:id/respuestas', Formulario.VerRespuestas);

@@ -1,20 +1,28 @@
 .sidebar {
   width: 15%;
-  border-right: 0.5px solid rgb(230, 227, 227);
   min-height: 100vh;
   background-color: white;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-direction: column;
 
   .top {
-    height: 50px;
+    height: 10%; /* Altura fija del contenedor */
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 30px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
 
     .logo {
-      width: 150px; // Ajusta el tamaño de acuerdo a tus necesidades
-      height: auto; // Esto asegura que la proporción se mantenga
-      margin-right: 10px; // Espaciado opcional
-      margin-top: 5px;
+      width: auto;
+      height: 50%; /* Ajusta automáticamente la altura para mantener la proporción */
+      margin-right: 1vw;
+    }
+    .vet-text {
+      font-size: 3vw; /* Ajusta el tamaño del texto "VET" */
+      color: #57CC99; /* Cambia el color del texto según tus preferencias */
     }
   }
 
@@ -24,78 +32,75 @@
   }
 
   .center {
-    padding-left: 10px;
-  
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ccc;
+    flex-grow: 1; /* Abarca todo el espacio restante */
+
     ul {
       list-style: none;
       margin: 0;
-      padding: 0;
-  
+      padding-left: 1.5vw;
+      width: 97%;
+
       .title {
-        font-size: 10px;
+        font-size: 1.5vw; /* Cambiado a unidad em */
         font-weight: bold;
-        color: #999;
-        margin-top: 15px;
-        margin-bottom: 5px;
+        color: #36BDB2;
+        margin-top: 1.2vw;
+        margin-bottom: 0.5vw;
       }
-  
+
       li {
         display: flex;
         align-items: center;
-        padding: 5px;
+        padding: 0.5vw;
         cursor: pointer;
         transition: all 0.3s;
-  
+
         &:hover {
           background-color: #ece8ff;
-          transform: translateX(10px);
-          width: 87%;
+          transform: translateX(0.5vw);
+          width: 100%;
         }
-  
+
         .icon {
-          font-size: 18px;
-          color: #2547ed;
+          font-size: 1.6vw; /* Cambiado a unidad em */
+          color: #828282;
         }
-  
+
         span {
-          font-size: 18px; /* Ajusta el tamaño de fuente según tus necesidades */
+          font-size: 1.6vw; /* Cambiado a unidad em */
           font-weight: 600;
-          color: #888;
-          margin-left: 10px;
+          color: #828282;
+          margin-left: 0.5vw;
         }
       }
     }
-  }
-  
 
-  .bottom{
-      display: flex;
-      align-items: center;
-      margin: 10px;
+    .linea {
+      border-top: 1px solid #ccc; /* Cambia el color de la línea según tus preferencias */
+      margin-top: 10vw; /* Ajusta el margen superior e inferior de la línea */
+    }
+  }  
 
-      .colorOption{
-          width: 20px;
-          height: 20px;
-          border-radius: 5px;
-          border: 1px solid #2547ed;
-          cursor: pointer;
-          margin: 5px;
-          transition: all 0.3s;
+  @media (max-width: 1240px) {
+    .center ul .title,
+    .center ul li .icon,
+    .center ul li span {
+      font-size: 2vw; /* Ajusta el tamaño de la letra para resoluciones menores o iguales a 768px */
+    }
+    .top{
+      
+      padding-left: 2vw;
+    }
 
-          &:nth-child(1){
-              background-color: whitesmoke;
-          }
-          &:nth-child(2){
-              background-color: #333;
-          }
-          &:nth-child(3){
-              background-color: darkblue;
-          }
-      }
+    .center ul {
+      padding-left: 1px; /* Ajusta el padding-left a 0 para resoluciones menores o iguales a 768px */
+    }
 
-      .colorOption:hover{
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-           
-      }
+    .center .linea{
+      margin-top: 0; /* Ajusta el margin-top a 0 para resoluciones menores o iguales a 1024px */
+    }
   }
 }

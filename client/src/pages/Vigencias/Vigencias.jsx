@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from "../../components/sidebarAuditado/Sidebar";
+import Sidebar from "../../components/sidebarAuditado/SidebarAuditado";
 import "./Vigencias.scss";
+import Navbar from "../../components/navbar/Navbar";
 
 const VigenciasComponent = () => {
     const [historial, setHistorial] = useState([]);
@@ -28,27 +29,30 @@ const VigenciasComponent = () => {
     return (
         <div className="vigencias-page">
             <Sidebar />
-            <div className={`vigencias-content ${showTable ? 'show' : ''}`}>
-                <h1>Vigencias</h1>
+            <div className='nav'>
+                <Navbar/>
+                <div className={`vigencias-content ${showTable ? 'show' : ''}`}>
+                    <h1>Vigencias</h1>
 
-                <table border="1">
-                    <caption>Historial de Auditorías</caption>
-                    <tr>
-                        <th>Auditoria</th>
-                        <th>Fecha de Asignacion</th>
-                        <th>Departamento</th>
-                        <th>Seleccionar</th>
-                    </tr>
-
-                    {historial.map((rhistorial, index) => (
-                        <tr key={index}>
-                            <td>{rhistorial.n_auditoria}</td>
-                            <td>{rhistorial.fecha_subida}</td>
-                            <td>{rhistorial.departamento}</td>
-                            <td><button className="boton-seleccionar"></button></td>
+                    <table border="1">
+                        <caption>Historial de Auditorías</caption>
+                        <tr>
+                            <th>Auditoria</th>
+                            <th>Fecha de Asignacion</th>
+                            <th>Departamento</th>
+                            <th>Seleccionar</th>
                         </tr>
-                    ))}
-                </table>
+
+                        {historial.map((rhistorial, index) => (
+                            <tr key={index}>
+                                <td>{rhistorial.n_auditoria}</td>
+                                <td>{rhistorial.fecha_subida}</td>
+                                <td>{rhistorial.departamento}</td>
+                                <td><button className="boton-seleccionar"></button></td>
+                            </tr>
+                        ))}
+                    </table>
+                </div>
             </div>
         </div>
     );
