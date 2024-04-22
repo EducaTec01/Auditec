@@ -202,7 +202,7 @@ const Ajustes = () => {
                           <>
                             <p>
                               <em>
-                                {dataType === 'auditorias' ? 'Todas las citas asignadas serán canceladas ¿Está seguro?' : '¿Seguro que desea eliminar este usuario?'}
+                                {dataType === 'auditorias' ? 'Todas las asignaciones y respuestas serán eliminadas ¿Está seguro?' : '¿Seguro que desea eliminar este usuario?'}
                               </em>
                             </p>
                             <button 
