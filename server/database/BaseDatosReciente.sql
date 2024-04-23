@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Asignacion (
     id_seccion INT,
     nomenclatura VARCHAR(100), -- QUE ES ESO
     comentarios TEXT,
-    estado ENUM ('TERMINADA','ACTIVA','VIGENCIA'),
+    estado ENUM ('TERMINADA','ACTIVA','VIGENCIA', 'ELIMINADA'),
     FOREIGN KEY (id_asignacion) REFERENCES Asignacion(id),    
     FOREIGN KEY (id_seccion) REFERENCES Seccion(id),      
     FOREIGN KEY (id_auditado) REFERENCES Login(id),    

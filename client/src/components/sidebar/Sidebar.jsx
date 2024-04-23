@@ -11,8 +11,6 @@ import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import { Link } from "react-router-dom";
-import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
 import logoImage from './logo.png';
 import HistoryIcon from '@mui/icons-material/History';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -52,14 +50,10 @@ const Sidebar = () => {
               <span>Reportes</span>
             </li>
           </Link>
-        </ul>
-        <hr className="linea" />
-        <ul className="general">
-          <p className="title">General</p>          
           <Link to="/ajustes" style={{ textDecoration: "none" }}>
             <li>
               <SettingsIcon className="icon" />
-              <span>Ajustes</span>
+              <span>Modificaciones</span>
             </li>
           </Link>
         </ul>

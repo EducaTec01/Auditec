@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar2 from "../../components/navbar-2/Navbar-2"
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./reportes.scss";
 //import {Radar} from 'react-chartjs-2'
@@ -51,11 +50,6 @@ const Reportes = () => {
     
   return (
     <body>
-        <header>
-                <nav>
-                    <Navbar2 />
-                </nav>
-        </header>
         <div className="container">
           <Sidebar />
           <div className="content-container">
@@ -63,7 +57,7 @@ const Reportes = () => {
               <p>Reportes</p>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-             {[...Array(4)].map((_, index) => (
+             {/*[...Array(4)].map((_, index) => (
                <div key={index} style={{ flex: '1 1 50%', padding: '10px' }}>
                  <ResponsiveContainer width="100%" aspect={2}>
                    <BarChart
@@ -80,7 +74,7 @@ const Reportes = () => {
                    </BarChart>
                  </ResponsiveContainer>
                </div>
-             ))}
+             ))*/}
             </div>
           </div>
         </div>

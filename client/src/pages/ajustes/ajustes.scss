@@ -69,8 +69,13 @@
               align-items: center;
               padding-left: 1.5vw;
               height: 85%;
-              
+              .create{
+                padding: 1vw;
+                display: flex;
+                align-items: center;
+              } 
               .iconR {
+                margin-left: 0.5vw;
                 margin-right: 2vw;
                 display: flex;
                 justify-content: flex-end;

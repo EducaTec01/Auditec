@@ -1,4 +1,4 @@
-import "./SidebarAuditado.scss";
+import "../sidebar/sidebar.scss";
 import Logo from "./logo-transparente.png";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';

@@ -5,6 +5,7 @@
     flex-wrap: wrap;
 
     .loginL {
+        background-color: #ffffff;
         width: 100%;
         flex-direction: column;
         display: flex;
@@ -17,15 +18,16 @@
             display: flex;
             justify-content: center;
             padding-top: 2.5rem;
+            
+            margin-left: 3vw;
+            margin-right: 3vw;
             @media (min-width: 768px) {
                 justify-content: space-between;
-                padding-left: 2.5rem;
                 margin-bottom: -6rem;
             }
 
             .logo {
-                width: 12rem;
-                height: auto;
+                width: 12vw;
             }
         }
 

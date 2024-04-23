@@ -131,11 +131,14 @@ const Ajustes = () => {
           <div className="containerR">
             <div className="ajustestituloR">
               <div className="ajustestitulo">
-                <h2>{dataType === 'auditorias' ? 'Auditorias' : 'Usuarios'}</h2>
+                <h2>{dataType === 'auditorias' ? 'Auditorias' : 'Usuarios'}</h2>                
                 {!isEditing && !isCreating && (
-                  <div className="iconR">
-                    <AddIcon style={{ fontSize: '3vw', border: '0.2vw solid black', borderRadius: '30%', borderColor: '#E0E0E0'}} onClick={handleShowCreateUser} /> 
-                  </div>
+                  <div className="create">
+                    <h2>{dataType === 'auditorias' ? 'Nueva Auditoria' : 'Nuevo Usuario'}</h2> 
+                    <div className="iconR">
+                      <AddIcon style={{ fontSize: '3vw', border: '0.2vw solid black', borderRadius: '30%', borderColor: '#E0E0E0'}} onClick={handleShowCreateUser} /> 
+                    </div>                  
+                  </div>                  
                 )}
               </div>              
             </div>
