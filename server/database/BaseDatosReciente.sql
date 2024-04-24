@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS Departamentos (
     nombre VARCHAR(100)
 );
 
-CREATE TABLE IF NOT EXISTS Auditorias (
+CREATE TABLE IF NOT EXISTS Auditoria (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     fecha_inicio DATE,
     fecha_final DATE,
@@ -35,26 +35,6 @@ CREATE TABLE IF NOT EXISTS Seccion (
     nombre VARCHAR(100)
 );
 
--- Crear la tabla Asignacion
-CREATE TABLE IF NOT EXISTS Asignacion (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_asignacion INT,
-    id_auditor INT,
-    id_auditado INT, -- encargado?    
-    id_seccion INT,
-    nomenclatura VARCHAR(100), -- QUE ES ESO
-    comentarios TEXT,
-    estado ENUM ('TERMINADA','ACTIVA','VIGENCIA', 'ELIMINADA'),
-    FOREIGN KEY (id_asignacion) REFERENCES Asignacion(id),    
-    FOREIGN KEY (id_seccion) REFERENCES Seccion(id),      
-    FOREIGN KEY (id_auditado) REFERENCES Login(id),    
-    FOREIGN KEY (id_auditor) REFERENCES Login(id) 
-);
-
-CREATE TABLE IF NOT EXISTS Seccion (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100)
-);
 
 CREATE TABLE IF NOT EXISTS Subseccion (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,6 +42,24 @@ CREATE TABLE IF NOT EXISTS Subseccion (
     idseccion INT,
     link VARCHAR(255),
     FOREIGN KEY (idseccion) REFERENCES Seccion(id)
+);
+
+-- Crear la tabla Asignacion
+CREATE TABLE IF NOT EXISTS Asignacion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_auditoria INT,
+    id_auditor INT,
+    id_auditado INT, -- encargado?    
+    id_seccion INT,
+    id_subseccion INT,
+    nomenclatura VARCHAR(100), -- QUE ES ESO
+    comentarios TEXT,
+    estado ENUM ('TERMINADA','ACTIVA','VIGENCIA', 'ELIMINADA'),
+    FOREIGN KEY (id_auditoria) REFERENCES Auditoria(id),          
+    FOREIGN KEY (id_subseccion) REFERENCES Subseccion(id),   
+    FOREIGN KEY (id_seccion) REFERENCES Seccion(id),      
+    FOREIGN KEY (id_auditado) REFERENCES Login(id),    
+    FOREIGN KEY (id_auditor) REFERENCES Login(id) 
 );
 
 CREATE TABLE IF NOT EXISTS Preguntas (
@@ -116,12 +114,11 @@ INSERT INTO Departamentos (nombre) VALUES
 	('Formación integral'),
 	('Gestión tecnológica y vinculación');
 
-INSERT INTO Auditorias (fecha_inicio, fecha_final, id_departamentos, estado) VALUES
+INSERT INTO Auditoria (fecha_inicio, fecha_final, id_departamentos, estado) VALUES
 	('2024-03-01', '2024-03-15', 1, 'ACTIVA'),
 	('2024-03-01', '2024-03-15', 2, 'ACTIVA'), 
 	('2024-03-01', '2024-03-15', 3, 'ACTIVA');
 
-SELECT * FROM Auditorias;
 INSERT INTO Login (user, password, correoElectronico, nombre, Acceso) VALUES
 	('usuario1', 'contraseña1', 'usuario1@example.com', 'nombre1', 'Jefa'),
 	('usuario2', 'contraseña2', 'usuario2@example.com', 'nombre2', 'Auditor'),
@@ -138,7 +135,7 @@ INSERT INTO Seccion (nombre) VALUES
 	('Vinculación');
 
 -- Insertar filas en la tabla Asignacion
-INSERT INTO Asignacion (id_asignacion, id_auditor, id_auditado, id_seccion, nomenclatura, comentarios, estado) VALUES 
+INSERT INTO Asignacion (id_auditoria, id_auditor, id_auditado, id_seccion, nomenclatura, comentarios, estado) VALUES 
 	(1, 1, 2, 3, 'ASIG-001', 'Comentario de la asignación 1', 'ACTIVA'),
 	(2, 2, 3, 1, 'ASIG-002', 'Comentario de la asignación 2', 'VIGENCIA'),
 	(3, 3, 1, 2, 'ASIG-003', 'Comentario de la asignación 3', 'TERMINADA');
@@ -482,10 +479,3 @@ INSERT INTO Preguntas (pregunta, idseccion, idsubseccion, requiere_evidencia) VA
 	('¿Qué información se incluirá en el listado de estudiantes que hayan cumplido con su actividad complementaria, y dónde se publicará dicho listado para que los estudiantes puedan consultarlo?', 5, 30, false),
 	('¿Quiénes serán los responsables de avalar el listado de estudiantes y qué acciones deberán llevarse a cabo en el Departamento de Servicios Escolares una vez recibido dicho listado?', 5, 30, false),
 	('¿Qué procedimiento seguirá el estudiante en caso de que su nombre no aparezca en el listado de cumplimiento de actividad complementaria, o si detecta que fue registrado incorrectamente, según lo establecido por el Departamento de Actividades Extraescolares?', 5, 30, false);
-
-
-
-
-
-SELECT * FROM subseccion;
-SELECT * FROM Preguntas;

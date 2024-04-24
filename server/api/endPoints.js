@@ -27,7 +27,15 @@ router.put('/auditoria/:idAuditoria', Auditoria.updateById);
 router.put('/auditoria/delete/:id', Auditoria.delete);
 // Ruta para verificar si un nombre de auditoria ya existe
 router.get('/auditoria/check-roomname/:nombreAuditoria/:idAuditoria', Auditoria.checkRoomname);
+// Ruta para crear las auditorias
 router.post('/auditoria/create', Auditoria.create);
+// Ruta para obtener las secciones para la auditoria
+router.get('/auditoria/seccion', Auditoria.seccion);
+// Ruta para obtener los departamentos sin auditoria
+router.get('/auditoria/departamento', Auditoria.findDepartamento);
+// Ruta para obtener las subsecciones de la seccion
+router.get('/auditoria/subseccion', Auditoria.subseccion);
+
 
 
 
@@ -44,7 +52,6 @@ router.post('/asignacionesCreate', Asignacion.create);
 router.get('/asignacion/:id', Asignacion.findById);
 router.delete('/asignacion/delete/:id', Asignacion.delete);
 router.put('/asignacion/update/:id', Asignacion.updateById);
-router.get('/departamentos', Departamento.getAll);
 router.get(`/asignacionesAllAuditor/:nombre`, Asignacion.getAllnom);
 router.get('/asignacionesgetAllpast', Asignacion.getAllpast);
 

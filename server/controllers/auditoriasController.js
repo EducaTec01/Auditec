@@ -3,7 +3,7 @@ const db = require('../models/db');
 const Auditoria = {};
 
 Auditoria.getAll = (req, res) => {
-    db.query("SELECT A.*, D.nombre AS nombre_departamento FROM Auditorias A JOIN Departamentos D ON A.id_departamentos = D.id WHERE A.estado != 'ELIMINADA'", (err, result) => {
+    db.query("SELECT A.*, D.nombre AS nombre_departamento FROM Auditoria A JOIN Departamentos D ON A.id_departamentos = D.id WHERE A.estado != 'ELIMINADA'", (err, result) => {
         if (err) {
             console.error("Error al obtener las auditorias: ", err);
             res.status(500).json({ error: "Error al obtener las auditorias" });
@@ -30,7 +30,7 @@ Auditoria.delete = (req, res) => {
     const id_auditoria = req.params.id;
 
     // Actualizar el estado de la auditoría a 'ELIMINADA'
-    db.query("UPDATE Auditorias SET estado = 'ELIMINADA' WHERE id = ?", [id_auditoria], (err, result) => {
+    db.query("UPDATE Auditoria SET estado = 'ELIMINADA' WHERE id = ?", [id_auditoria], (err, result) => {
         if (err) {
             console.error("Error al cambiar el estado de la auditoría:", err);
             res.status(500).json({ error: "Error al cambiar el estado de la auditoría" });
@@ -62,6 +62,31 @@ Auditoria.updateById = (req, res) => {
     );
 };
 
+Auditoria.seccion = (req, res) => {
+    db.query("SELECT * FROM Seccion", (err, result) => {
+        if (err) {
+            console.error("Error al obtener las secciones: ", err);
+            res.status(500).json({ error: "Error al obtener las secciones" });
+            return;
+        }
+
+        res.json(result);
+    });
+};
+
+Auditoria.subseccion = (req,res)=> {
+    const idseccion = req.query.idseccion;
+    db.query("SELECT * FROM Subseccion Where idseccion = ?",[idseccion], (err, result) => {
+        if (err) {
+            console.error("Error al obtener las subsecciones: ", err);
+            res.status(500).json({ error: "Error al obtener las subsecciones" });
+            return;
+        }
+
+        res.json(result);
+    });
+};
+
 Auditoria.create = (req, res) => {
     const { nombreAuditoria, Descripcion, horarioInicio, horarioFinal } = req.body;
     db.query(
@@ -77,6 +102,23 @@ Auditoria.create = (req, res) => {
             res.json(result);
         }
     );
+};
+
+Auditoria.findDepartamento = (req, res) => {
+    const fechaInicio = req.query.fechaInicio;
+    const fechaFinal = req.query.fechaFinal;
+    const idSeccion = req.query.seccion;
+
+    db.query("SELECT d.nombre AS nombre FROM Departamentos d WHERE d.id NOT IN (SELECT a.id_departamento FROM Auditoria a WHERE (a.id_seccion = ? AND a.fecha_inicio <= ? AND a.fecha_final >= ?) OR (a.id_seccion = ? AND a.fecha_inicio <= ? AND a.fecha_final >= ?))",[idSeccion,fechaInicio,fechaInicio,idSeccion,fechaFinal,fechaFinal], (err, result) => {
+        if (err) {
+            console.error("Error al obtener los departamentos: ", err);
+            res.status(500).json({ error: "Error al obtener los departamentos" });
+            return;
+        }
+
+        console.log("Departamentos encontrados: ", result);
+        res.json(result);
+    });
 };
 
 module.exports = Auditoria;
