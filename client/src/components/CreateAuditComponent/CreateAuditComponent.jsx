@@ -7,24 +7,26 @@ import "./CreateAuditComponent.scss";
 // Define el componente CreateAuditComponent
 const CreateAuditComponent = ({ onCancel }) => {
   // Estado inicial y funciones de manipulación del estado
-  const initialAudit = { horarioInicio: "", horarioFinal: "", auditseccion: null, departamento: null, subsecciones: [] };
+  const initialAudit = { fechaInicio: "", fechaFinal: "", auditseccion: null, departamento: null, subsecciones: [], encargado: null };
   const [modifiedAudit, setModifiedAudit] = useState(initialAudit);
   const [startTimeError, setStartTimeError] = useState(false);
   const [endTimeError, setEndTimeError] = useState(false);
   const [secciones, setSecciones] = useState([]);
   const [departamentos, setDepartamentos] = useState([]);
   const [subsecciones, setSubsecciones] = useState([]);
+  const [auditados, setAuditados] = useState([]);
   const [isSelectionComplete, setIsSelectionComplete] = useState(false);
   const [showSectionsComponent, setShowSectionsComponent] = useState(false);
-  const [showSelectProcedureMessage, setShowSelectProcedureMessage] = useState(false); // Nuevo estado para controlar la visualización del mensaje "Seleccione un procedimiento"
+  const [showSelectProcedureMessage, setShowSelectProcedureMessage] = useState(false);
 
   // Funciones para manejar los efectos secundarios
   useEffect(() => {
     fetchSecciones();
+    fetchAuditados();
   }, []);
 
   useEffect(() => {
-    if (modifiedAudit.horarioInicio && modifiedAudit.horarioFinal && modifiedAudit.auditseccion) {
+    if (modifiedAudit.fechaInicio && modifiedAudit.fechaFinal && modifiedAudit.auditseccion) {
       fetchDepartamentos();
       fetchSubsecciones();
       setIsSelectionComplete(true);
@@ -51,12 +53,12 @@ const CreateAuditComponent = ({ onCancel }) => {
   // Función para obtener los departamentos
   const fetchDepartamentos = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/auditoria/departamento?fechaInicio=${modifiedAudit.horarioInicio}&fechaFinal=${modifiedAudit.horarioFinal}&seccion=${modifiedAudit.auditseccion.value}`);
+      const response = await fetch(`http://localhost:3001/auditoria/departamento?fechaInicio=${modifiedAudit.fechaInicio}&fechaFinal=${modifiedAudit.fechaFinal}&seccion=${modifiedAudit.auditseccion.value}`);
       if (!response.ok) {
         throw new Error('Error al obtener los departamentos');
       }
       const data = await response.json();
-      setDepartamentos(data.map(dep => ({ value: dep.nombre, label: dep.nombre })));
+      setDepartamentos(data.map(dep => ({ value: dep.id, label: dep.nombre })));
     } catch (error) {
       console.error('Error al obtener los departamentos:', error);
     }
@@ -76,6 +78,20 @@ const CreateAuditComponent = ({ onCancel }) => {
     }
   };
 
+  // Función para obtener los auditados
+  const fetchAuditados = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/auditoria/auditado');
+      if (!response.ok) {
+        throw new Error('Error al obtener los auditados');
+      }
+      const data = await response.json();
+      setAuditados(data.map(auditado => ({ value: auditado.id, label: auditado.nombre })));
+    } catch (error) {
+      console.error('Error al obtener los auditados:', error);
+    }
+  };
+
   // Función para eliminar una subsección
   const handleRemoveSubseccion = (index) => {
     const updatedSubsecciones = [...modifiedAudit.subsecciones];
@@ -86,12 +102,12 @@ const CreateAuditComponent = ({ onCancel }) => {
   // Función para manejar el cambio de entrada
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "horarioInicio") {
-      const endDate = new Date(modifiedAudit.horarioFinal);
+    if (name === "fechaInicio") {
+      const endDate = new Date(modifiedAudit.fechaFinal);
       const startDate = new Date(value);
       setStartTimeError(startDate >= endDate);
-    } else if (name === "horarioFinal") {
-      const startDate = new Date(modifiedAudit.horarioInicio);
+    } else if (name === "fechaFinal") {
+      const startDate = new Date(modifiedAudit.fechaInicio);
       const endDate = new Date(value);
       setEndTimeError(endDate <= startDate);
     }
@@ -100,7 +116,7 @@ const CreateAuditComponent = ({ onCancel }) => {
 
   // Función para manejar el cambio de la sección
   const handleSeccionChange = (selectedOption) => {
-    setModifiedAudit({ ...modifiedAudit, auditseccion: selectedOption, departamento: null, subsecciones: [] });
+    setModifiedAudit({ ...modifiedAudit, auditseccion: selectedOption, departamento: null, subsecciones: [], encargado: null });
   };
 
   // Función para manejar el cambio de departamento
@@ -113,13 +129,18 @@ const CreateAuditComponent = ({ onCancel }) => {
     setModifiedAudit({ ...modifiedAudit, subsecciones: [...modifiedAudit.subsecciones, selectedOption] });
   };
 
+  // Función para manejar el cambio de encargado
+  const handleEncargadoChange = (selectedOption) => {
+    setModifiedAudit({ ...modifiedAudit, encargado: selectedOption });
+  };
+
   // Función para alternar la visualización del componente de secciones
   const handleToggleSectionsComponent = () => {
     if (isAtLeastOneSubsectionSelected()) {
       setShowSectionsComponent(!showSectionsComponent);
-      setShowSelectProcedureMessage(false); // Reinicia el estado del mensaje "Seleccione un procedimiento" al cambiar de pantalla
+      setShowSelectProcedureMessage(false);
     } else {
-      setShowSelectProcedureMessage(true); // Muestra el mensaje "Seleccione un procedimiento" si no hay subsecciones seleccionadas al intentar avanzar
+      setShowSelectProcedureMessage(true);
     }
   };
 
@@ -140,23 +161,23 @@ const CreateAuditComponent = ({ onCancel }) => {
           />
         ) : (
           <>
-            <label htmlFor="horarioInicio">Fecha de Inicio:</label>
+            <label htmlFor="fechaInicio">Fecha de Inicio:</label>
             <input 
               type="date" 
-              name="horarioInicio" 
-              value={modifiedAudit.horarioInicio} 
+              name="fechaInicio" 
+              value={modifiedAudit.fechaInicio} 
               onChange={handleInputChange} 
               min={new Date().toISOString().split('T')[0]} 
             />
             {startTimeError && <span style={{ color: 'red' }}>La fecha de inicio debe ser menor que la fecha final.</span>}
-            <label htmlFor="horarioFinal">Fecha Final:</label>
+            <label htmlFor="fechaFinal">Fecha Final:</label>
             <input 
               type="date" 
-              name="horarioFinal" 
-              value={modifiedAudit.horarioFinal} 
+              name="fechaFinal" 
+              value={modifiedAudit.fechaFinal} 
               onChange={handleInputChange} 
-              min={modifiedAudit.horarioInicio} 
-              disabled={!modifiedAudit.horarioInicio} // Deshabilita el campo hasta que se seleccione la fecha de inicio
+              min={modifiedAudit.fechaInicio} 
+              disabled={!modifiedAudit.fechaInicio} 
             />
             {endTimeError && <span style={{ color: 'red' }}>La fecha final debe ser mayor que la fecha de inicio.</span>}
             <label htmlFor="auditseccion">Área estratégica:</label>
@@ -166,7 +187,7 @@ const CreateAuditComponent = ({ onCancel }) => {
               options={secciones}
               placeholder="Selecciona una sección"
               className="select"
-              isDisabled={!modifiedAudit.horarioInicio} // Deshabilita el campo hasta que se seleccione la fecha de inicio
+              isDisabled={!modifiedAudit.fechaInicio} 
             />   
             <label htmlFor="departamento">Departamento:</label>
             <Select
@@ -194,28 +215,41 @@ const CreateAuditComponent = ({ onCancel }) => {
               </>
             )}
             {modifiedAudit.subsecciones.map((subseccion, index) => (
-              <div key={index} className="selected-subsection">
+              <div key={index} className="selected-subsection">              
+                <div className="selected-subsections">  
                 <span>{subseccion.label}</span>
-                <button onClick={() => handleRemoveSubseccion(index)}>Eliminar</button>
+                </div>
+                <button 
+                  style={{ backgroundColor: '#f2f2f2', color: 'black', marginRight: '0.5vw', border: '0.1vw solid #f2f2f2', padding: '0.2vw 0.2vw', borderRadius: '0.5vw', cursor: 'pointer' }}                              
+                  onClick={() => handleRemoveSubseccion(index)}>Eliminar</button>
               </div>
             ))}
-          </>
-        )}
-        <div className="actions">
-          <button 
-            style={{ backgroundColor: '#f2f2f2', color: 'black', marginRight: '0.5vw', border: '0.2vw solid #f2f2f2', padding: '1vw 1vw', borderRadius: '0.5vw', cursor: 'pointer' }}                              
-            onClick={onCancel}
-          >
-            Cancelar
-          </button>
-          <button 
-            style={{ backgroundColor: '#d8f3dc', color: 'black', marginLeft: '0vw', border: '0.2vw solid #d8f3dc', padding: '1vw 1vw', borderRadius: '0.5vw', cursor: 'pointer' }} 
-            onClick={handleToggleSectionsComponent}
-            disabled={!isAtLeastOneSubsectionSelected()} // Deshabilita el botón "Siguiente" si no hay subsecciones seleccionadas
-          >
-            {showSectionsComponent ? 'Volver' : 'Siguiente'}
-          </button>
-        </div>
+            <label htmlFor="encargado">Encargado:</label>
+            <Select
+              value={modifiedAudit.encargado}
+              onChange={handleEncargadoChange}
+              options={auditados}
+              placeholder="Selecciona un encargado"
+              className="select"
+              isDisabled={!isSelectionComplete || !modifiedAudit.departamento} 
+            />
+            <div className="actions">
+              <button 
+                style={{ backgroundColor: '#f2f2f2', color: 'black', marginRight: '0.5vw', border: '0.2vw solid #f2f2f2', padding: '1vw 1vw', borderRadius: '0.5vw', cursor: 'pointer' }}                              
+                onClick={onCancel}
+              >
+                Cancelar
+              </button>
+              <button 
+                style={{ backgroundColor: '#d8f3dc', color: 'black', marginLeft: '0vw', border: '0.2vw solid #d8f3dc', padding: '1vw 1vw', borderRadius: '0.5vw', cursor: 'pointer' }} 
+                onClick={handleToggleSectionsComponent}
+                disabled={!isAtLeastOneSubsectionSelected()} 
+              >
+                {showSectionsComponent ? 'Volver' : 'Siguiente'}
+              </button>
+            </div>
+          </>          
+        )}        
       </div>      
     </div>
   );

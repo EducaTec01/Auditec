@@ -1,69 +1,90 @@
-.create-audit{ 
-    span{
+.create-audit2 {
+    span {
         font-size: 0.8vw;
     }
-    width: 85%;   
     h2 {
-        font-size: 1.5vw;
+        text-align: center;
+        margin-top: 0.3vw;
+        font-size: 1.2vw;
     }
+    width: 100%;    
     display: flex;    
     flex-direction: column; 
     align-items: center;      
-    .container{      
-           
-        width: 85%;  
+    .container {          
         flex-direction: column;
         display: flex; 
-        .select{
+        width: 100%; /* Ajusta el ancho del contenedor principal al 100% */
+        
+        .select {
             font-size: 1.2vw;
+            width: 100%; /* Ajusta el ancho del select al 100% */
         }
-        .password-input-container{
+        .subsection-item{
+            
+            border: 0.2vw solid #ccc; // Define el borde y su grosor
+            padding: 0.5vw; // Añade espacio interno para que el contenido no esté pegado al borde
+            margin-bottom: 2vw; // Añade margen en la parte inferior
+            span{
+                font-size: 1.2vw;
+            }
+
+        }
+        .password-input-container {
             border: 1px solid #ccc; /* Añade un borde */
             display: flex;
             align-items: center; 
             justify-content: space-between;
+            width: 100%; /* Ajusta el ancho del contenedor al 100% */
                 
-            input{                
+            input {                
                 padding-left: 0.5vw;   
                 border:none;
                 border-right:1px solid #ccc;   
                 width: 90%;
-                             
+                width: 100%; /* Ajusta el ancho del input al 100% */
             }
-            .icon{      
+            .icon {      
                 width: 10%;   
                 display: flex;
                 align-items: center;
                 flex-direction: column;
                 justify-content: space-between;  
-                .password-icon{                    
+                .password-icon {                    
                     justify-content: center;
                     display: flex; /* Añadir esta línea */                    
                 }
             }
         }
-        
-        label{
+        p{
+            margin-top: 0.1vw;
+            font-size: 1.2vw;
+        }
+        label {
             margin-top: 0.5vw;
             font-size: 1.2vw;
         }
-        input{          
+        input {          
             padding-left: 0.5vw;   
             border: 1px solid #ccc; /* Añade un borde */
-            font-size: 1.2vw;     
+            font-size: 1.2vw; 
+            width: 100%; /* Ajusta el ancho del input al 100% */
         }
-        select{
+        select {
             border: 1px solid #ccc; /* Añade un borde */
             padding-left: 0.5vw;   
             font-size: 1.2vw;
+            width: 100%; /* Ajusta el ancho del select al 100% */
         }
-        .actions{
+        .actions {
             display: flex;
             padding-top: 1vw;
             justify-content: space-between;
-            button{                    
+            width: 100%; /* Ajusta el ancho del contenedor de botones al 100% */
+            
+            button {                    
                 font-weight: 600;
-                font-size:1vw;
+                font-size: 1vw;
                 padding: 1vw;
                 margin-bottom: 0;
                 margin-right: 0;

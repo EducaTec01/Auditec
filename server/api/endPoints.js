@@ -24,6 +24,7 @@ router.get('/ping', ping);
 router.get('/auditorias', Auditoria.getAll)
 // Ruta para actualizar una auditoria por su id
 router.put('/auditoria/:idAuditoria', Auditoria.updateById);
+// Ruta para eliminar la auditoria
 router.put('/auditoria/delete/:id', Auditoria.delete);
 // Ruta para verificar si un nombre de auditoria ya existe
 router.get('/auditoria/check-roomname/:nombreAuditoria/:idAuditoria', Auditoria.checkRoomname);
@@ -35,6 +36,10 @@ router.get('/auditoria/seccion', Auditoria.seccion);
 router.get('/auditoria/departamento', Auditoria.findDepartamento);
 // Ruta para obtener las subsecciones de la seccion
 router.get('/auditoria/subseccion', Auditoria.subseccion);
+// Ruta para obtener los auditores para la subseccion de la auditoria
+router.get('/auditoria/auditor', Auditoria.auditor);
+// Ruta para obtener los auditados para la subseccion de la auditoria
+router.get('/auditoria/auditado', Auditoria.auditado);
 
 
 

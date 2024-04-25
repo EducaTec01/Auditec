@@ -3,7 +3,8 @@ const db = require('../models/db');
 const Auditoria = {};
 
 Auditoria.getAll = (req, res) => {
-    db.query("SELECT A.*, D.nombre AS nombre_departamento FROM Auditoria A JOIN Departamentos D ON A.id_departamentos = D.id WHERE A.estado != 'ELIMINADA'", (err, result) => {
+    db.query("SELECT a.id AS id, s.nombre AS nombre_seccion, l.nombre AS nombre_auditado, a.fecha_inicio, a.fecha_final, a.id_departamento, d.nombre AS nombre_departamento, a.estado FROM Auditoria a JOIN Seccion s ON a.id_seccion = s.id JOIN Login l ON a.id_auditado = l.id JOIN Departamentos d ON a.id_departamento = d.id WHERE a.estado = 'ACTIVA'", 
+    (err, result) => {
         if (err) {
             console.error("Error al obtener las auditorias: ", err);
             res.status(500).json({ error: "Error al obtener las auditorias" });
@@ -87,29 +88,107 @@ Auditoria.subseccion = (req,res)=> {
     });
 };
 
+//Crear la auditoria con cada una de sus subsecciones
 Auditoria.create = (req, res) => {
-    const { nombreAuditoria, Descripcion, horarioInicio, horarioFinal } = req.body;
+    const { idSeccion, idEncargado, fechaInicio, fechaFinal, idDepartamento, subsecciones } = req.body;
+
+    // Consulta SQL para verificar si ya existe una auditoría para ese departamento, esa sección y esas fechas
+    const checkAuditoriaQuery = "SELECT COUNT(*) AS count FROM Auditoria WHERE id_departamento = ? AND estado = 'ACTIVA' AND id_seccion = ? AND ((fecha_inicio BETWEEN ? AND ?) OR (fecha_final BETWEEN ? AND ?))";
+
     db.query(
-        "INSERT INTO Auditoria (nombreAuditoria, Descripcion, horarioInicio, horarioFinal) VALUES (?, ?, ?, ?)",
-        [nombreAuditoria, Descripcion, horarioInicio, horarioFinal],
+        checkAuditoriaQuery,
+        [idDepartamento, idSeccion, fechaInicio, fechaFinal, fechaInicio, fechaFinal],
         (err, result) => {
             if (err) {
-                console.error("Error al crear la auditoria: ", err);
-                res.status(500).json({ error: "Error al crear la auditoria" });
+                console.error("Error al verificar la existencia de la auditoría: ", err);
+                res.status(500).json({ error: "Error al verificar la existencia de la auditoría" });
                 return;
             }
-            console.log("Auditoria creada: ", result);
-            res.json(result);
+
+            const count = result[0].count;
+
+            if (count > 0) {
+                console.error("Ya existe una auditoría para este departamento, esta sección y estas fechas.");
+                res.status(400).json({ error: "Ya existe una auditoría para este departamento, esta sección y estas fechas." });
+                return;
+            }
+
+            // Si no existe una auditoría para ese departamento, esa sección y esas fechas, iniciar la transacción
+            db.beginTransaction((err) => {
+                if (err) {
+                    console.error("Error al iniciar la transacción: ", err);
+                    res.status(500).json({ error: "Error al iniciar la transacción" });
+                    return;
+                }
+
+                // Insertar la auditoría principal en la tabla Auditoria
+                db.query(
+                    "INSERT INTO Auditoria (id_seccion, id_auditado, fecha_inicio, fecha_final, id_departamento, estado) VALUES (?, ?, ?, ?, ?,'ACTIVA')",
+                    [idSeccion, idEncargado, fechaInicio, fechaFinal, idDepartamento],
+                    (err, result) => {
+                        if (err) {
+                            console.error("Error al crear la auditoria principal: ", err);
+                            db.rollback(() => {
+                                res.status(500).json({ error: "Error al crear la auditoria principal" });
+                            });
+                            return;
+                        }
+
+                        console.log("Auditoria principal creada: ", result);
+
+                        // Obtener el ID de la auditoria principal recién creada
+                        const idAuditoria = result.insertId;
+
+                        // Insertar las subsecciones en la tabla Auditoria_subsecciones
+                        const insertSubseccionesQuery = "INSERT INTO Auditoria_subsecciones (id_auditoria, id_auditor, id_subseccion, comentarios, nomenclatura, estado) VALUES (?, ?, ?, ?, ?, 'ACTIVA')";
+
+                        subsecciones.forEach((subseccion) => {
+                            db.query(
+                                insertSubseccionesQuery,
+                                [idAuditoria, subseccion.idAuditor, subseccion.idSubseccion, subseccion.comentarios, subseccion.nomenclatura],
+                                (err, result) => {
+                                    if (err) {
+                                        console.error("Error al insertar subsección: ", err);
+                                        db.rollback(() => {
+                                            res.status(500).json({ error: "Error al insertar subsección" });
+                                        });
+                                        return;
+                                    }
+
+                                    console.log("Subsección insertada: ", result);
+                                }
+                            );
+                        });
+
+                        // Confirmar la transacción
+                        db.commit((err) => {
+                            if (err) {
+                                console.error("Error al confirmar la transacción: ", err);
+                                db.rollback(() => {
+                                    res.status(500).json({ error: "Error al confirmar la transacción" });
+                                });
+                                return;
+                            }
+
+                            console.log("Transacción completada exitosamente.");
+                            res.json({ message: "Auditoría y subsecciones creadas exitosamente" });
+                        });
+                    }
+                );
+            });
         }
     );
 };
+
+
 
 Auditoria.findDepartamento = (req, res) => {
     const fechaInicio = req.query.fechaInicio;
     const fechaFinal = req.query.fechaFinal;
     const idSeccion = req.query.seccion;
 
-    db.query("SELECT d.nombre AS nombre FROM Departamentos d WHERE d.id NOT IN (SELECT a.id_departamento FROM Auditoria a WHERE (a.id_seccion = ? AND a.fecha_inicio <= ? AND a.fecha_final >= ?) OR (a.id_seccion = ? AND a.fecha_inicio <= ? AND a.fecha_final >= ?))",[idSeccion,fechaInicio,fechaInicio,idSeccion,fechaFinal,fechaFinal], (err, result) => {
+    db.query("SELECT * FROM Departamentos d WHERE NOT EXISTS (SELECT 1 FROM Auditoria a WHERE (a.id_departamento = d.id AND a.estado = 'ACTIVA' AND a.fecha_inicio <= ? AND a.fecha_final >= ?) AND a.id_seccion = ?)",
+    [fechaFinal,fechaInicio,idSeccion], (err, result) => {    
         if (err) {
             console.error("Error al obtener los departamentos: ", err);
             res.status(500).json({ error: "Error al obtener los departamentos" });
@@ -120,5 +199,28 @@ Auditoria.findDepartamento = (req, res) => {
         res.json(result);
     });
 };
+
+Auditoria.auditor = (req, res) => {
+    db.query("SELECT id, nombre FROM Login WHERE Acceso = 'Auditor'", (err, result) => {
+        if (err) {
+            console.error("Error al obtener los auditores: ", err);
+            res.status(500).json({ error: "Error al obtener los auditores" });
+            return;
+        }
+        res.json(result);
+    });
+}
+
+Auditoria.auditado = (req, res) => {
+    db.query("SELECT id, nombre FROM Login WHERE Acceso = 'auditado'", (err, result) => {
+        if (err) {
+            console.error("Error al obtener los auditados: ", err);
+            res.status(500).json({ error: "Error al obtener los auditados" });
+            return;
+        }
+        res.json(result);
+    });
+}
+
 
 module.exports = Auditoria;

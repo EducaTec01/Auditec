@@ -10,7 +10,6 @@ import Reportes from "./pages/reportes/reportes"
 import HistorialesJefa from "./pages/historialesJefa/historialesJefa"
 import HistorialesJefa2 from "./pages/historialesJefa2/historialesJefa2"
 import Asignacion from "./pages/asignacion/asignacion"
-import Preguntas from "./pages/preguntas/preguntas"
 import Formulario from "./pages/formulario/formulario"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./style/dark.scss";
@@ -89,7 +88,6 @@ function App() {
             <Route path="/capacitacion" element={<PrivateRoute2 element={Capacitacion} />} />
             <Route path="/tutoriales" element={<PrivateRoute2 element={Tutoriales} />} />
             <Route path="/asignacion/:id" element={<PrivateRoute2 element={Asignacion} />} />
-            <Route path="/preguntas" element={<PrivateRoute2 element={Preguntas} />} />
             <Route path="/asignacion/:id/formulario" element={<PrivateRoute2 element={Formulario} />} />
             <Route path="/homeAuditor" element={<PrivateRoute2 element={HomeAuditor}/>}/>
             <Route path="asignacionesAuditor" element={<PrivateRoute2 element={AsignacionesAuditor}/>}/>

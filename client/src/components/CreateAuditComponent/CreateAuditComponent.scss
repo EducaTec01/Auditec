@@ -11,11 +11,30 @@
     align-items: center;      
     .container{      
            
-        width: 85%;  
+        width: 100%;  
         flex-direction: column;
         display: flex; 
         .select{
             font-size: 1.2vw;
+        }
+        .selected-subsection{
+            display: flex;
+            margin-top: 0.5vw;
+            .selected-subsections{
+                width: 50%;
+                align-content: center;
+                span{             
+                    margin-right: 3vw;
+                    font-size: 1vw;
+                }                
+            }
+            button{                    
+                font-weight: 600;
+                font-size:1vw;
+                padding: 1vw;
+                margin-bottom: 0;
+                margin-right: 0;
+            }           
         }
         .password-input-container{
             border: 1px solid #ccc; /* Añade un borde */

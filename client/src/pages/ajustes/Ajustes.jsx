@@ -54,7 +54,7 @@ const Ajustes = () => {
     setIsCreating(false);
   };
 
-  const handleSaveModification = (modifiedItem) => {
+  const handleSave = (modifiedItem) => {
     setSelectedItem(null);
     setIsEditing(false);
     setIsCreating(false);
@@ -106,6 +106,7 @@ const Ajustes = () => {
       }));
     }
   };
+  
 
   const handleShowCreateUser = () => {
     setIsCreating(true);
@@ -146,25 +147,25 @@ const Ajustes = () => {
               {isCreating && dataType === 'usuarios' && 
                 <CreateUserComponent 
                   onCancel={handleCancelModification}                  
-                  onSave={handleSaveModification} 
+                  onSave={handleSave} 
                 />} 
               {isCreating && dataType === 'auditorias' && 
                 <CreateAuditComponent 
                   onCancel={handleCancelModification}                  
-                  onSave={handleSaveModification}               
+                  onSave={handleSave}               
                 />} 
               {isEditing && dataType === 'usuarios' && (
                 <ModifyUserComponent 
                   user={selectedItem} 
                   onCancel={handleCancelModification} 
-                  onSave={handleSaveModification} 
+                  onSave={handleSave} 
                 />
               )}
               {isEditing && dataType === 'auditorias' && (
                 <ModifyAuditComponent 
                   audit={selectedItem} 
                   onCancel={handleCancelModification} 
-                  onSave={handleSaveModification} 
+                  onSave={handleSave} 
                 />
               )}
               {!isCreating && !isEditing && (
@@ -184,13 +185,13 @@ const Ajustes = () => {
                       <h3>{dataType === 'auditorias' ? item.nombre_departamento  : item.nombre}</h3>
                       <p>
                         {dataType === 'auditorias' 
-                          ? ""
+                          ? <span>Área estratégica: <em>{item.nombre_seccion}</em></span>
                           : <span>Correo Electrónico: <em>{item.correoElectronico}</em></span>
                         }
                       </p>
                       <p>
                         {dataType === 'auditorias' 
-                          ? ""
+                          ? <span>Encargado: {item.nombre_auditado}</span>
                           : <span>Tipo de cuenta: <em>{item.Acceso}</em></span>
                         }
                       </p>                      

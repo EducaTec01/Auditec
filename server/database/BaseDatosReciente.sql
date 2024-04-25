@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS AuditoriaPrueba;
 -- Usar la base de datos Auditoria
 USE AuditoriaPrueba;
 
--- Crear la tabla Login
+-- Crear la tabla Login para iniciar sesión y administrar usuarios
 CREATE TABLE IF NOT EXISTS Login (
     user varchar(50) not null,
     password varchar(50) not null,
@@ -15,27 +15,19 @@ CREATE TABLE IF NOT EXISTS Login (
     Acceso ENUM('Jefa', 'Auditor', 'auditado', 'INACTIVO')
 );
 
--- Crear tabla departamentos
+-- Crear tabla departamentos para conocer los departamentos
 CREATE TABLE IF NOT EXISTS Departamentos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100)
 );
 
-CREATE TABLE IF NOT EXISTS Auditoria (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    fecha_inicio DATE,
-    fecha_final DATE,
-    id_departamentos INT, -- Crear una llave foránea al id de Departamentos
-    estado ENUM ('TERMINADA', 'PENDIENTE', 'ELIMINADA', 'VIGENCIA', 'ACTIVA'),
-    FOREIGN KEY (id_departamentos) REFERENCES Departamentos(id)
-);
-
+-- Areas estrategicas como vinculación o planeación
 CREATE TABLE IF NOT EXISTS Seccion (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100)
 );
 
-
+-- Procedimientos de las diferentes áreas estratégicas
 CREATE TABLE IF NOT EXISTS Subseccion (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
@@ -44,24 +36,35 @@ CREATE TABLE IF NOT EXISTS Subseccion (
     FOREIGN KEY (idseccion) REFERENCES Seccion(id)
 );
 
--- Crear la tabla Asignacion
-CREATE TABLE IF NOT EXISTS Asignacion (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_auditoria INT,
-    id_auditor INT,
-    id_auditado INT, -- encargado?    
+-- Cada auditoria es para una área estratégica para un determinado departamento con diferentes procedimientos 
+CREATE TABLE IF NOT EXISTS Auditoria (
+	id INT AUTO_INCREMENT PRIMARY KEY,
     id_seccion INT,
-    id_subseccion INT,
-    nomenclatura VARCHAR(100), -- QUE ES ESO
-    comentarios TEXT,
-    estado ENUM ('TERMINADA','ACTIVA','VIGENCIA', 'ELIMINADA'),
-    FOREIGN KEY (id_auditoria) REFERENCES Auditoria(id),          
-    FOREIGN KEY (id_subseccion) REFERENCES Subseccion(id),   
+    id_auditado INT,
+    fecha_inicio DATE,
+    fecha_final DATE,
+    id_departamento INT,
+    estado ENUM ('TERMINADA', 'PENDIENTE', 'ELIMINADA', 'VIGENCIA', 'ACTIVA', 'INCONFORMIDAD'),
+    FOREIGN KEY (id_departamento) REFERENCES Departamentos(id),
     FOREIGN KEY (id_seccion) REFERENCES Seccion(id),      
-    FOREIGN KEY (id_auditado) REFERENCES Login(id),    
-    FOREIGN KEY (id_auditor) REFERENCES Login(id) 
+    FOREIGN KEY (id_auditado) REFERENCES Login(id)
 );
 
+-- Cada auditoria conlleva diferentes procedimientos, pueden ser a veces uno, otras ocasiones tres, todos referentes a su respectiva área estratégica
+CREATE TABLE IF NOT EXISTS Auditoria_subsecciones(	
+	id INT AUTO_INCREMENT PRIMARY KEY,    
+	id_auditoria INT, 
+    id_auditor INT,
+    id_subseccion INT,    
+    comentarios TEXT,
+    nomenclatura VARCHAR(100),    
+    estado ENUM ('TERMINADA', 'PENDIENTE', 'ELIMINADA', 'VIGENCIA', 'ACTIVA', 'INCONFORMIDAD'),
+    FOREIGN KEY (id_auditor) REFERENCES Login(id),
+    FOREIGN KEY (id_auditoria) REFERENCES Auditoria(id),	
+    FOREIGN KEY (id_subseccion) REFERENCES Subseccion(id) 
+);
+
+-- Registro de las preguntas pertenecientes a un procedimiento de un área estratégica en específico
 CREATE TABLE IF NOT EXISTS Preguntas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pregunta TEXT,
@@ -72,24 +75,26 @@ CREATE TABLE IF NOT EXISTS Preguntas (
     FOREIGN KEY (idsubseccion) REFERENCES Subseccion(id)
 );
 
+-- Registro de las respuestas 
 CREATE TABLE IF NOT EXISTS Respuestas (
     id_pregunta INT,
-    id_asignacion INT,
+    id_auditoria INT,
     respuesta TEXT NOT NULL,
     fecha_respuesta DATE,
     genera_inconformidad BOOLEAN DEFAULT FALSE,
-    PRIMARY KEY (id_pregunta, id_asignacion),  -- Clave primaria compuesta
+    PRIMARY KEY (id_pregunta, id_auditoria),
     FOREIGN KEY (id_pregunta) REFERENCES Preguntas(id),
-    FOREIGN KEY (id_asignacion) REFERENCES Asignacion(id)
+    FOREIGN KEY (id_auditoria) REFERENCES Auditoria(id)
 );
 
+-- Lo mismo que respuestas pero almacenando volumenes grandes de información
 CREATE TABLE IF NOT EXISTS Evidencias (
     id_pregunta INT,
-    id_asignacion INT,
+    id_auditoria INT,
     evidencia MEDIUMBLOB NOT NULL,    
-    PRIMARY KEY (id_pregunta, id_asignacion),  -- Clave primaria compuesta
+    PRIMARY KEY (id_pregunta, id_auditoria),  -- Clave primaria compuesta
     FOREIGN KEY (id_pregunta) REFERENCES Preguntas(id),
-    FOREIGN KEY (id_asignacion) REFERENCES Asignacion(id)
+    FOREIGN KEY (id_auditoria) REFERENCES Auditoria(id)
 );
 
 -- Inserts de departamentos
@@ -114,11 +119,6 @@ INSERT INTO Departamentos (nombre) VALUES
 	('Formación integral'),
 	('Gestión tecnológica y vinculación');
 
-INSERT INTO Auditoria (fecha_inicio, fecha_final, id_departamentos, estado) VALUES
-	('2024-03-01', '2024-03-15', 1, 'ACTIVA'),
-	('2024-03-01', '2024-03-15', 2, 'ACTIVA'), 
-	('2024-03-01', '2024-03-15', 3, 'ACTIVA');
-
 INSERT INTO Login (user, password, correoElectronico, nombre, Acceso) VALUES
 	('usuario1', 'contraseña1', 'usuario1@example.com', 'nombre1', 'Jefa'),
 	('usuario2', 'contraseña2', 'usuario2@example.com', 'nombre2', 'Auditor'),
@@ -133,14 +133,7 @@ INSERT INTO Seccion (nombre) VALUES
 	('Administrativos'),
 	('Académicos'),
 	('Vinculación');
-
--- Insertar filas en la tabla Asignacion
-INSERT INTO Asignacion (id_auditoria, id_auditor, id_auditado, id_seccion, nomenclatura, comentarios, estado) VALUES 
-	(1, 1, 2, 3, 'ASIG-001', 'Comentario de la asignación 1', 'ACTIVA'),
-	(2, 2, 3, 1, 'ASIG-002', 'Comentario de la asignación 2', 'VIGENCIA'),
-	(3, 3, 1, 2, 'ASIG-003', 'Comentario de la asignación 3', 'TERMINADA');
-
-
+    
 -- Insertar datos en Subseccion con los enlaces en un solo INSERT
 INSERT INTO Subseccion (nombre, idseccion, link) VALUES 
     ('ITI-PL-IT-01', (SELECT id FROM Seccion WHERE nombre = 'Planeación'), 'https://drive.google.com/file/d/1p0OK7DstdI7JD4MGVvplGxoVv7UQXiMx/view'),
