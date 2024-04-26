@@ -16,11 +16,11 @@ const AsignacionesAuditor = () => {
       fetchAsignaciones();
     }, []);
 
-    const nombreUsuario = sessionStorage.getItem('nombre'); // Obtener el nombre del usuario del sessionStorage
+    const idUSuario = sessionStorage.getItem('id'); // Obtener el nombre del usuario del sessionStorage
 
     const fetchAsignaciones = () => {
-        console.log(nombreUsuario)
-      fetch(`http://localhost:3001/asignacionesAllAuditor/${nombreUsuario}`) // Pasar el nombre del usuario en la URL
+        console.log(idUSuario)
+      fetch(`http://localhost:3001/asignacionesAllAuditor/${idUSuario}`) // Pasar el nombre del usuario en la URL
         .then((response) => {
           if (!response.ok) {
             throw new Error("Error al obtener las asignaciones");
@@ -29,11 +29,11 @@ const AsignacionesAuditor = () => {
         })
         .then((data) => {
             // Formatear la fecha de vencimiento
-            const asignacionesFormateadas = data.map((asignacion) => ({
-                ...asignacion,
-                fecha_final: new Date(asignacion.fecha_final).toISOString().split("T")[0]
-            }));
-            setAsignaciones(asignacionesFormateadas);
+            // const asignacionesFormateadas = data.map((asignacion) => ({
+            //     ...asignacion,
+            //     fecha_final: new Date(asignacion.fecha_final).toISOString().split("T")[0]
+            // }));
+            setAsignaciones(data);
             setLoading(false);
             setError(null);
         })
@@ -64,18 +64,18 @@ const AsignacionesAuditor = () => {
                   <tr>
                     <th>Asignación</th>
                     <th>Auditor</th>
-                    <th>Departamento</th>
+                    <th>Seccion</th>
                     <th>Fecha</th>
-                    <th>Acciones</th>
+                    <th>Auditado</th>
                   </tr>
                 </thead>
                 <tbody>
                   {asignaciones.map((asignacion) => (
                     <tr key={asignacion.id}>
                       <td>{asignacion.id}</td>
-                      <td>{asignacion.auditor}</td>
-                      <td>{asignacion.departamento}</td>
-                      <td>{asignacion.fecha_final}</td>
+                      <td>{asignacion.id_auditor}</td>
+                      <td>{asignacion.id_seccion}</td>
+                      <td>{asignacion.auditado}</td>
                       <td>
                         <div className="acciones">
                           <a href={`/asignacion/${asignacion.id}`}>
