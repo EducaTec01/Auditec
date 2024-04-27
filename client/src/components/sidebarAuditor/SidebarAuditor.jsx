@@ -55,16 +55,17 @@ const SidebarAuditor  = () => {
               <span>Capacitacion</span>
             </li>
           </Link>
-        </ul>
-        <hr className="linea" />
-        <ul className="general">
-          <p className="title">General</p>          
           <Link to="/preguntas" style={{ textDecoration: "none" }}>
             <li>
               <HelpIcon className="icon" />
               <span>Preguntas</span>
             </li>
           </Link>
+        </ul>
+        <hr className="linea" />
+        <ul className="general">
+          <p className="title">General</p>          
+          
         </ul>
       </div>
     </div>
