@@ -11,8 +11,6 @@ Departamento.getAll = (req, res) => {
             res.status(500).json({ error: "Error al obtener los departamentos" });
             return;
         }
-
-        console.log("Departamentos encontrados: ", result);
         res.json(result);
     });
 };

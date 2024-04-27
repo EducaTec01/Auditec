@@ -2,33 +2,14 @@ import React, { useState, useEffect } from 'react';
 import "./CreateAuditComponentSections.scss";
 
 const CreateAuditComponentSections = ({ modifiedAudit, onCancel }) => {
-  const [auditores, setAuditores] = useState([]);
-
-  const fetchAuditores = async () => {
-    try {
-      const response = await fetch('http://localhost:3001/auditoria/auditor');
-      if (response.ok) {
-        const data = await response.json();
-        setAuditores(data);        
-      } else {
-        throw new Error('Error al obtener auditores');
-      }
-    } catch (error) {
-      console.error(error);
-      // Manejar el error como prefieras
-    }
-  };
-
-  useEffect(() => {
-    fetchAuditores();
-  }, []);
+  
 
   const handleCreate = async () => {
     try {
-      const { fechaInicio, fechaFinal, auditseccion, departamento, encargado } = modifiedAudit;
+      const { fechaInicio, fechaFinal, auditseccion, departamento, encargado, auditores } = modifiedAudit;
   
       // Verificar que todos los campos requeridos estén presentes
-      if (!fechaInicio || !fechaFinal || !auditseccion || !departamento || !encargado) {
+      if (!fechaInicio || !fechaFinal || !auditseccion || !departamento || !encargado || !auditores) {
         console.error("Todos los campos deben estar completos para crear la auditoría");
         return;
       }
@@ -36,7 +17,6 @@ const CreateAuditComponentSections = ({ modifiedAudit, onCancel }) => {
       // Crear un array de objetos que contenga los datos de cada subsección
       const subseccionesData = modifiedAudit.subsecciones.map((subseccion, index) => ({
         idSubseccion: subseccion.value,
-        idAuditor: document.getElementById(`auditor_${index}`).value,
         comentarios: document.getElementById(`comentarios_${index}`).value,
         nomenclatura: document.getElementById(`nomenclatura_${index}`).value
       }));
@@ -47,6 +27,7 @@ const CreateAuditComponentSections = ({ modifiedAudit, onCancel }) => {
         idEncargado: encargado.value,
         fechaInicio,
         fechaFinal,
+        idAuditor: auditores.value,
         idDepartamento: departamento.value,
         subsecciones: subseccionesData
       };
@@ -82,23 +63,15 @@ const CreateAuditComponentSections = ({ modifiedAudit, onCancel }) => {
             <p>Área estratégica: {modifiedAudit.auditseccion && modifiedAudit.auditseccion.label}</p>
             {/* Agrega el departamento y el encargado debajo de la sección */}
             <p>Departamento: {modifiedAudit.departamento && modifiedAudit.departamento.label}</p>
-            <p>Encargado: {modifiedAudit.encargado && modifiedAudit.encargado.label}</p>
+            <p>Encargado: {modifiedAudit.encargado && modifiedAudit.encargado.label}</p>            
+            <p>Auditor: {modifiedAudit.auditores && modifiedAudit.auditores.label}</p>
 
             {/* Despliegue de subsecciones */}
             <div className="subsections">
               <h2>Procedimientos</h2>
               {modifiedAudit.subsecciones?.map((subseccion, index) => (
                 <div key={index} className="subsection-item">
-                  <span>{subseccion.label}</span>
-                  <div>
-                    <label htmlFor={`auditor_${index}`}>Selecciona un auditor:</label>
-                    <select id={`auditor_${index}`} name={`auditor_${index}`}>
-                      <option value="">Selecciona un auditor</option>
-                      {auditores && auditores.map((auditor, i) => (
-                        <option key={i} value={auditor.id}>{auditor.nombre}</option>
-                      ))}
-                    </select>
-                  </div>
+                  <span>{subseccion.label}</span>                  
                   <div>
                     <label htmlFor={`comentarios_${index}`}>Comentarios:</label>
                     <input type="text" id={`comentarios_${index}`} name={`comentarios_${index}`} />

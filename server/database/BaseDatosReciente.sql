@@ -40,26 +40,26 @@ CREATE TABLE IF NOT EXISTS Subseccion (
 CREATE TABLE IF NOT EXISTS Auditoria (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     id_seccion INT,
-    id_auditado INT,
+    id_auditado INT,    
+    id_auditor INT,
     fecha_inicio DATE,
     fecha_final DATE,
     id_departamento INT,
     estado ENUM ('TERMINADA', 'PENDIENTE', 'ELIMINADA', 'VIGENCIA', 'ACTIVA', 'INCONFORMIDAD'),
     FOREIGN KEY (id_departamento) REFERENCES Departamentos(id),
     FOREIGN KEY (id_seccion) REFERENCES Seccion(id),      
-    FOREIGN KEY (id_auditado) REFERENCES Login(id)
+    FOREIGN KEY (id_auditado) REFERENCES Login(id),    
+    FOREIGN KEY (id_auditor) REFERENCES Login(id)
 );
 
 -- Cada auditoria conlleva diferentes procedimientos, pueden ser a veces uno, otras ocasiones tres, todos referentes a su respectiva área estratégica
 CREATE TABLE IF NOT EXISTS Auditoria_subsecciones(	
 	id INT AUTO_INCREMENT PRIMARY KEY,    
 	id_auditoria INT, 
-    id_auditor INT,
     id_subseccion INT,    
     comentarios TEXT,
     nomenclatura VARCHAR(100),    
     estado ENUM ('TERMINADA', 'PENDIENTE', 'ELIMINADA', 'VIGENCIA', 'ACTIVA', 'INCONFORMIDAD'),
-    FOREIGN KEY (id_auditor) REFERENCES Login(id),
     FOREIGN KEY (id_auditoria) REFERENCES Auditoria(id),	
     FOREIGN KEY (id_subseccion) REFERENCES Subseccion(id) 
 );

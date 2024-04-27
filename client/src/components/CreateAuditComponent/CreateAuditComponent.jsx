@@ -7,7 +7,7 @@ import "./CreateAuditComponent.scss";
 // Define el componente CreateAuditComponent
 const CreateAuditComponent = ({ onCancel }) => {
   // Estado inicial y funciones de manipulación del estado
-  const initialAudit = { fechaInicio: "", fechaFinal: "", auditseccion: null, departamento: null, subsecciones: [], encargado: null };
+  const initialAudit = { fechaInicio: "", fechaFinal: "", auditseccion: null, departamento: null, subsecciones: [], encargado: null, auditores:null};
   const [modifiedAudit, setModifiedAudit] = useState(initialAudit);
   const [startTimeError, setStartTimeError] = useState(false);
   const [endTimeError, setEndTimeError] = useState(false);
@@ -18,11 +18,13 @@ const CreateAuditComponent = ({ onCancel }) => {
   const [isSelectionComplete, setIsSelectionComplete] = useState(false);
   const [showSectionsComponent, setShowSectionsComponent] = useState(false);
   const [showSelectProcedureMessage, setShowSelectProcedureMessage] = useState(false);
+  const [auditores, setAuditores] = useState([]);
 
   // Funciones para manejar los efectos secundarios
   useEffect(() => {
     fetchSecciones();
     fetchAuditados();
+    fetchAuditores();
   }, []);
 
   useEffect(() => {
@@ -92,6 +94,23 @@ const CreateAuditComponent = ({ onCancel }) => {
     }
   };
 
+  
+  const fetchAuditores = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/auditoria/auditor');
+      if (response.ok) {
+        const data = await response.json();
+        setAuditores(data.map(auditores => ({ value: auditores.id, label: auditores.nombre })));      
+      } else {
+        throw new Error('Error al obtener auditores');
+      }
+    } catch (error) {
+      console.error(error);
+      // Manejar el error como prefieras
+    }
+  };
+
+
   // Función para eliminar una subsección
   const handleRemoveSubseccion = (index) => {
     const updatedSubsecciones = [...modifiedAudit.subsecciones];
@@ -132,6 +151,10 @@ const CreateAuditComponent = ({ onCancel }) => {
   // Función para manejar el cambio de encargado
   const handleEncargadoChange = (selectedOption) => {
     setModifiedAudit({ ...modifiedAudit, encargado: selectedOption });
+  };
+
+  const handleAuditorChange = (selectedOption) => {
+    setModifiedAudit({ ...modifiedAudit, auditores: selectedOption }); // Corregir el manejo del cambio de auditor
   };
 
   // Función para alternar la visualización del componente de secciones
@@ -233,6 +256,15 @@ const CreateAuditComponent = ({ onCancel }) => {
               className="select"
               isDisabled={!isSelectionComplete || !modifiedAudit.departamento} 
             />
+            <label htmlFor="auditor">Auditor:</label>
+            <Select
+              value={modifiedAudit.auditores}
+              onChange={handleAuditorChange}
+              options={auditores}
+              placeholder="Selecciona un auditor"
+              className="select"
+              isDisabled={!isSelectionComplete || !modifiedAudit.departamento}
+            />   
             <div className="actions">
               <button 
                 style={{ backgroundColor: '#f2f2f2', color: 'black', marginRight: '0.5vw', border: '0.2vw solid #f2f2f2', padding: '1vw 1vw', borderRadius: '0.5vw', cursor: 'pointer' }}                              

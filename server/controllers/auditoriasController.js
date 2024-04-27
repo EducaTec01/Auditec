@@ -90,7 +90,7 @@ Auditoria.subseccion = (req,res)=> {
 
 //Crear la auditoria con cada una de sus subsecciones
 Auditoria.create = (req, res) => {
-    const { idSeccion, idEncargado, fechaInicio, fechaFinal, idDepartamento, subsecciones } = req.body;
+    const { idSeccion, idEncargado, fechaInicio, fechaFinal, idDepartamento, idAuditor, subsecciones } = req.body;
 
     // Consulta SQL para verificar si ya existe una auditoría para ese departamento, esa sección y esas fechas
     const checkAuditoriaQuery = "SELECT COUNT(*) AS count FROM Auditoria WHERE id_departamento = ? AND estado = 'ACTIVA' AND id_seccion = ? AND ((fecha_inicio BETWEEN ? AND ?) OR (fecha_final BETWEEN ? AND ?))";
@@ -123,8 +123,8 @@ Auditoria.create = (req, res) => {
 
                 // Insertar la auditoría principal en la tabla Auditoria
                 db.query(
-                    "INSERT INTO Auditoria (id_seccion, id_auditado, fecha_inicio, fecha_final, id_departamento, estado) VALUES (?, ?, ?, ?, ?,'ACTIVA')",
-                    [idSeccion, idEncargado, fechaInicio, fechaFinal, idDepartamento],
+                    "INSERT INTO Auditoria (id_seccion, id_auditado, id_auditor, fecha_inicio, fecha_final, id_departamento, estado) VALUES (?, ?, ?, ?, ?, ?,'ACTIVA')",
+                    [idSeccion, idEncargado, idAuditor, fechaInicio, fechaFinal, idDepartamento],
                     (err, result) => {
                         if (err) {
                             console.error("Error al crear la auditoria principal: ", err);
@@ -140,12 +140,12 @@ Auditoria.create = (req, res) => {
                         const idAuditoria = result.insertId;
 
                         // Insertar las subsecciones en la tabla Auditoria_subsecciones
-                        const insertSubseccionesQuery = "INSERT INTO Auditoria_subsecciones (id_auditoria, id_auditor, id_subseccion, comentarios, nomenclatura, estado) VALUES (?, ?, ?, ?, ?, 'ACTIVA')";
+                        const insertSubseccionesQuery = "INSERT INTO Auditoria_subsecciones (id_auditoria, id_subseccion, comentarios, nomenclatura, estado) VALUES (?, ?, ?, ?, 'ACTIVA')";
 
                         subsecciones.forEach((subseccion) => {
                             db.query(
                                 insertSubseccionesQuery,
-                                [idAuditoria, subseccion.idAuditor, subseccion.idSubseccion, subseccion.comentarios, subseccion.nomenclatura],
+                                [idAuditoria, subseccion.idSubseccion, subseccion.comentarios, subseccion.nomenclatura],
                                 (err, result) => {
                                     if (err) {
                                         console.error("Error al insertar subsección: ", err);
@@ -194,8 +194,6 @@ Auditoria.findDepartamento = (req, res) => {
             res.status(500).json({ error: "Error al obtener los departamentos" });
             return;
         }
-
-        console.log("Departamentos encontrados: ", result);
         res.json(result);
     });
 };
