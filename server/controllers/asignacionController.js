@@ -70,11 +70,11 @@ Asignacion.getAll = (req, res) => {
 };
 
 Asignacion.getAllnom = (req, res) => {
-  const { nombre } = req.params; // Extrae el nombre de los parámetros de la ruta
-  console.log(nombre)
-  const query = "SELECT * FROM Asignacion WHERE auditor = ?";
+  const { id } = req.params; // Extrae el nombre de los parámetros de la ruta
+  console.log(id)
+  const query = "SELECT * FROM Asignacion WHERE id_auditor = ?";
 
-  db.query(query, [nombre], (err, result) => {
+  db.query(query, [id], (err, result) => {
       if (err) {
           console.error("Error al obtener las asignaciones: ", err);
           res.status(500).json({ error: "Error al obtener las asignaciones" });
