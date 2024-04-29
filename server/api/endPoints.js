@@ -40,6 +40,8 @@ router.get('/auditoria/subseccion', Auditoria.subseccion);
 router.get('/auditoria/auditor', Auditoria.auditor);
 // Ruta para obtener los auditados para la subseccion de la auditoria
 router.get('/auditoria/auditado', Auditoria.auditado);
+//Ruta para obtener las auditorias de 1 auditor
+router.get(`/auditoriaAllAuditor/:id`, Auditoria.getAllById);
 
 
 
@@ -58,7 +60,7 @@ router.get('/asignacion/:id', Asignacion.findById);
 router.delete('/asignacion/delete/:id', Asignacion.delete);
 router.put('/asignacion/update/:id', Asignacion.updateById);
 router.get('/departamentos', Departamento.getAll);
-router.get(`/asignacionesAllAuditor/:id`, Asignacion.getAllnom);
+
 router.get('/asignacionesgetAllpast', Asignacion.getAllpast);
 
 router.get('/usuarios', Usuario.getAll);

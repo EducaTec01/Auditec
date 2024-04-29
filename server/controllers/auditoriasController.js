@@ -88,6 +88,35 @@ Auditoria.subseccion = (req,res)=> {
     });
 };
 
+Auditoria.getAllById = (req, res) => {
+    const { id } = req.params; // Extrae el nombre de los parámetros de la ruta
+    console.log(id)
+    const query = `SELECT Auditoria.id, 
+                    Auditoria.id_departamento, 
+                    Departamentos.nombre AS nombre_departamento,
+                    Auditoria.id_auditado, 
+                    Login.nombre As nombre_auditado,
+                    Auditoria.id_seccion, 
+                    Seccion.nombre AS nombre_seccion, 
+                    Auditoria.fecha_final 
+                  FROM Auditoria 
+                  JOIN Login ON Auditoria.id_auditado = Login.id
+                  JOIN Seccion ON Auditoria.id_seccion = Seccion.id 
+                  JOIN Departamentos ON Auditoria.id_departamento = Departamentos.id
+                  WHERE Auditoria.id_auditor = ?`;
+  
+    db.query(query, [id], (err, result) => {
+        if (err) {
+            console.error("Error al obtener las asignaciones: ", err);
+            res.status(500).json({ error: "Error al obtener las asignaciones" });
+            return;
+        }
+  
+        console.log("Asignaciones encontradas: ", result);
+        res.json(result);
+    });
+  };
+
 //Crear la auditoria con cada una de sus subsecciones
 Auditoria.create = (req, res) => {
     const { idSeccion, idEncargado, fechaInicio, fechaFinal, idDepartamento, idAuditor, subsecciones } = req.body;

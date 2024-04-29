@@ -20,7 +20,7 @@ const AsignacionesAuditor = () => {
 
     const fetchAsignaciones = () => {
         console.log(idUSuario)
-      fetch(`http://localhost:3001/asignacionesAllAuditor/${idUSuario}`) // Pasar el nombre del usuario en la URL
+      fetch(`http://localhost:3001/auditoriaAllAuditor/${idUSuario}`) // Pasar el nombre del usuario en la URL
         .then((response) => {
           if (!response.ok) {
             throw new Error("Error al obtener las asignaciones");
@@ -29,11 +29,11 @@ const AsignacionesAuditor = () => {
         })
         .then((data) => {
             // Formatear la fecha de vencimiento
-            // const asignacionesFormateadas = data.map((asignacion) => ({
-            //     ...asignacion,
-            //     fecha_final: new Date(asignacion.fecha_final).toISOString().split("T")[0]
-            // }));
-            setAsignaciones(data);
+            const asignacionesFormateadas = data.map((asignacion) => ({
+                ...asignacion,
+                fecha_final: new Date(asignacion.fecha_final).toISOString().split("T")[0]
+            }));
+            setAsignaciones(asignacionesFormateadas);
             setLoading(false);
             setError(null);
         })
@@ -62,20 +62,22 @@ const AsignacionesAuditor = () => {
               <table className="content-table">
                 <thead>
                   <tr>
-                    <th>Asignación</th>
-                    <th>Auditor</th>
-                    <th>Seccion</th>
-                    <th>Fecha</th>
+                    <th>Auditoria</th>
+                    <th>Departamento</th>
                     <th>Auditado</th>
+                    <th>Sección</th>
+                    <th>Fecha</th>
+                    <th>Info</th>
                   </tr>
                 </thead>
                 <tbody>
                   {asignaciones.map((asignacion) => (
                     <tr key={asignacion.id}>
                       <td>{asignacion.id}</td>
-                      <td>{asignacion.id_auditor}</td>
-                      <td>{asignacion.id_seccion}</td>
-                      <td>{asignacion.auditado}</td>
+                      <td>{asignacion.nombre_departamento}</td>
+                      <td>{asignacion.nombre_auditado}</td>
+                      <td>{asignacion.nombre_seccion}</td>
+                      <td>{asignacion.fecha_final}</td>
                       <td>
                         <div className="acciones">
                           <a href={`/asignacion/${asignacion.id}`}>
