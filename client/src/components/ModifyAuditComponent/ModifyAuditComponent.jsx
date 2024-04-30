@@ -49,7 +49,7 @@ const ModifyAuditComponent = ({ room, onCancel, onSave }) => {
     <div className="modify-room">
       <h2>Modificar Consultorio</h2>
       <div className="container">
-        <label htmlFor="nombreConsultorio">Nombre del Consultorio:</label>
+        <label htmlFor="nombreConsultorio">Auditoria</label>
         <input type="text" name="nombreConsultorio" value={modifiedRoom.nombreConsultorio} onChange={handleInputChange} />
         {roomNameExistsError && <span style={{ color: 'red' }}>El nombre del consultorio ya está en uso. Por favor, elija otro.</span>}
         <label htmlFor="descripcion">Descripción:</label>

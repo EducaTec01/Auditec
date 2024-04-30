@@ -9,28 +9,22 @@ const Usuario = function(usuario) {
   this.Acceso = usuario.Acceso;
 };
 
-Usuario.create = (nuevoUsuario, res) => {
-    const password = nuevoUsuario.body.contraseña;
-    const nombre = nuevoUsuario.body.nombre;
-    const user = nuevoUsuario.body.usuario;
-    const correoElectronico = nuevoUsuario.body.correoElectronico;
-    const Acceso = nuevoUsuario.body.acceso
-
-    if (!contraseña || !nombre || !usuario || !correoElectronico || !acceso) {
-      return res.status(400).send("Todos los campos son obligatorios.");
-  }
-    // console.log("Valores de nuevoUsuario:", nuevoUsuario.body.estado);
-    db.query("INSERT INTO Login (user, password, correoElectronico, nombre, Acceso) VALUES (?, ?, ?, ?, ?)", [usuario, contraseña, correoElectronico, nombre, acceso],
-    (err, result) => {
-        if (err) {
-            console.error("Error al crear un nuevo usuario: ", err);
-            return res.status(500).send("Error al crear un nuevo usuario."); // Devolvemos el error al frontend
-        }
-        else{
-            res.status(200).send("Empleado registrado con éxito");
-        }
-    
-    });
+// Método para crear un nuevo usuario
+Usuario.create = (req, res) => {
+  const { user, password, correoElectronico, nombre, Acceso } = req.body;
+  db.query(
+      "INSERT INTO Login (user, password, correoElectronico, nombre, Acceso) VALUES (?, ?, ?, ?, ?)",
+      [user, password, correoElectronico, nombre, Acceso],
+      (err, result) => {
+          if (err) {
+              console.error("Error al crear el usuario: ", err);
+              res.status(500).json({ error: "Error al crear el usuario" });
+              return;
+          }
+          console.log("Usuario creado: ", result);
+          res.json(result);
+      }
+  );
 };
 
 Usuario.checkUsername = (req, res) => {
@@ -150,5 +144,24 @@ Usuario.getAllAcceso = (req, res) => {
     res.json(nombresAcceso); // Devuelve solo los nombres de acceso
 });
 };
+
+// Método para verificar si un nombre de usuario ya existe
+Usuario.checkUsername = (req, res) => {
+  const { nombreUsuario } = req.params;
+  db.query(
+      "SELECT COUNT(*) AS count FROM Login WHERE user = ?",
+      [nombreUsuario],
+      (err, result) => {
+          if (err) {
+              console.error("Error al verificar el nombre de usuario: ", err);
+              res.status(500).json({ error: "Error al verificar el nombre de usuario" });
+              return;
+          }
+          const exists = result[0].count > 0;
+          res.json({ exists });
+      }
+  );
+};
+
 
 module.exports = Usuario;

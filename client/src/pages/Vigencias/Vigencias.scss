@@ -1,71 +1,27 @@
-.vigencias-page{
-    display:flex;
 
-    .vigencias-content{
-        width: 85%;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;       
-    }
-
-    body {
-        background-color: #f2f2f2; /* Fondo gris claro */
-        font-family: Arial, sans-serif;
-        margin: 20px; /* Añade margen al cuerpo */
-    }
-    
-    h1 {
-        color: #333; /* Color del título principal */
-        margin-bottom: 20px; /* Añade margen inferior al título */
-    }
-    
-    table {
-        width: 100%; /* Ancho del 60% para la tabla */
-        border-collapse: collapse;
-        border-radius: 10px; /* Redondea los bordes de la tabla */
-        overflow: hidden; /* Oculta las esquinas redondeadas de las celdas */
-        margin: 20px auto; /* Centra la tabla con margen superior e inferior */
-    }
-    
-    caption {
-        padding: 10px;
-        font-weight: bold;
-        color: #fff; /* Color del texto en el título de la tabla */
-        background-color: #444; /* Color de fondo gris oscuro para el título de la tabla */
-    }
-    
-    th, td {
-        padding: 15px; /* Aumenta el espacio entre el contenido y los bordes */
-        text-align: left;
-        background-color: #fff; /* Fondo blanco para las celdas de la tabla */
-    }
-    
-    th {
-        color: #333; /* Color del texto en las celdas de encabezado */
-    }
-    
-    
-    .boton-cambiar {
-        background-color: #000; /* Fondo negro */
-        color: #fff; /* Texto blanco */
-        padding: 10px; /* Espaciado interno */
-        border: none; /* Sin borde */
-        border-radius: 5px; /* Borde redondeado */
-        cursor: pointer; /* Cursor apuntador */
-    }
-    .vigencias-page {
-        display: flex;
-      
-    }
-    
-    .vigencias-content {
-        opacity: 0;
-        transition: opacity 1.5s ease-in-out; /* Transición para la tabla */
-    }
-    
-    .vigencias-content.show {
-        opacity: 1;
-    }
-    
+.blue-button:hover {
+    background-color: darkblue; /* Cambia el color al pasar el ratón sobre el botón */
 }
+
+.vigencias-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.blue-button {
+    background-color: #4a90e2; /* Cambiamos el color a un azul más cálido */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* Ajusta el margen entre botones si es necesario */
+}
+
+
+/* Comentamos esta regla para evitar que el color cambie al pasar el ratón sobre el botón
+.blue-button:hover {
+    background-color: darkblue; 
+}
+*/

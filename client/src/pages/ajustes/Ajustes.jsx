@@ -182,9 +182,15 @@ const Ajustes = () => {
                       <p>
                         {dataType === 'auditorias' 
                           ? ""
-                          : <span>Tipo de acceso: <em>{item.Acceso}</em></span>
+                          : <span>Correo Electrónico: <em>{item.correoElectronico}</em></span>
                         }
                       </p>
+                      <p>
+                        {dataType === 'auditorias' 
+                          ? ""
+                          : <span>Tipo de cuenta: <em>{item.Acceso}</em></span>
+                        }
+                      </p>                      
                         {dataType === 'auditorias' && item.fecha_inicio && (
                         <p>{"Fecha de Inicio: " + item.fecha_inicio.slice(0, 10)}</p>
                       )}
@@ -196,7 +202,7 @@ const Ajustes = () => {
                           <>
                             <p>
                               <em>
-                                {dataType === 'auditorias' ? 'Todas las citas asignadas serán canceladas ¿Está seguro?' : '¿Seguro que desea eliminar este usuario?'}
+                                {dataType === 'auditorias' ? 'Todas las asignaciones y respuestas serán eliminadas ¿Está seguro?' : '¿Seguro que desea eliminar este usuario?'}
                               </em>
                             </p>
                             <button 

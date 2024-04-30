@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Sidebar from "../../components/sidebarAuditado/SidebarAuditado";
-import "./Vigencias.scss";
 import Navbar from "../../components/navbar/Navbar";
+import "./Vigencias.scss"; // Importamos los estilos si es necesario
 
 const VigenciasComponent = () => {
-    const [historial, setHistorial] = useState([]);
-    const [showTable, setShowTable] = useState(false);
+    const [selectedOption, setSelectedOption] = useState(null);
+    const [respuestas, setRespuestas] = useState({});
 
-<<<<<<< Updated upstream
-    useEffect(() => {
-        
-        fetch('http://localhost:3001/vigencias')
-            .then(response => response.json())
-            .then(data => {
-                
-                const historialFormateado = data.map(item => ({
-                    ...item,
-                    fecha_subida: new Date(item.fecha_subida).toLocaleDateString('es-MX'),
-                   
-                }));
-=======
     const preguntasITT_AC_PO_001 = [
         '¿Cuál es el objetivo principal del instructivo establecido para la elaboración y gestión de la autorización del Programa de Trabajo Anual (PTA) del Instituto Tecnológico de Tijuana (ITT)?',
-        '¿A quién aplica este procedimiento según el alcance establecido?'
+        '¿A quién aplica este procedimiento según el alcance establecido?',
+        '¿Qué consideraciones deben tenerse en cuenta durante la elaboración del PTA en relación con el Programa de Desarrollo Institucional (PDI) del Instituto Tecnológico y los lineamientos del Tecnológico Nacional de México (TecNM)?',
+        '¿Cuál es el calendario establecido para la presentación del Programa de Trabajo Anual (PTA) según las normativas del TecNM?',
+        '¿Quiénes son los responsables de gestionar, asesorar, analizar, integrar, dar seguimiento y evaluar el PTA dentro del Instituto Tecnológico de Tijuana (ITT), según lo establecido en las reglas de operación del procedimiento?',
+        '¿Cuál es el papel específico de la Secretaría de Planeación, Evaluación y Desarrollo Institucional de TecNM, a través de la Dirección de Planeación y Evaluación, en relación con el seguimiento y autorización del Programa de Trabajo Anual (PTA) del Instituto Tecnológico de Tijuana (ITT), según lo establecido en los lineamientos?',
+        '¿Qué responsabilidades tienen los directores de áreas del TecNM con respecto a la elaboración, seguimiento y evaluación de sus Programas Institucionales Anuales y cómo se relacionan estas responsabilidades con el Programa de Trabajo Anual del ITT?',
+        '¿Dónde se lleva a cabo la captura, evaluación y seguimiento de las metas del PTA, según lo establecido en los lineamientos?',
+        '¿Cómo se utiliza el PTA como referencia en la realización, análisis y evaluación del Programa Operativo Anual (POA) del Instituto Tecnológico de Tijuana, según lo establecido en los procedimientos?',
+        '¿Cuál es la base fundamental para la elaboración del PTA, según los lineamientos, y cómo contribuye este análisis al desarrollo de programas, proyectos y acciones dentro de la institución?'
     ];
     
     const preguntasITT_AC_PO_002 = [
@@ -54,42 +49,50 @@ const VigenciasComponent = () => {
     const handleOptionSelect = (option) => {
         setSelectedOption(option);
     };
->>>>>>> Stashed changes
 
-               
-                setHistorial(historialFormateado);
-                setShowTable(true);
-            })
-            .catch(error => console.error('Error al obtener datos de historial:', error));
-    }, []); 
+    const handleRespuestaChange = (index, respuesta) => {
+        setRespuestas({ ...respuestas, [index]: respuesta });
+    };
+
+    const renderQuestions = (preguntas) => {
+        return preguntas.map((pregunta, index) => (
+            <li key={index}>
+                {pregunta}
+                <input
+                    type="text"
+                    value={respuestas[index] || ''}
+                    onChange={(e) => handleRespuestaChange(index, e.target.value)}
+                />
+            </li>
+        ));
+    };
+
+    const handleFinishForm = () => {
+        alert('¡Formulario terminado!');
+    };
 
     return (
         <div className="vigencias-page">
             <Sidebar />
-            <div className='nav'>
-                <Navbar/>
-                <div className={`vigencias-content ${showTable ? 'show' : ''}`}>
-                    <h1>Vigencias</h1>
-
-                    <table border="1">
-                        <caption>Historial de Auditorías</caption>
-                        <tr>
-                            <th>Auditoria</th>
-                            <th>Fecha de Asignacion</th>
-                            <th>Departamento</th>
-                            <th>Seleccionar</th>
-                        </tr>
-
-                        {historial.map((rhistorial, index) => (
-                            <tr key={index}>
-                                <td>{rhistorial.n_auditoria}</td>
-                                <td>{rhistorial.fecha_subida}</td>
-                                <td>{rhistorial.departamento}</td>
-                                <td><button className="boton-seleccionar"></button></td>
-                            </tr>
-                        ))}
-                    </table>
+            <div className="vigencias-content">
+                <Navbar />
+                <h1>Formulario</h1>
+                <div className="option-buttons">
+                    <button className="blue-button" onClick={() => handleOptionSelect('ITT-AC-PO-001')}>ITT-AC-PO-001</button>
+                    <button className="blue-button" onClick={() => handleOptionSelect('ITT-AC-PO-002')}>ITT-AC-PO-002</button>
+                    <button className="blue-button" onClick={() => handleOptionSelect('ITT-AC-PO-003')}>ITT-AC-PO-003</button>
                 </div>
+                {selectedOption && (
+                    <div className="question-list">
+                        <h2>Preguntas:</h2>
+                        <ul>
+                            {selectedOption === 'ITT-AC-PO-001' && renderQuestions(preguntasITT_AC_PO_001)}
+                            {selectedOption === 'ITT-AC-PO-002' && renderQuestions(preguntasITT_AC_PO_002)}
+                            {selectedOption === 'ITT-AC-PO-003' && renderQuestions(preguntasITT_AC_PO_003)}
+                        </ul>
+                    </div>
+                )}
+                <button onClick={handleFinishForm}>Finalizar</button>
             </div>
         </div>
     );
