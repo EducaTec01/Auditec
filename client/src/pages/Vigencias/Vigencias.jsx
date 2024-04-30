@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from "../../components/sidebarAuditado/SidebarAuditado";
+import SidebarAuditor from "../../components/sidebarAuditor/SidebarAuditor";
 import Navbar from "../../components/navbar/Navbar";
 import "./Vigencias.scss"; // Importamos los estilos si es necesario
 
@@ -73,7 +73,7 @@ const VigenciasComponent = () => {
 
     return (
         <div className="vigencias-page">
-            <Sidebar />
+            <SidebarAuditor />
             <div className="vigencias-content">
                 <Navbar />
                 <h1>Formulario</h1>
