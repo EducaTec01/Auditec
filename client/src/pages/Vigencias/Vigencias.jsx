@@ -76,7 +76,8 @@ const VigenciasComponent = () => {
             <Sidebar />
             <div className="vigencias-content">
                 <Navbar />
-                <h1>Formulario</h1>
+                <h1>Formulario Actual </h1>
+                <h1>Otras opciones: </h1>
                 <div className="option-buttons">
                     <button className="blue-button" onClick={() => handleOptionSelect('ITT-AC-PO-001')}>ITT-AC-PO-001</button>
                     <button className="blue-button" onClick={() => handleOptionSelect('ITT-AC-PO-002')}>ITT-AC-PO-002</button>

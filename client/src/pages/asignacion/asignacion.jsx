@@ -96,7 +96,7 @@ const Asignacion = () => {
           </div>
           <div className="report">
             {/* Utiliza Link para dirigirte a la nueva ruta */}
-            <Link to={`/asignacion/${asignacion.id}/formulario`}className="button">Realizar Formulario</Link>
+            <Link to={`/asignacion/${asignacion.id}/vigenciasComponent`}className="button">Realizar Formulario</Link>
           </div>
         </div>
       </div>

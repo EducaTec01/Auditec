@@ -57,7 +57,7 @@ const AsignacionesAuditor = () => {
               </div>
             </div>
             {asignaciones.length === 0 ? (
-              <div className="mensaje-vacio">No hay asignaciones pendientes.</div>
+              <div className="mensaje-vacio"></div>
             ) : (
               <table className="content-table">
                 <thead>
