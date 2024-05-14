@@ -9,6 +9,9 @@ const { ppreguntas} = require('../controllers/ppreguntasController');
 const { ipreguntas} = require('../controllers/ipreguntasController');   
 const { vigencias } = require('../controllers/vigenciasController');    
 const { inconformidades } = require('../controllers/inconformidadesController');    
+const { getPreguntasByAuditoria } = require('../controllers/getPreguntasByAuditoria');
+
+
 const Asignacion = require('../controllers/asignacionController');
 const Departamento = require('../controllers/departamentosController');
 
@@ -45,7 +48,7 @@ router.get(`/auditoriaAllAuditor/:id`, Auditoria.getAllById);
 
 
 
-
+router.get('/preguntasByAuditoria/:id', getPreguntasByAuditoria);
 router.post('/login', login);
 router.get('/rhistorial', rhistorial);  
 router.get('/preguntas', preguntas);

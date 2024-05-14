@@ -5,46 +5,26 @@ import Navbar from "../../components/navbar/Navbar";
 import "./Vigencias.scss";
 
 const VigenciasComponent = () => {
-    const { id } = useParams(); 
+    const { id } = useParams(); // Obtén la ID de la auditoría desde los parámetros de la ruta
     const [preguntas, setPreguntas] = useState([]);
     const [respuestas, setRespuestas] = useState({});
-    const [subseccion, setSubseccion] = useState('');
 
     useEffect(() => {
-        const fetchSubseccion = async () => {
+        const fetchPreguntas = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/asignacion/${id}`);
+                const response = await fetch(`http://localhost:3001/preguntasByAuditoria/${id}`);
                 if (!response.ok) {
-                    throw new Error('Error al obtener la asignación');
+                    throw new Error('Error al obtener las preguntas');
                 }
                 const data = await response.json();
-                setSubseccion(data.subseccion);
+                setPreguntas(data);
             } catch (error) {
                 console.error('Error:', error);
             }
         };
 
-        fetchSubseccion();
-    }, [id]); 
-
-    useEffect(() => {
-        if (subseccion !== '') {
-            const fetchPreguntas = async () => {
-                try {
-                    const response = await fetch(`http://localhost:3001/preguntasByAuditoriaSubseccion?subseccion=${subseccion}`);
-                    if (!response.ok) {
-                        throw new Error('Error al obtener las preguntas');
-                    }
-                    const data = await response.json();
-                    setPreguntas(data);
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            };
-
-            fetchPreguntas();
-        }
-    }, [subseccion]); 
+        fetchPreguntas();
+    }, [id]); // Ejecuta el efecto cuando cambie la ID de la auditoría
 
     const handleRespuestaChange = (index, respuesta) => {
         setRespuestas({ ...respuestas, [index]: respuesta });
@@ -53,7 +33,7 @@ const VigenciasComponent = () => {
     const renderQuestions = () => {
         return preguntas.map((pregunta, index) => (
             <li key={index}>
-                {pregunta.texto}
+                {pregunta.pregunta}
                 <input
                     type="text"
                     value={respuestas[index] || ''}
