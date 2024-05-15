@@ -46,6 +46,13 @@ router.get('/auditoria/auditor', Auditoria.auditor);
 router.get('/auditoria/auditado', Auditoria.auditado);
 //Ruta para obtener las auditorias de 1 auditor
 router.get(`/auditoriaAllAuditor/:id`, Auditoria.getAllById);
+//Ruta para obtener la auditoria por id
+router.get('/asignacion/:id', Auditoria.findById);
+
+//Ruta para obtener la auditoria por id
+router.get('/subasignacion/:id', Auditoria.findsubById);
+
+
 
 
 router.post('/insertarRespuestas', insertRespuestas);
@@ -60,7 +67,6 @@ router.get('/inconformidades', inconformidades);
 
 router.get('/asignacionesgetAll', Asignacion.getAll);
 router.post('/asignacionesCreate', Asignacion.create);
-router.get('/asignacion/:id', Asignacion.findById);
 router.delete('/asignacion/delete/:id', Asignacion.delete);
 router.put('/asignacion/update/:id', Asignacion.updateById);
 router.get('/departamentos', Departamento.getAll);

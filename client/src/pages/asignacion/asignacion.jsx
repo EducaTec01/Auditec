@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom"; // Importa Link desde react-router-dom
 import "./asignacion.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
+import Sidebar from "../../components/sidebarAuditor/SidebarAuditor";
 
 const Asignacion = () => {
   const { id } = useParams();
-  const [asignacion, setAsignacion] = useState(null);
+  const [asignacion, setAsignacion] = useState(null);  
+  const [subasignacion, setsubAsignacion] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     fetchAsignacion(id);
@@ -32,6 +34,27 @@ const Asignacion = () => {
         setError(error.message);
       });
   };
+
+  const fetchsubAsignacion = (id) => {
+    fetch(`http://localhost:3001/subasignacion/${id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al obtener la asignación");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setAsignacion(data);
+        setLoading(false);
+        setError(null);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setLoading(false);
+        setError(error.message);
+      });
+  };
+
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -66,7 +89,7 @@ const Asignacion = () => {
         <div className="section2">
           <div className="encabezado">
             <div className="titulo">
-              <p>Asignación #{asignacion.id}</p>
+              <p>Asignación #{asignacion.id_auditoria}</p>
             </div>
             <div className="info">
               <p style={{ color: renderEstadoColor(asignacion.estado) }}>Estado: {asignacion.estado}</p>
@@ -76,20 +99,17 @@ const Asignacion = () => {
           <div className="cuerpo">
             <div className="left">
               <div className="detalles">
-                <div className="detalle">
-                  <p>Departamento: {asignacion.departamento}</p>
+              <div className="detalle">
+                  <p>Sección: {asignacion.nombre_seccion}</p>
                 </div>
                 <div className="detalle">
-                  <p>Auditor: {asignacion.auditor}</p>
+                  <p>Departamento: {asignacion.nombre_departamento}</p>
                 </div>
                 <div className="detalle">
-                  <p>Encargado: {asignacion.encargado}</p>
+                  <p>Auditor: {asignacion.nombre_auditor}</p>
                 </div>
                 <div className="detalle">
-                  <p>Comentarios: {asignacion.comentarios}</p>
-                </div>
-                <div className="detalle">
-                  <p>Nomenclatura: {asignacion.nomenclatura}</p>
+                  <p>Encargado: {asignacion.nombre_auditado}</p>
                 </div>
               </div>
             </div>
