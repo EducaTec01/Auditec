@@ -19,6 +19,11 @@ const Formulario = () => {
                 }
                 const data = await response.json();
                 setPreguntas(data);
+                const initialRespuestas = data.reduce((acc, pregunta) => {
+                    acc[pregunta.id] = pregunta.respuesta || '';
+                    return acc;
+                }, {});
+                setRespuestas(initialRespuestas);
                 setLoading(false);
             } catch (error) {
                 console.error('Error:', error);
@@ -55,6 +60,29 @@ const Formulario = () => {
         }
     };
 
+    const handleModifyForm = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/modificarRespuestas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id_auditoria: id,
+                    respuestas: respuestas
+                })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || 'Error al actualizar las respuestas');
+            }
+            alert('¡Respuestas actualizadas exitosamente!');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error al actualizar las respuestas');
+        }
+    };
+
     const renderQuestions = () => {
         return preguntas.map((pregunta) => (
             <li key={pregunta.id}>
@@ -84,6 +112,7 @@ const Formulario = () => {
                     )}
                 </div>
                 <button onClick={handleFinishForm}>Finalizar</button>
+                <button onClick={handleModifyForm}>Modificar</button>
             </div>
         </div>
     );

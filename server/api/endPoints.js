@@ -8,10 +8,13 @@ const { preguntas } = require('../controllers/preguntasController');
 const { ppreguntas} = require('../controllers/ppreguntasController');    
 const { ipreguntas} = require('../controllers/ipreguntasController');   
 const { vigencias } = require('../controllers/vigenciasController');    
+
+// Formulario
 const { inconformidades } = require('../controllers/inconformidadesController');    
 const { getPreguntasByAuditoria } = require('../controllers/getPreguntasByAuditoria');
 const { insertRespuestas } = require('../controllers/insertRespuesta');
-
+const { updateRespuestas } = require('../controllers/updateRespuestas');
+//
 
 const Asignacion = require('../controllers/asignacionController');
 const Departamento = require('../controllers/departamentosController');
@@ -54,9 +57,12 @@ router.get('/subasignacion/:id', Auditoria.findsubById);
 
 
 
-
+//Fromulario
 router.post('/insertarRespuestas', insertRespuestas);
 router.get('/preguntasByAuditoria/:id', getPreguntasByAuditoria);
+router.post('/modificarRespuestas', updateRespuestas);
+//
+
 router.post('/login', login);
 router.get('/rhistorial', rhistorial);  
 router.get('/preguntas', preguntas);
