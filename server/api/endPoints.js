@@ -8,6 +8,8 @@ const { preguntas } = require('../controllers/preguntasController');
 const { ppreguntas} = require('../controllers/ppreguntasController');    
 const { ipreguntas} = require('../controllers/ipreguntasController');   
 const { vigencias } = require('../controllers/vigenciasController');    
+const { AllAuditoriasController } = require('../controllers/AllAuditoriasController');
+
 
 // Formulario
 const { inconformidades } = require('../controllers/inconformidadesController');    
@@ -62,6 +64,8 @@ router.post('/insertarRespuestas', insertRespuestas);
 router.get('/preguntasByAuditoria/:id', getPreguntasByAuditoria);
 router.post('/modificarRespuestas', updateRespuestas);
 //
+//Asignacioes 
+router.post('/AllAuditoriasController', AllAuditoriasController);
 
 router.post('/login', login);
 router.get('/rhistorial', rhistorial);  

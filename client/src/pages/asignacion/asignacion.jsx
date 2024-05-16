@@ -6,10 +6,8 @@ import Sidebar from "../../components/sidebarAuditor/SidebarAuditor";
 const Asignacion = () => {
   const { id } = useParams();
   const [asignacion, setAsignacion] = useState(null);  
-  const [subasignacion, setsubAsignacion] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
 
   useEffect(() => {
     fetchAsignacion(id);
@@ -34,27 +32,6 @@ const Asignacion = () => {
         setError(error.message);
       });
   };
-
-  const fetchsubAsignacion = (id) => {
-    fetch(`http://localhost:3001/subasignacion/${id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener la asignación");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setAsignacion(data);
-        setLoading(false);
-        setError(null);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setLoading(false);
-        setError(error.message);
-      });
-  };
-
 
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -99,7 +76,7 @@ const Asignacion = () => {
           <div className="cuerpo">
             <div className="left">
               <div className="detalles">
-              <div className="detalle">
+                <div className="detalle">
                   <p>Sección: {asignacion.nombre_seccion}</p>
                 </div>
                 <div className="detalle">
@@ -116,7 +93,7 @@ const Asignacion = () => {
           </div>
           <div className="report">
             {/* Utiliza Link para dirigirte a la nueva ruta */}
-            <Link to={`/asignacion/${asignacion.id}/formulario`}className="button">Realizar Formulario</Link>
+            <Link to={`/asignacion/${asignacion.id_auditoria}/formulario`} className="button">Realizar Formulario</Link>
           </div>
         </div>
       </div>
