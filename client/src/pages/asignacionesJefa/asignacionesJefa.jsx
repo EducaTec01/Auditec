@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar2 from "../../components/navbar-2/Navbar-2";
+import Navbar from "../../components/navbar/Navbar";
 import "./asignacionesJefa.scss";
 import arrow from "./arrow.png";
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -55,7 +55,8 @@ const Asignaciones = () => {
     <div className="section1">
       <Sidebar />
       <div className="section2">
-        <Navbar2 />
+        
+        <Navbar />
         <div className="contenedor">
           <div className="titulo">
             <p>Asignaciones</p>
@@ -85,9 +86,10 @@ const Asignaciones = () => {
                   <td>{asignacion.fecha_final}</td>
                   <td>
                     <div className="acciones">
-                      <Link to={`/asignacion/${asignacion.id}`}>
-                        <img src={arrow} alt="read" />
-                      </Link>
+                    <Link to={`/asignacionjefa/${asignacion.id}/formulariojefa`}>
+                    <img src={arrow} alt="read" />
+                    </Link>
+
                     </div>
                   </td>
                 </tr>

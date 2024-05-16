@@ -4,7 +4,7 @@ import "./formulario.scss";
 import Navbar from "../../components/navbar/Navbar";
 import { useParams } from 'react-router-dom';
 
-const Formulario = () => {
+const FormularioJefa = () => {
     const { id } = useParams();
     const [preguntas, setPreguntas] = useState([]);
     const [respuestas, setRespuestas] = useState({});
@@ -33,56 +33,6 @@ const Formulario = () => {
         fetchPreguntas();
     }, [id]);
 
-    const handleRespuestaChange = (id_pregunta, respuesta) => {
-        setRespuestas({ ...respuestas, [id_pregunta]: respuesta });
-    };
-
-    const handleFinishForm = async () => {
-        try {
-            const response = await fetch('http://localhost:3001/insertarRespuestas', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id_auditoria: id,
-                    respuestas: respuestas
-                })
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                throw new Error(data.error || 'Error al insertar las respuestas');
-            }
-            alert('¡Respuestas guardadas exitosamente!');
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error al guardar las respuestas');
-        }
-    };
-
-    const handleModifyForm = async () => {
-        try {
-            const response = await fetch('http://localhost:3001/modificarRespuestas', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id_auditoria: id,
-                    respuestas: respuestas
-                })
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                throw new Error(data.error || 'Error al actualizar las respuestas');
-            }
-            alert('¡Respuestas actualizadas exitosamente!');
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error al actualizar las respuestas');
-        }
-    };
-
     const renderQuestions = () => {
         return preguntas.map((pregunta) => (
             <li key={pregunta.id}>
@@ -91,7 +41,7 @@ const Formulario = () => {
                 <input
                     type="text"
                     value={respuestas[pregunta.id] || ''}
-                    onChange={(e) => handleRespuestaChange(pregunta.id, e.target.value)}
+                    disabled={true} // Deshabilita la edición de la respuesta
                 />
             </li>
         ));
@@ -111,12 +61,9 @@ const Formulario = () => {
                         <ul>{renderQuestions()}</ul>
                     )}
                 </div>
-                <button onClick={handleFinishForm}>Guardar</button>
-                <button onClick={handleModifyForm}>Actualizar</button>
-                <>Nota al margen, si ya seleccionó Guardar una vez, deberá seleccionar Actualizar para futuros cambios</>
             </div>
         </div>
     );
 };
 
-export default Formulario;
+export default FormularioJefa;
