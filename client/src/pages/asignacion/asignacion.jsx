@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom"; // Importa Link desde react-router-dom
 import "./asignacion.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
+import Sidebar from "../../components/sidebarAuditor/SidebarAuditor";
 
 const Asignacion = () => {
   const { id } = useParams();
-  const [asignacion, setAsignacion] = useState(null);
+  const [asignacion, setAsignacion] = useState(null);  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -66,7 +66,7 @@ const Asignacion = () => {
         <div className="section2">
           <div className="encabezado">
             <div className="titulo">
-              <p>Asignación #{asignacion.id}</p>
+              <p>Asignación #{asignacion.id_auditoria}</p>
             </div>
             <div className="info">
               <p style={{ color: renderEstadoColor(asignacion.estado) }}>Estado: {asignacion.estado}</p>
@@ -77,26 +77,23 @@ const Asignacion = () => {
             <div className="left">
               <div className="detalles">
                 <div className="detalle">
-                  <p>Departamento: {asignacion.departamento}</p>
+                  <p>Sección: {asignacion.nombre_seccion}</p>
                 </div>
                 <div className="detalle">
-                  <p>Auditor: {asignacion.auditor}</p>
+                  <p>Departamento: {asignacion.nombre_departamento}</p>
                 </div>
                 <div className="detalle">
-                  <p>Encargado: {asignacion.encargado}</p>
+                  <p>Auditor: {asignacion.nombre_auditor}</p>
                 </div>
                 <div className="detalle">
-                  <p>Comentarios: {asignacion.comentarios}</p>
-                </div>
-                <div className="detalle">
-                  <p>Nomenclatura: {asignacion.nomenclatura}</p>
+                  <p>Encargado: {asignacion.nombre_auditado}</p>
                 </div>
               </div>
             </div>
           </div>
           <div className="report">
             {/* Utiliza Link para dirigirte a la nueva ruta */}
-            <Link to={`/asignacion/${asignacion.id}/formulario`}className="button">Realizar Formulario</Link>
+            <Link to={`/asignacion/${asignacion.id_auditoria}/formulario`} className="button">Realizar Formulario</Link>
           </div>
         </div>
       </div>

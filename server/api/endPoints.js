@@ -8,10 +8,15 @@ const { preguntas } = require('../controllers/preguntasController');
 const { ppreguntas} = require('../controllers/ppreguntasController');    
 const { ipreguntas} = require('../controllers/ipreguntasController');   
 const { vigencias } = require('../controllers/vigenciasController');    
+const { AllAuditoriasController } = require('../controllers/AllAuditoriasController');
+
+
+// Formulario
 const { inconformidades } = require('../controllers/inconformidadesController');    
 const { getPreguntasByAuditoria } = require('../controllers/getPreguntasByAuditoria');
 const { insertRespuestas } = require('../controllers/insertRespuesta');
-
+const { updateRespuestas } = require('../controllers/updateRespuestas');
+//
 
 const Asignacion = require('../controllers/asignacionController');
 const Departamento = require('../controllers/departamentosController');
@@ -46,10 +51,22 @@ router.get('/auditoria/auditor', Auditoria.auditor);
 router.get('/auditoria/auditado', Auditoria.auditado);
 //Ruta para obtener las auditorias de 1 auditor
 router.get(`/auditoriaAllAuditor/:id`, Auditoria.getAllById);
+//Ruta para obtener la auditoria por id
+router.get('/asignacion/:id', Auditoria.findById);
+
+//Ruta para obtener la auditoria por id
+router.get('/subasignacion/:id', Auditoria.findsubById);
 
 
+
+//Fromulario
 router.post('/insertarRespuestas', insertRespuestas);
 router.get('/preguntasByAuditoria/:id', getPreguntasByAuditoria);
+router.post('/modificarRespuestas', updateRespuestas);
+//
+//Asignacioes 
+router.post('/AllAuditoriasController', AllAuditoriasController);
+
 router.post('/login', login);
 router.get('/rhistorial', rhistorial);  
 router.get('/preguntas', preguntas);
@@ -60,7 +77,6 @@ router.get('/inconformidades', inconformidades);
 
 router.get('/asignacionesgetAll', Asignacion.getAll);
 router.post('/asignacionesCreate', Asignacion.create);
-router.get('/asignacion/:id', Asignacion.findById);
 router.delete('/asignacion/delete/:id', Asignacion.delete);
 router.put('/asignacion/update/:id', Asignacion.updateById);
 router.get('/departamentos', Departamento.getAll);

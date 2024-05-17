@@ -103,7 +103,7 @@ Asignacion.getAllpast = (req, res) => {
 
 Asignacion.findById = (req, res) => {
     const asignacionId = req.params.id;
-    db.query(`SELECT * FROM Auditoria WHERE id = ?`, asignacionId, (err, result) => {
+    db.query(`SELECT * FROM Asignacion WHERE id = ?`, asignacionId, (err, result) => {
       if (err) {
         console.error("Error al encontrar la asignación: ", err);
         res.status(500).json({ error: "Error al encontrar la asignación" });

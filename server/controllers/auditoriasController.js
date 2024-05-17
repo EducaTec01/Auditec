@@ -249,5 +249,69 @@ Auditoria.auditado = (req, res) => {
     });
 }
 
+Auditoria.findById = (req, res) => {
+    const asignacionId = req.params.id;
+    db.query(`
+        SELECT 
+            aud.id AS id_auditoria,
+            aud.fecha_inicio,
+            aud.fecha_final,
+            aud.estado,
+            dep.nombre AS nombre_departamento,
+            aud.id_seccion,
+            sec.nombre AS nombre_seccion,
+            aud.id_auditado,
+            aud.id_auditor,
+            aud.id_departamento,
+            aud.id_seccion,
+            au.nombre AS nombre_auditor,
+            au2.nombre AS nombre_auditado
+        FROM 
+            Auditoria aud
+        INNER JOIN 
+            Departamentos dep ON aud.id_departamento = dep.id
+        INNER JOIN 
+            Seccion sec ON aud.id_seccion = sec.id
+        INNER JOIN 
+            Login au ON aud.id_auditor = au.id
+        INNER JOIN 
+            Login au2 ON aud.id_auditado = au2.id
+        WHERE 
+            aud.id = ?`, asignacionId, (err, result) => {
+        if (err) {
+            console.error("Error al encontrar la asignación: ", err);
+            res.status(500).json({ error: "Error al encontrar la asignación" });
+            return;
+        }
+
+        if (result.length === 0) {
+            res.status(404).json({ error: "Asignación no encontrada" });
+            return;
+        }
+
+        console.log("Asignación encontrada: ", result[0]);
+        res.json(result[0]);
+    });
+};
+
+Auditoria.findsubById = (req, res) => {
+    const asignacionId = req.params.id;
+    db.query(`SELECT * FROM Auditoria_subsecciones WHERE id = ?`, asignacionId, (err, result) => {
+      if (err) {
+        console.error("Error al encontrar la asignación: ", err);
+        res.status(500).json({ error: "Error al encontrar la asignación" });
+        return;
+      }
+  
+      if (result.length === 0) {
+        res.status(404).json({ error: "Asignación no encontrada" });
+        return;
+      }
+  
+      console.log("Asignación encontrada: ", result[0]);
+      res.json(result[0]);
+    });
+};
+
 
 module.exports = Auditoria;
