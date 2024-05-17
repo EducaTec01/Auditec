@@ -4,6 +4,7 @@ import "./asignacion.scss";
 
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
+import GeneratePDF from '../../components/GeneratePDF/GeneratePDF';
 
 const DatosAsignacionJefa = () => {
   const { id } = useParams();
@@ -99,6 +100,7 @@ const DatosAsignacionJefa = () => {
           <div className="report">
             {/* Utiliza Link para dirigirte a la nueva ruta */}
             <Link to={`/asignacionjefa/${asignacion.id_auditoria}/formulariojefa`} className="button">Ver Respuestas</Link>
+            <GeneratePDF/>
           </div>
         </div>
       </div>

@@ -117,9 +117,8 @@ Auditoria.getAllById = (req, res) => {
     });
   };
 
-  Asignacion.getDetailedAuditById = (req, res) => {
+Auditoria.getDetailedAuditById = (req, res) => {
     const auditoriaId = req.params.id;
-
     const query = `
         SELECT 
             a.fecha_final,
