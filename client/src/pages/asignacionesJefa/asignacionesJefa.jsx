@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
+import Sidebar from "../../components/sidebar/Sidebar";
 import "./asignacionesJefa.scss";
 import arrow from "./arrow.png";
-import Sidebar from "../../components/sidebar/Sidebar";
 import { Link } from "react-router-dom";
 
 const Asignaciones = () => {
@@ -85,8 +85,9 @@ const Asignaciones = () => {
                   <td>{asignacion.nombre_seccion}</td>
                   <td>{asignacion.fecha_final}</td>
                   <td>
+                    
                     <div className="acciones">
-                    <Link to={`/asignacionjefa/${asignacion.id}/formulariojefa`}>
+                    <Link to={`/asignacionjefa/${asignacion.id}/DatosAsignacionJefa`}>
                     <img src={arrow} alt="read" />
                     </Link>
 

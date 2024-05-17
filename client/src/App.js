@@ -12,6 +12,7 @@ import HistorialesJefa2 from "./pages/historialesJefa2/historialesJefa2"
 import Asignacion from "./pages/asignacion/asignacion"
 import Formulario from "./pages/formulario/formulario"
 import FormularioJefa from "./pages/formulariojefa/formulariojefa"
+import DatosAsignacionJefa from "./pages/datosasingacionjefa/datosasingacionjefa"
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./style/dark.scss";
@@ -87,7 +88,7 @@ function App() {
             <Route path="home" element={<PrivateRoute element={Home}/>}/>            
             <Route path="ajustes" element={<PrivateRoute element={Ajustes}/>}/>
             <Route path="/asignacionjefa/:id/formulariojefa" element={<PrivateRoute element={FormularioJefa} />} />
-
+            <Route path="/asignacionjefa/:id/DatosAsignacionJefa" element={<PrivateRoute element={DatosAsignacionJefa} />} />
 
             {/* Auditor */}
             <Route path="/capacitacion" element={<PrivateRoute2 element={Capacitacion} />} />
