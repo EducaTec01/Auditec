@@ -57,6 +57,8 @@ router.get('/asignacion/:id', Auditoria.findById);
 //Ruta para obtener la auditoria por id
 router.get('/subasignacion/:id', Auditoria.findsubById);
 
+router.get('/auditoriainfo/:id', Auditoria.getDetailedAuditById );
+
 
 
 //Fromulario

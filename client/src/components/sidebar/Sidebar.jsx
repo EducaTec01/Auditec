@@ -32,7 +32,12 @@ const Sidebar = () => {
               <span>Inicio</span>
             </li>
           </Link>
-          
+          <Link to="/asignacionesJefa" style={{ textDecoration: "none" }}>
+            <li>
+              <AutoAwesomeMotionIcon  className="icon" />
+              <span>Auditorias</span>
+            </li>
+          </Link>
           {/* <Link to="/historialesJefa" style={{ textDecoration: "none" }}>
             <li>
               <HistoryIcon className="icon" />

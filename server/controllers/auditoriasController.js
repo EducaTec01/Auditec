@@ -117,6 +117,45 @@ Auditoria.getAllById = (req, res) => {
     });
   };
 
+  Asignacion.getDetailedAuditById = (req, res) => {
+    const auditoriaId = req.params.id;
+
+    const query = `
+        SELECT 
+            a.fecha_final,
+            ss.nombre AS subseccion_nombre,
+            a.id_auditado,
+            auditado.nombre AS auditado_nombre,
+            a.id_auditor,
+            auditor.nombre AS auditor_nombre,
+            s.nombre AS seccion_nombre,
+            a.fecha_inicio,
+            d.nombre AS departamento_nombre
+        FROM Auditoria a
+        JOIN Seccion s ON a.id_seccion = s.id
+        JOIN Login auditado ON a.id_auditado = auditado.id
+        JOIN Login auditor ON a.id_auditor = auditor.id
+        JOIN Auditoria_subsecciones asub ON a.id = asub.id_auditoria
+        JOIN Subseccion ss ON asub.id_subseccion = ss.id
+        JOIN Departamentos d ON a.id_departamento = d.id
+        WHERE a.id = ?
+    `;
+
+    db.query(query, [auditoriaId], (err, result) => {
+        if (err) {
+            console.error("Error al obtener la auditoría detallada: ", err);
+            res.status(500).json({ error: "Error al obtener la auditoría detallada" });
+            return;
+        }
+
+        if (result.length === 0) {
+            res.status(404).json({ error: "Auditoría no encontrada" });
+            return;
+        }
+
+        res.json(result);
+    });
+};
 //Crear la auditoria con cada una de sus subsecciones
 Auditoria.create = (req, res) => {
     const { idSeccion, idEncargado, fechaInicio, fechaFinal, idDepartamento, idAuditor, subsecciones } = req.body;
