@@ -9,6 +9,11 @@ const { ppreguntas} = require('../controllers/ppreguntasController');
 const { ipreguntas} = require('../controllers/ipreguntasController');   
 const { vigencias } = require('../controllers/vigenciasController');    
 const { AllAuditoriasController } = require('../controllers/AllAuditoriasController');
+const { auditoriasByAuditadoController } = require('../controllers/auditoriasByAuditadoController');
+const { getPreguntasConInconformidad } = require('../controllers/getPreguntasConInconformidad');
+const { insertRespuestaInconformidad } = require('../controllers/insertRespuestaInconformidad');
+const { updateRespuestaInconformidad } = require('../controllers/updateRespuestaInconformidad');
+const { getRespuestaInconformidad } = require('../controllers/getRespuestaInconformidad');
 
 
 // Formulario
@@ -63,6 +68,36 @@ router.get('/subasignacion/:id', Auditoria.findsubById);
 router.post('/insertarRespuestas', insertRespuestas);
 router.get('/preguntasByAuditoria/:id', getPreguntasByAuditoria);
 router.post('/modificarRespuestas', updateRespuestas);
+
+router.post('/respuestaInconformidad/insertar', (req, res) => {
+    const { id_pregunta, id_auditoria, respuesta } = req.body;
+
+    insertRespuestaInconformidad(id_pregunta, id_auditoria, respuesta, (err, result) => {
+        if (err) {
+            console.error("Error al insertar la respuesta de inconformidad:", err);
+            res.status(500).json({ error: "Error interno del servidor" });
+            return;
+        }
+        res.json({ message: "La respuesta de inconformidad se ha guardado correctamente" });
+    });
+});
+router.post('/respuestaInconformidad/actualizar', (req, res) => {
+    const { id_pregunta, id_auditoria, respuesta } = req.body;
+
+    updateRespuestaInconformidad(id_pregunta, id_auditoria, respuesta, (err, result) => {
+        if (err) {
+            console.error("Error al actualizar la respuesta de inconformidad:", err);
+            res.status(500).json({ error: "Error interno del servidor" });
+            return;
+        }
+        res.json({ message: "La respuesta de inconformidad se ha actualizado correctamente" });
+    });
+});
+
+router.get('/getRespuestaInconformidad/:id_pregunta/:id_auditoria', getRespuestaInconformidad);
+
+
+
 //
 //Asignacioes 
 router.post('/AllAuditoriasController', AllAuditoriasController);
@@ -82,6 +117,11 @@ router.put('/asignacion/update/:id', Asignacion.updateById);
 router.get('/departamentos', Departamento.getAll);
 
 router.get('/asignacionesgetAllpast', Asignacion.getAllpast);
+
+//ver asignaciones por auditado:
+router.get('/auditadoauditorias/:id_auditado', auditoriasByAuditadoController);
+router.get('/PreguntasConInconformidad', getPreguntasConInconformidad);
+
 
 router.get('/usuarios', Usuario.getAll);
 router.post('/usuario/create', Usuario.create);

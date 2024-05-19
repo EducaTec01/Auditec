@@ -38,10 +38,10 @@ const SidebarAuditado   = () => {
               <span>Inicio</span>
             </li>
           </Link>
-          <Link to="/vigenciasComponent" style={{ textDecoration: "none" }}>
+          <Link to="/asignacionesAuditado" style={{ textDecoration: "none" }}>
             <li>
               <CalendarTodayIcon  className="icon" />
-              <span>Vigencias</span>
+              <span>Asignaciones</span>
             </li>
           </Link>
         </ul>
