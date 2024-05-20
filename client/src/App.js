@@ -15,6 +15,7 @@ import FormularioJefa from "./pages/formulariojefa/formulariojefa"
 import DatosAsignacionJefa from "./pages/datosasingacionjefa/datosasingacionjefa"
 import AsignacionesAuditado from "./pages/asignacionesauditado/asignacionesauditado"
 import Auditadoinconformidad from "./pages/Auditadoinconformidad/Auditadoinconformidad"
+import AuditadoinconformidadJefa from "./pages/AuditadoinconformidadJefa/AuditadoinconformidadJefa"
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./style/dark.scss";
@@ -91,6 +92,8 @@ function App() {
             <Route path="ajustes" element={<PrivateRoute element={Ajustes}/>}/>
             <Route path="/asignacionjefa/:id/formulariojefa" element={<PrivateRoute element={FormularioJefa} />} />
             <Route path="/asignacionjefa/:id/DatosAsignacionJefa" element={<PrivateRoute element={DatosAsignacionJefa} />} />
+            <Route path="/AuditadoinconformidadJefa/:id/" element={<PrivateRoute element={AuditadoinconformidadJefa} />} />
+
 
             {/* Auditor */}
             <Route path="/capacitacion" element={<PrivateRoute2 element={Capacitacion} />} />
@@ -109,6 +112,7 @@ function App() {
             <Route path="/homeAuditado" element={<PrivateRoute3 element={HomeAuditado}/>}/>
             <Route path="/asignacionesAuditado" element={<PrivateRoute3 element={AsignacionesAuditado}/>}/>
             <Route path="/Auditadoinconformidad/:id/" element={<PrivateRoute3 element={Auditadoinconformidad} />} />
+            
             
           </Route>
           <Route path="*" element={<CatchAll />} />
