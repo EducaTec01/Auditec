@@ -13,6 +13,8 @@ import Asignacion from "./pages/asignacion/asignacion"
 import Formulario from "./pages/formulario/formulario"
 import FormularioJefa from "./pages/formulariojefa/formulariojefa"
 import DatosAsignacionJefa from "./pages/datosasingacionjefa/datosasingacionjefa"
+import AsignacionesAuditado from "./pages/asignacionesauditado/asignacionesauditado"
+import Auditadoinconformidad from "./pages/Auditadoinconformidad/Auditadoinconformidad"
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./style/dark.scss";
@@ -105,6 +107,8 @@ function App() {
             <Route path="/vigenciasComponent" element={<PrivateRoute3 element={VigenciasComponent} />} />
             <Route path="/vigenciasGComponent" element={<PrivateRoute3 element={VigenciasGComponent} />} />
             <Route path="/homeAuditado" element={<PrivateRoute3 element={HomeAuditado}/>}/>
+            <Route path="/asignacionesAuditado" element={<PrivateRoute3 element={AsignacionesAuditado}/>}/>
+            <Route path="/Auditadoinconformidad/:id/" element={<PrivateRoute3 element={Auditadoinconformidad} />} />
             
           </Route>
           <Route path="*" element={<CatchAll />} />

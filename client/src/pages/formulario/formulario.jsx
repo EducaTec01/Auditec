@@ -33,11 +33,7 @@ const Formulario = () => {
         fetchPreguntas();
     }, [id]);
 
-    const handleRespuestaChange = (id_pregunta, respuesta) => {
-        setRespuestas({ ...respuestas, [id_pregunta]: respuesta });
-    };
-
-    const handleFinishForm = async () => {
+    const handleSubmit = async () => {
         try {
             const response = await fetch('http://localhost:3001/insertarRespuestas', {
                 method: 'POST',
@@ -49,18 +45,18 @@ const Formulario = () => {
                     respuestas: respuestas
                 })
             });
-            const data = await response.json();
             if (!response.ok) {
-                throw new Error(data.error || 'Error al insertar las respuestas');
+                throw new Error('Error al guardar las respuestas');
             }
             alert('¡Respuestas guardadas exitosamente!');
         } catch (error) {
-            console.error('Error:', error);
-            alert('Error al guardar las respuestas');
+            console.error('Error al guardar las respuestas:', error);
+            // Intentar actualizar
+            handleUpdate();
         }
     };
 
-    const handleModifyForm = async () => {
+    const handleUpdate = async () => {
         try {
             const response = await fetch('http://localhost:3001/modificarRespuestas', {
                 method: 'POST',
@@ -72,15 +68,28 @@ const Formulario = () => {
                     respuestas: respuestas
                 })
             });
-            const data = await response.json();
             if (!response.ok) {
-                throw new Error(data.error || 'Error al actualizar las respuestas');
+                throw new Error('Error al actualizar las respuestas');
             }
             alert('¡Respuestas actualizadas exitosamente!');
         } catch (error) {
-            console.error('Error:', error);
-            alert('Error al actualizar las respuestas');
+            console.error('Error al actualizar las respuestas:', error);
+            // Mostrar mensaje de error
+            alert('Error al guardar o actualizar las respuestas');
         }
+    };
+
+    const handleButtonClick = () => {
+        // Si hay respuestas guardadas, intentar actualizar, de lo contrario, guardar
+        if (Object.keys(respuestas).length > 0) {
+            handleUpdate();
+        } else {
+            handleSubmit();
+        }
+    };
+
+    const handleRespuestaChange = (id_pregunta, respuesta) => {
+        setRespuestas({ ...respuestas, [id_pregunta]: respuesta });
     };
 
     const renderQuestions = () => {
@@ -111,9 +120,7 @@ const Formulario = () => {
                         <ul>{renderQuestions()}</ul>
                     )}
                 </div>
-                <button onClick={handleFinishForm}>Guardar</button>
-                <button onClick={handleModifyForm}>Actualizar</button>
-                <>Nota al margen, si ya seleccionó Guardar una vez, deberá seleccionar Actualizar para futuros cambios</>
+                <button onClick={handleButtonClick}>Guardar/Actualizar</button>
             </div>
         </div>
     );
