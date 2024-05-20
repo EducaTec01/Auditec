@@ -100,11 +100,13 @@ const DatosAsignacionJefa = () => {
           <div className="report">
             {/* Utiliza Link para dirigirte a la nueva ruta */}
             <Link to={`/asignacionjefa/${asignacion.id_auditoria}/formulariojefa`} className="button">Ver Respuestas</Link>
-            <GeneratePDF/>
           </div>
           <div className="report">
             {/* Utiliza Link para dirigirte a la nueva ruta */}
             <Link to={`/AuditadoinconformidadJefa/${asignacion.id_auditoria}`} className="button">Ver Inconformidades</Link>
+          </div>
+          <div className="report">
+            <GeneratePDF/>
           </div>
         </div>
       </div>

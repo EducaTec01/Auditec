@@ -130,7 +130,6 @@ Auditoria.getDetailedAuditById = (req, res) => {
             s.nombre AS seccion_nombre,
             a.fecha_inicio,
             d.nombre AS departamento_nombre
-            asub.nomenclatura AS nomenclatura_audi
         FROM Auditoria a
         JOIN Seccion s ON a.id_seccion = s.id
         JOIN Login auditado ON a.id_auditado = auditado.id

@@ -28,10 +28,15 @@ const Asignaciones = () => {
       return response.json();
     })
     .then((data) => {
-      const asignacionesFormateadas = data.map((asignacion) => ({
+      // Filtrar asignaciones que están en estado "TERMINADA"
+      const asignacionesTerminadas = data.filter(asignacion => asignacion.estado === "TERMINADA");
+      
+      // Formatear las fechas
+      const asignacionesFormateadas = asignacionesTerminadas.map((asignacion) => ({
         ...asignacion,
         fecha_final: new Date(asignacion.fecha_final).toISOString().split("T")[0]
       }));
+
       setAsignaciones(asignacionesFormateadas);
       setLoading(false);
       setError(null);
@@ -55,7 +60,6 @@ const Asignaciones = () => {
     <div className="section1">
       <Sidebar />
       <div className="section2">
-        
         <Navbar />
         <div className="contenedor">
           <div className="titulo">
@@ -85,12 +89,10 @@ const Asignaciones = () => {
                   <td>{asignacion.nombre_seccion}</td>
                   <td>{asignacion.fecha_final}</td>
                   <td>
-                    
                     <div className="acciones">
-                    <Link to={`/asignacionjefa/${asignacion.id}/DatosAsignacionJefa`}>
-                    <img src={arrow} alt="read" />
-                    </Link>
-
+                      <Link to={`/asignacionjefa/${asignacion.id}/DatosAsignacionJefa`}>
+                        <img src={arrow} alt="read" />
+                      </Link>
                     </div>
                   </td>
                 </tr>
