@@ -230,12 +230,12 @@ const Ajustes = () => {
                             Eliminar
                           </button>
                         )}
-                        <button 
+                        {/* <button 
                           style={{ backgroundColor: '#d8f3dc', color: 'black', marginLeft: '0vw', border: '0.2vw solid #d8f3dc', padding: '1vw 1vw', borderRadius: '0.5vw', cursor: 'pointer' }} 
                           onClick={() => handleModifyItem(item)}
                           >
                           Modificar
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   ))}
