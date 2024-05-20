@@ -8,95 +8,36 @@ const Auditadoinconformidad = () => {
     const { id } = useParams();
     const [preguntas, setPreguntas] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [respuestasInconformidad, setRespuestasInconformidad] = useState({});
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchPreguntas = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/preguntasConInconformidad`);
+                const response = await fetch(`http://localhost:3001/preguntasByAuditoria/${id}`);
                 if (!response.ok) {
-                    throw new Error('Error al obtener las preguntas con inconformidades');
+                    throw new Error('Error al obtener las preguntas');
                 }
                 const data = await response.json();
-                setPreguntas(data);
+                // Filtrar las preguntas donde genera_inconformidad es true
+                const preguntasFiltradas = data.filter(pregunta => pregunta.genera_inconformidad);
+                setPreguntas(preguntasFiltradas);
                 setLoading(false);
             } catch (error) {
                 console.error('Error:', error);
             }
         };
 
-        fetchData();
-    }, []);
+        fetchPreguntas();
+    }, [id]);
 
-    useEffect(() => {
-        const fetchRespuestasInconformidad = async () => {
-            try {
-                const promises = preguntas.map(async (pregunta) => {
-                    const response = await fetch(`http://localhost:3001/getRespuestaInconformidad/${pregunta.id}/${id}`);
-                    if (!response.ok) {
-                        throw new Error(`Error al obtener la respuesta de inconformidad para la pregunta ${pregunta.id}`);
-                    }
-                    const data = await response.json();
-                    return { preguntaId: pregunta.id, respuesta: data.respuesta || '' };
-                });
-
-                const respuestas = await Promise.all(promises);
-                const respuestasObject = respuestas.reduce((acc, curr) => {
-                    acc[curr.preguntaId] = curr.respuesta;
-                    return acc;
-                }, {});
-
-                setRespuestasInconformidad(respuestasObject);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
-
-        fetchRespuestasInconformidad();
-    }, [preguntas, id]);
-
-    const handleGuardarRespuesta = async (idPregunta) => {
-        try {
-            const response = await fetch('http://localhost:3001/respuestaInconformidad', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    id_pregunta: idPregunta,
-                    id_auditoria: id,
-                    respuesta: respuestasInconformidad[idPregunta] || ''
-                })
-            });
-            if (!response.ok) {
-                throw new Error('Error al guardar la respuesta de inconformidad');
-            }
-            alert('La respuesta de inconformidad se ha guardado correctamente');
-            // Limpiar el cuadro de texto después de guardar la respuesta
-            setRespuestasInconformidad({ ...respuestasInconformidad, [idPregunta]: '' });
-        } catch (error) {
-            console.error('Error:', error);
-            try {
-                const response = await fetch('http://localhost:3001/respuestaInconformidad/actualizar', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        id_pregunta: idPregunta,
-                        id_auditoria: id,
-                        respuesta: respuestasInconformidad[idPregunta] || ''
-                    })
-                });
-                if (!response.ok) {
-                    throw new Error('Error al actualizar la respuesta de inconformidad');
-                }
-                alert('La respuesta de inconformidad se ha actualizado correctamente');
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error al guardar o actualizar la respuesta de inconformidad');
-            }
-        }
+    const renderQuestions = () => {
+        return preguntas.map((pregunta) => (
+            <li key={pregunta.id}>
+                <strong>Sección:</strong> {pregunta.seccion_nombre}, <strong>Subsección:</strong> {pregunta.subseccion_nombre}<br />
+                <span>{pregunta.pregunta}</span><br />
+                <span><strong>Respuesta:</strong> {pregunta.respuesta || 'No respondida'}</span><br />
+                <span><strong>Genera inconformidad:</strong> {pregunta.genera_inconformidad ? 'Sí' : 'No'}</span>
+            </li>
+        ));
     };
 
     return (
@@ -104,33 +45,20 @@ const Auditadoinconformidad = () => {
             <SidebarAuditado />
             <div className="vigencias-content">
                 <Navbar />
-                <h1>Inconformidades</h1>
+                <h1>Formulario - Vista</h1>
                 <div className="question-list">
-                    
+                    <h2>Preguntas que generan inconformidad:</h2>
                     {loading ? (
                         <p>Cargando...</p>
                     ) : (
-                        <ul>
-                            {preguntas.map((pregunta) => (
-    <li key={pregunta.id}>
-        <strong></strong> {pregunta.seccion_nombre}, <strong></strong> {pregunta.subseccion_nombre}<br />
-        <span>{pregunta.pregunta}</span><br />
-        <textarea
-            value={respuestasInconformidad[pregunta.id] || ''}
-            onChange={(e) => setRespuestasInconformidad({ ...respuestasInconformidad, [pregunta.id]: e.target.value })}
-            placeholder="Escribe la respuesta de inconformidad"
-            rows={10} 
-            cols={250} 
-        />
-        <button onClick={() => handleGuardarRespuesta(pregunta.id)}>Guardar respuesta de inconformidad</button>
-    </li>
-))}
-                        </ul>
+                        <ul>{renderQuestions()}</ul>
                     )}
                 </div>
             </div>
         </div>
     );
 };
+
+
 
 export default Auditadoinconformidad;
