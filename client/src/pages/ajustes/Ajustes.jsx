@@ -202,6 +202,7 @@ const Ajustes = () => {
                         <p>{"Fecha Final: " + item.fecha_final.slice(0, 10)}</p>
                       )}                   
                       <div className="actions">
+                        {dataType === 'auditorias' ? (<></>) : (<></>)}
                         {deleteConfirmations[item.id] ? (
                           <>
                             <p>
@@ -230,12 +231,16 @@ const Ajustes = () => {
                             Eliminar
                           </button>
                         )}
+                        {dataType === 'auditorias' ? ( <></>):( 
+                        <>                        
+                        
                         <button 
                           style={{ backgroundColor: '#d8f3dc', color: 'black', marginLeft: '0vw', border: '0.2vw solid #d8f3dc', padding: '1vw 1vw', borderRadius: '0.5vw', cursor: 'pointer' }} 
                           onClick={() => handleModifyItem(item)}
                           >
                           Modificar
-                        </button>
+                        </button> </>)}
+                        
                       </div>
                     </div>
                   ))}
