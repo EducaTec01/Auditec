@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SidebarAuditado from "../../components/sidebarAuditado/SidebarAuditado";
+import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useParams } from 'react-router-dom';
 
@@ -56,7 +56,7 @@ const AuditadoinconformidadJefa = () => {
 
     return (
         <div className="vigencias-page">
-            <SidebarAuditado />
+            <Sidebar />
             <div className="vigencias-content">
                 <Navbar />
                 <h1>Inconformidades</h1>
