@@ -42,7 +42,20 @@ Auditoria.delete = (req, res) => {
     });
 };
 
+Auditoria.terminar = (req, res) => {
+    const id_auditoria = req.params.id;
 
+    // Actualizar el estado de la auditoría a 'TERMINADA'
+    db.query("UPDATE Auditoria_subsecciones SET estado = 'TERMINADA' WHERE id_auditoria = ?", [id_auditoria], (err, result) => {
+        if (err) {
+            console.error("Error al cambiar el estado de la auditoría:", err);
+            res.status(500).json({ error: "Error al cambiar el estado de la auditoría" });
+            return;
+        }
+        console.log("Estado de la auditoría cambiado a 'TERMINADA'.");
+        res.json({ message: "Estado de la auditoría cambiado a 'TERMINADA'." });
+    });
+};
 
 Auditoria.updateById = (req, res) => {
     const { idAuditoria } = req.params;

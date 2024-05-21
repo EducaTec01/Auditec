@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom"; // Importa Link desde react-router-dom
+import { useParams, Link } from "react-router-dom";
 import "./asignacion.scss";
 
 import Navbar from "../../components/navbar/Navbar";
@@ -54,6 +54,29 @@ const DatosAsignacionJefa = () => {
     }
   };
 
+  const handleTerminarAuditoria = () => {
+    fetch(`http://localhost:3001/terminarAuditoria/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error al terminar la auditoría');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Actualizar la vista si la actualización fue exitosa
+      fetchAsignacion(id);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      setError(error.message);
+    });
+  };
+
   if (loading) {
     return <div>Cargando...</div>;
   }
@@ -64,12 +87,10 @@ const DatosAsignacionJefa = () => {
 
   return (
     <body>
-      
       <div className="section1">
         <Sidebar />
         <div className="section2">
-        <Navbar />
-
+          <Navbar />
           <div className="encabezado">
             <div className="titulo">
               <p>Asignación #{asignacion.id_auditoria}</p>
@@ -98,15 +119,16 @@ const DatosAsignacionJefa = () => {
             </div>
           </div>
           <div className="report">
-            {/* Utiliza Link para dirigirte a la nueva ruta */}
             <Link to={`/asignacionjefa/${asignacion.id_auditoria}/formulariojefa`} className="button">Ver Respuestas</Link>
           </div>
           <div className="report">
-            {/* Utiliza Link para dirigirte a la nueva ruta */}
             <Link to={`/AuditadoinconformidadJefa/${asignacion.id_auditoria}`} className="button">Ver Inconformidades</Link>
           </div>
           <div className="report">
             <GeneratePDF/>
+          </div>
+          <div className="report">
+            <button onClick={handleTerminarAuditoria} className="button">Terminar auditoría</button>
           </div>
         </div>
       </div>

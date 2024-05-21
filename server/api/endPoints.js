@@ -103,7 +103,7 @@ router.get('/getRespuestaInconformidad/:id_pregunta/:id_auditoria', getRespuesta
 //
 //Asignacioes 
 router.post('/AllAuditoriasController', AllAuditoriasController);
-
+router.post('/terminarAuditoria/:id',Auditoria.terminar);
 router.post('/login', login);
 router.get('/rhistorial', rhistorial);  
 router.get('/preguntas', preguntas);

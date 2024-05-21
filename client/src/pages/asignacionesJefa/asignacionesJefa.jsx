@@ -28,16 +28,20 @@ const Asignaciones = () => {
       return response.json();
     })
     .then((data) => {
-      // Filtrar asignaciones que están en estado "TERMINADA"
-      const asignacionesTerminadas = data.filter(asignacion => asignacion.estado === "TERMINADA");
-      
-      // Formatear las fechas
-      const asignacionesFormateadas = asignacionesTerminadas.map((asignacion) => ({
-        ...asignacion,
-        fecha_final: new Date(asignacion.fecha_final).toISOString().split("T")[0]
-      }));
+      const asignacionesUnicas = [];
+      const asignacionesIds = new Set();
 
-      setAsignaciones(asignacionesFormateadas);
+      data.forEach((asignacion) => {
+        if (!asignacionesIds.has(asignacion.id)) {
+          asignacionesIds.add(asignacion.id);
+          asignacionesUnicas.push({
+            ...asignacion,
+            fecha_final: new Date(asignacion.fecha_final).toISOString().split("T")[0]
+          });
+        }
+      });
+
+      setAsignaciones(asignacionesUnicas);
       setLoading(false);
       setError(null);
     })
