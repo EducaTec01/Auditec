@@ -7,83 +7,57 @@ const AuditadoinconformidadJefa = () => {
     const { id } = useParams();
     const [preguntas, setPreguntas] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [respuestasInconformidad, setRespuestasInconformidad] = useState({});
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchPreguntas = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/preguntasConInconformidad`);
+                const response = await fetch(`http://localhost:3001/preguntasByAuditoria/${id}`);
                 if (!response.ok) {
-                    throw new Error('Error al obtener las preguntas con inconformidades');
+                    throw new Error('Error al obtener las preguntas');
                 }
                 const data = await response.json();
-                setPreguntas(data);
+                // Filtrar las preguntas donde genera_inconformidad es true
+                const preguntasFiltradas = data.filter(pregunta => pregunta.genera_inconformidad);
+                setPreguntas(preguntasFiltradas);
                 setLoading(false);
             } catch (error) {
                 console.error('Error:', error);
             }
         };
 
-        fetchData();
-    }, []);
+        fetchPreguntas();
+    }, [id]);
 
-    useEffect(() => {
-        const fetchRespuestasInconformidad = async () => {
-            try {
-                const promises = preguntas.map(async (pregunta) => {
-                    const response = await fetch(`http://localhost:3001/getRespuestaInconformidad/${pregunta.id}/${id}`);
-                    if (!response.ok) {
-                        throw new Error(`Error al obtener la respuesta de inconformidad para la pregunta ${pregunta.id}`);
-                    }
-                    const data = await response.json();
-                    return { preguntaId: pregunta.id, respuesta: data.respuesta || '' };
-                });
-
-                const respuestas = await Promise.all(promises);
-                const respuestasObject = respuestas.reduce((acc, curr) => {
-                    acc[curr.preguntaId] = curr.respuesta;
-                    return acc;
-                }, {});
-
-                setRespuestasInconformidad(respuestasObject);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        };
-
-        fetchRespuestasInconformidad();
-    }, [preguntas, id]);
+    const renderQuestions = () => {
+        return preguntas.map((pregunta) => (
+            <li key={pregunta.id}>
+                <strong>Sección:</strong> {pregunta.seccion_nombre}, <strong>Subsección:</strong> {pregunta.subseccion_nombre}<br />
+                <span>{pregunta.pregunta}</span><br />
+                <span><strong>Respuesta:</strong> {pregunta.respuesta || 'No respondida'}</span><br />
+                <span><strong>Genera inconformidad:</strong> {pregunta.genera_inconformidad ? 'Sí' : 'No'}</span>
+            </li>
+        ));
+    };
 
     return (
         <div className="vigencias-page">
             <Sidebar />
             <div className="vigencias-content">
                 <Navbar />
-                <h1>Inconformidades</h1>
+                <h1>Formulario - Vista</h1>
                 <div className="question-list">
+                    <h2>Preguntas que generan inconformidad:</h2>
                     {loading ? (
                         <p>Cargando...</p>
                     ) : (
-                        <ul>
-                            {preguntas.map((pregunta) => (
-                                <li key={pregunta.id}>
-                                    <strong>{pregunta.seccion_nombre}</strong>, <strong>{pregunta.subseccion_nombre}</strong><br />
-                                    <span>{pregunta.pregunta}</span><br />
-                                    <textarea
-                                        value={respuestasInconformidad[pregunta.id] || ''}
-                                        readOnly
-                                        placeholder="Escribe la respuesta de inconformidad"
-                                        rows={10}
-                                        style={{ resize: 'none', width: '100%' }}
-                                    />
-                                </li>
-                            ))}
-                        </ul>
+                        <ul>{renderQuestions()}</ul>
                     )}
                 </div>
             </div>
         </div>
     );
 };
+
+
 
 export default AuditadoinconformidadJefa;

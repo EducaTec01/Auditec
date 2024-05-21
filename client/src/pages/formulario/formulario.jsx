@@ -8,6 +8,7 @@ const Formulario = () => {
     const { id } = useParams();
     const [preguntas, setPreguntas] = useState([]);
     const [respuestas, setRespuestas] = useState({});
+    const [generaInconformidad, setGeneraInconformidad] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -23,7 +24,12 @@ const Formulario = () => {
                     acc[pregunta.id] = pregunta.respuesta || '';
                     return acc;
                 }, {});
+                const initialGeneraInconformidad = data.reduce((acc, pregunta) => {
+                    acc[pregunta.id] = pregunta.genera_inconformidad || false;
+                    return acc;
+                }, {});
                 setRespuestas(initialRespuestas);
+                setGeneraInconformidad(initialGeneraInconformidad);
                 setLoading(false);
             } catch (error) {
                 console.error('Error:', error);
@@ -42,7 +48,8 @@ const Formulario = () => {
                 },
                 body: JSON.stringify({
                     id_auditoria: id,
-                    respuestas: respuestas
+                    respuestas: respuestas,
+                    genera_inconformidad: generaInconformidad
                 })
             });
             if (!response.ok) {
@@ -51,7 +58,6 @@ const Formulario = () => {
             alert('¡Respuestas guardadas exitosamente!');
         } catch (error) {
             console.error('Error al guardar las respuestas:', error);
-            // Intentar actualizar
             handleUpdate();
         }
     };
@@ -65,7 +71,8 @@ const Formulario = () => {
                 },
                 body: JSON.stringify({
                     id_auditoria: id,
-                    respuestas: respuestas
+                    respuestas: respuestas,
+                    genera_inconformidad: generaInconformidad
                 })
             });
             if (!response.ok) {
@@ -74,22 +81,20 @@ const Formulario = () => {
             alert('¡Respuestas actualizadas exitosamente!');
         } catch (error) {
             console.error('Error al actualizar las respuestas:', error);
-            // Mostrar mensaje de error
             alert('Error al guardar o actualizar las respuestas');
         }
     };
 
     const handleButtonClick = () => {
-        // Si hay respuestas guardadas, intentar actualizar, de lo contrario, guardar
-        if (Object.keys(respuestas).length > 0) {
-            handleUpdate();
-        } else {
-            handleSubmit();
-        }
+        handleSubmit();
     };
 
     const handleRespuestaChange = (id_pregunta, respuesta) => {
         setRespuestas({ ...respuestas, [id_pregunta]: respuesta });
+    };
+
+    const handleInconformidadChange = (id_pregunta, value) => {
+        setGeneraInconformidad({ ...generaInconformidad, [id_pregunta]: value });
     };
 
     const renderQuestions = () => {
@@ -102,6 +107,15 @@ const Formulario = () => {
                     value={respuestas[pregunta.id] || ''}
                     onChange={(e) => handleRespuestaChange(pregunta.id, e.target.value)}
                 />
+                <br />
+                <label>
+                    Genera inconformidad:
+                    <input
+                        type="checkbox"
+                        checked={generaInconformidad[pregunta.id] || false}
+                        onChange={(e) => handleInconformidadChange(pregunta.id, e.target.checked)}
+                    />
+                </label>
             </li>
         ));
     };
