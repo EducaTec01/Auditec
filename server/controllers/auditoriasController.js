@@ -98,7 +98,8 @@ Auditoria.getAllById = (req, res) => {
                     Login.nombre As nombre_auditado,
                     Auditoria.id_seccion, 
                     Seccion.nombre AS nombre_seccion, 
-                    Auditoria.fecha_final 
+                    Auditoria.fecha_final,
+                    Auditoria.estado
                   FROM Auditoria 
                   JOIN Login ON Auditoria.id_auditado = Login.id
                   JOIN Seccion ON Auditoria.id_seccion = Seccion.id 
