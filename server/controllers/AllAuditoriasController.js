@@ -2,7 +2,8 @@ const db = require('../models/db');
 
 const AllAuditoriasController = (req, res) => {
   const query = `
-  SELECT DISTINCT Auditoria.id, 
+  SELECT DISTINCT 
+  Auditoria.id, 
   Auditoria.id_departamento, 
   Departamentos.nombre AS nombre_departamento, 
   Auditoria.id_auditado, 
@@ -10,12 +11,18 @@ const AllAuditoriasController = (req, res) => {
   Auditoria.id_seccion, 
   Seccion.nombre AS nombre_seccion, 
   Auditoria.fecha_final,
+  Auditoria.estado,  -- Añadimos el campo estado aquí
   R.genera_inconformidad
-FROM Auditoria 
-JOIN Login ON Auditoria.id_auditado = Login.id 
-JOIN Seccion ON Auditoria.id_seccion = Seccion.id 
-JOIN Departamentos ON Auditoria.id_departamento = Departamentos.id
-LEFT JOIN Respuestas R ON Auditoria.id = R.id_auditoria;
+FROM 
+  Auditoria 
+JOIN 
+  Login ON Auditoria.id_auditado = Login.id 
+JOIN 
+  Seccion ON Auditoria.id_seccion = Seccion.id 
+JOIN 
+  Departamentos ON Auditoria.id_departamento = Departamentos.id
+LEFT JOIN 
+  Respuestas R ON Auditoria.id = R.id_auditoria;
   `;
 
   db.query(query, (err, result) => {

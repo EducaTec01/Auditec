@@ -46,7 +46,7 @@ Auditoria.terminar = (req, res) => {
     const id_auditoria = req.params.id;
 
     // Actualizar el estado de la auditoría a 'TERMINADA'
-    db.query("UPDATE Auditoria_subsecciones SET estado = 'TERMINADA' WHERE id_auditoria = ?", [id_auditoria], (err, result) => {
+    db.query("UPDATE Auditoria SET estado = 'TERMINADA' WHERE id = ?", [id_auditoria], (err, result) => {
         if (err) {
             console.error("Error al cambiar el estado de la auditoría:", err);
             res.status(500).json({ error: "Error al cambiar el estado de la auditoría" });

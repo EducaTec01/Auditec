@@ -29,15 +29,25 @@ const Reportes = () => {
     })
     .then((data) => {
       // Filtrar asignaciones que están en estado "TERMINADA"
-      const asignacionesTerminadas = data.filter(asignacion => asignacion.estado === "TERMINADA");
-      
-      // Formatear las fechas
-      const asignacionesFormateadas = asignacionesTerminadas.map((asignacion) => ({
-        ...asignacion,
-        fecha_final: new Date(asignacion.fecha_final).toISOString().split("T")[0]
-      }));
+      const asignacionesFiltradas = data.filter(
+        (asignacion) => asignacion.estado === "TERMINADA"
+      );
 
-      setAsignaciones(asignacionesFormateadas);
+      // Utilizar un conjunto para eliminar duplicados por ID
+      const asignacionesUnicas = [];
+      const idsUnicos = new Set();
+
+      asignacionesFiltradas.forEach((asignacion) => {
+        if (!idsUnicos.has(asignacion.id)) {
+          idsUnicos.add(asignacion.id);
+          asignacionesUnicas.push({
+            ...asignacion,
+            fecha_final: new Date(asignacion.fecha_final).toISOString().split("T")[0]
+          });
+        }
+      });
+
+      setAsignaciones(asignacionesUnicas);
       setLoading(false);
       setError(null);
     })
