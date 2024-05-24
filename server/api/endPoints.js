@@ -1,5 +1,14 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
+const path = require('path');
+const fs = require('fs');
+const db = require('../models/db');
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: multer.memoryStorage() });
+
+
 
 const { ping } = require('../controllers/pingController');
 const { login } = require('../controllers/loginController');
@@ -14,13 +23,17 @@ const { getPreguntasConInconformidad } = require('../controllers/getPreguntasCon
 const { insertRespuestaInconformidad } = require('../controllers/insertRespuestaInconformidad');
 const { updateRespuestaInconformidad } = require('../controllers/updateRespuestaInconformidad');
 const { getRespuestaInconformidad } = require('../controllers/getRespuestaInconformidad');
+const { insertEvidencias } = require('../controllers/insertEvidencias');
+const { getEvidencias } = require('../controllers/getEvidencias');
+const { descargarEvidencia } = require('../controllers/descargarEvidencia');
 
 
 // Formulario
 const { inconformidades } = require('../controllers/inconformidadesController');    
 const { getPreguntasByAuditoria } = require('../controllers/getPreguntasByAuditoria');
-const { insertRespuestas } = require('../controllers/insertRespuesta');
-const { updateRespuestas } = require('../controllers/updateRespuestas');
+const { insertRespuestas } = require('../controllers/insertRespuestas');
+
+
 //
 
 const Asignacion = require('../controllers/asignacionController');
@@ -67,9 +80,15 @@ router.get('/auditoriainfo/:id', Auditoria.getDetailedAuditById );
 
 
 //Fromulario
-router.post('/insertarRespuestas', insertRespuestas);
+router.post('/insertRespuestas', insertRespuestas);
 router.get('/preguntasByAuditoria/:id', getPreguntasByAuditoria);
-router.post('/modificarRespuestas', updateRespuestas);
+router.post('/insertEvidencias', upload.single('file'), insertEvidencias);
+router.get('/getEvidencias', getEvidencias);
+router.get('/descargarEvidencia/:id_auditoria/:id_pregunta', descargarEvidencia);
+
+
+
+
 
 router.post('/respuestaInconformidad/insertar', (req, res) => {
     const { id_pregunta, id_auditoria, respuesta } = req.body;

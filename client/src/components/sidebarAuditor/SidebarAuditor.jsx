@@ -26,7 +26,7 @@ const SidebarAuditor  = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <img src={logoImage} alt="Logo" className="logo"/>
+        <img src={logoImage} alt="" className="logo"/>
       </div>
       <div className="center">
         <ul>

@@ -9,6 +9,34 @@
     }
 }
 
+.sidebar {
+    width: 20%;
+    min-height: 100vh;
+    background-color: white;
+    padding: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+  
+    .top {
+      height: 7%; /* Altura fija del contenedor */
+      display: flex;
+      align-items: center;
+      padding-left: 30px;
+      border-bottom: 1px solid #ccc;
+      position: relative;
+  
+      .logo {
+        
+        width: 300px; /* Tamaño fijo para el logo */
+        height: 100px; /* Tamaño fijo para el logo */
+        margin-right: 10px;    }
+      .vet-text {
+        font-size: 3vw; /* Ajusta el tamaño del texto "VET" */
+        color: #57CC99; /* Cambia el color del texto según tus preferencias */
+      }
+    }
+}
 .formulario-body {
     .pasos {
         padding: 10px 10% 20px;
