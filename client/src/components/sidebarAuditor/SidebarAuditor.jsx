@@ -19,8 +19,6 @@ import { useContext } from "react";
 import logoImage from './logo.png';
 import HistoryIcon from '@mui/icons-material/History';
 import SettingsIcon from '@mui/icons-material/Settings';
-//Mis logos
-
 
 const SidebarAuditor  = () => {  
   return (
@@ -52,7 +50,7 @@ const SidebarAuditor  = () => {
           <Link to="/capacitacion" style={{ textDecoration: "none" }}>
             <li>
               <SchoolIcon className="icon" />
-              <span>Capacitacion</span>
+              <span>Capacitación</span>
             </li>
           </Link>
           

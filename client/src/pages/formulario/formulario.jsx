@@ -10,6 +10,7 @@ const Formulario = () => {
     const [respuestas, setRespuestas] = useState({});
     const [generaInconformidad, setGeneraInconformidad] = useState({});
     const [evidencias, setEvidencias] = useState({});
+    const [evidenciasExistentes, setEvidenciasExistentes] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -32,6 +33,11 @@ const Formulario = () => {
                 setRespuestas(initialRespuestas);
                 setGeneraInconformidad(initialGeneraInconformidad);
                 setLoading(false);
+
+                // Verificar la existencia de evidencias
+                data.forEach(pregunta => {
+                    checkEvidenciaExistence(pregunta.id);
+                });
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -39,6 +45,19 @@ const Formulario = () => {
 
         fetchPreguntas();
     }, [id]);
+
+    const checkEvidenciaExistence = async (id_pregunta) => {
+        try {
+            const response = await fetch(`http://localhost:3001/checkEvidenciaExistence/${id_pregunta}/${id}`);
+            if (!response.ok) {
+                throw new Error('Error al verificar la existencia de la evidencia');
+            }
+            const data = await response.json();
+            setEvidenciasExistentes(prevState => ({ ...prevState, [id_pregunta]: data.exists }));
+        } catch (error) {
+            console.error('Error al verificar la existencia de la evidencia:', error);
+        }
+    };
 
     const handleSubmit = async () => {
         try {
@@ -70,7 +89,7 @@ const Formulario = () => {
         formData.append('evidencia', file);
 
         try {
-            const response = await fetch('http://localhost:3001/insertEvidencias', {
+            const response = await fetch('http://localhost:3001/uploadEvidencia', {
                 method: 'POST',
                 body: formData
             });
@@ -78,10 +97,16 @@ const Formulario = () => {
                 throw new Error('Error al subir la evidencia');
             }
             alert('¡Evidencia subida exitosamente!');
+            checkEvidenciaExistence(id_pregunta);
         } catch (error) {
             console.error('Error al subir la evidencia:', error);
             alert('Error al subir la evidencia');
         }
+    };
+
+    const handleDownload = async (id_pregunta) => {
+        const url = `http://localhost:3001/downloadEvidencia/${id_pregunta}/${id}`;
+        window.open(url, '_blank');
     };
 
     const handleRespuestaChange = (id_pregunta, respuesta) => {
@@ -132,13 +157,23 @@ const Formulario = () => {
                             <label>
                                 Subir evidencia:
                                 <input
-                                    type="file"
-                                    onChange={(e) => handleEvidenciaChange(pregunta.id, e.target.files[0])}
+                                type="file"
+                                onChange={(e) => handleEvidenciaChange(pregunta.id, e.target.files[0])}
                                 />
+                                {evidencias[pregunta.id] && ( // Verificar si hay un archivo seleccionado
                                 <button onClick={() => handleUpload(pregunta.id, evidencias[pregunta.id])}>
-                                    Subir PDF
+                                 Subir PDF
                                 </button>
-                            </label>
+                                )}
+                                </label>
+
+                                {evidenciasExistentes[pregunta.id] && (
+                                <button onClick={() => handleDownload(pregunta.id)}>
+                                    Descargar evidencia
+                                </button>
+                            )}
+                            <br />
+                            
                         </li>
                     ))}
                 </ul>
@@ -161,9 +196,11 @@ const Formulario = () => {
                     )}
                 </div>
                 <button onClick={handleSubmit}>Guardar Respuestas</button>
+                
             </div>
         </div>
     );
 };
 
 export default Formulario;
+

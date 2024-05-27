@@ -29,13 +29,28 @@ const AuditadoinconformidadJefa = () => {
     }, [id]);
 
     const renderQuestions = () => {
-        return preguntas.map((pregunta) => (
-            <li key={pregunta.id}>
-                <strong>Sección:</strong> {pregunta.seccion_nombre}, <strong>Subsección:</strong> {pregunta.subseccion_nombre}<br />
-                <span>{pregunta.pregunta}</span><br />
-                <span><strong>Respuesta:</strong> {pregunta.respuesta || 'No respondida'}</span><br />
-                <span><strong>Genera inconformidad:</strong> {pregunta.genera_inconformidad ? 'Sí' : 'No'}</span>
-            </li>
+        const groupedQuestions = {};
+
+        preguntas.forEach(pregunta => {
+            const key = `${pregunta.seccion_nombre}-${pregunta.subseccion_nombre}`;
+            if (!groupedQuestions[key]) {
+                groupedQuestions[key] = [];
+            }
+            groupedQuestions[key].push(pregunta);
+        });
+
+        return Object.entries(groupedQuestions).map(([key, preguntasGroup]) => (
+            <div key={key}>
+                <h3>{`Sección: ${preguntasGroup[0].seccion_nombre}, Subsección: ${preguntasGroup[0].subseccion_nombre}`}</h3>
+                <ul>
+                    {preguntasGroup.map(pregunta => (
+                        <li key={pregunta.id}>
+                            <span>{pregunta.pregunta}</span><br />
+                            <span><strong>Respuesta:</strong> {pregunta.respuesta || 'No respondida'}</span><br />
+                        </li>
+                    ))}
+                </ul>
+            </div>
         ));
     };
 
@@ -57,7 +72,5 @@ const AuditadoinconformidadJefa = () => {
         </div>
     );
 };
-
-
 
 export default AuditadoinconformidadJefa;

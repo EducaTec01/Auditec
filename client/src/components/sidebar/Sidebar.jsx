@@ -53,7 +53,7 @@ const Sidebar = () => {
           <Link to="/ajustes" style={{ textDecoration: "none" }}>
             <li>
               <SettingsIcon className="icon" />
-              <span>Modificaciones</span>
+              <span>Gestión de Asignaciones / Usuarios</span>
             </li>
           </Link>
         </ul>

@@ -21,9 +21,9 @@ const { getPreguntasConInconformidad } = require('../controllers/getPreguntasCon
 const { insertRespuestaInconformidad } = require('../controllers/insertRespuestaInconformidad');
 const { updateRespuestaInconformidad } = require('../controllers/updateRespuestaInconformidad');
 const { getRespuestaInconformidad } = require('../controllers/getRespuestaInconformidad');
-const { insertEvidencias } = require('../controllers/insertEvidencias');
+const { uploadEvidencia, downloadEvidencia, checkEvidenciaExistence  } = require('../controllers/evidenciaController');
 const { getEvidencias } = require('../controllers/getEvidencias');
-const { descargarEvidencia } = require('../controllers/descargarEvidencia');
+
 
 
 // Formulario
@@ -80,9 +80,10 @@ router.get('/auditoriainfo/:id', Auditoria.getDetailedAuditById );
 //Fromulario
 router.post('/insertRespuestas', insertRespuestas);
 router.get('/preguntasByAuditoria/:id', getPreguntasByAuditoria);
-router.post('/insertEvidencias', insertEvidencias);
+router.post('/uploadEvidencia', uploadEvidencia);
+router.get('/downloadEvidencia/:id_pregunta/:id_auditoria', downloadEvidencia);
 router.get('/getEvidencias', getEvidencias);
-router.get('/descargarEvidencia/:id_auditoria/:id_pregunta', descargarEvidencia);
+router.get('/checkEvidenciaExistence/:id_pregunta/:id_auditoria', checkEvidenciaExistence);
 
 
 
