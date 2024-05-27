@@ -5,7 +5,7 @@ import "./asignacionesJefa.scss";
 import arrow from "./arrow.png";
 import { Link } from "react-router-dom";
 
-const Asignaciones = () => {
+const Reportes = () => {
   const [asignaciones, setAsignaciones] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,12 +28,18 @@ const Asignaciones = () => {
       return response.json();
     })
     .then((data) => {
-      const asignacionesUnicas = [];
-      const asignacionesIds = new Set();
+      // Filtrar asignaciones que están en estado "TERMINADA"
+      const asignacionesFiltradas = data.filter(
+        (asignacion) => asignacion.estado === "ACTIVA"
+      );
 
-      data.forEach((asignacion) => {
-        if (!asignacionesIds.has(asignacion.id)) {
-          asignacionesIds.add(asignacion.id);
+      // Utilizar un conjunto para eliminar duplicados por ID
+      const asignacionesUnicas = [];
+      const idsUnicos = new Set();
+
+      asignacionesFiltradas.forEach((asignacion) => {
+        if (!idsUnicos.has(asignacion.id)) {
+          idsUnicos.add(asignacion.id);
           asignacionesUnicas.push({
             ...asignacion,
             fecha_final: new Date(asignacion.fecha_final).toISOString().split("T")[0]
@@ -109,4 +115,4 @@ const Asignaciones = () => {
   );
 };
 
-export default Asignaciones;
+export default Reportes;
