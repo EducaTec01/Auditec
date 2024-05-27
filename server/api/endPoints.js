@@ -1,12 +1,10 @@
 const express = require('express');
 const multer = require('multer');
 const router = express.Router();
-const path = require('path');
-const fs = require('fs');
-const db = require('../models/db');
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: multer.memoryStorage() });
+
+
+
 
 
 
@@ -82,7 +80,7 @@ router.get('/auditoriainfo/:id', Auditoria.getDetailedAuditById );
 //Fromulario
 router.post('/insertRespuestas', insertRespuestas);
 router.get('/preguntasByAuditoria/:id', getPreguntasByAuditoria);
-router.post('/insertEvidencias', upload.single('file'), insertEvidencias);
+router.post('/insertEvidencias', insertEvidencias);
 router.get('/getEvidencias', getEvidencias);
 router.get('/descargarEvidencia/:id_auditoria/:id_pregunta', descargarEvidencia);
 
