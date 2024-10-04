@@ -23,9 +23,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 const SidebarAuditor  = () => {  
   return (
     <div className="sidebar">
-      <div className="top">
-        <img src={logoImage} alt="Logo" className="logo"/>
-      </div>
       <div className="center">
         <ul>
           <p className="title">Menú</p>

@@ -1,11 +1,8 @@
-import Navbar2 from "../../components/navbar-2/Navbar-2";
 import "./asignacionesAuditor.scss";
 import arrow from "./arrow.png";
-import Sidebar from "../../components/sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import SidebarAuditor from "../../components/sidebarAuditor/SidebarAuditor";
-import Navbar from "../../components/navbar/Navbar";
 
 const AsignacionesAuditor = () => {
   const [asignaciones, setAsignaciones] = useState([]);
@@ -56,7 +53,6 @@ const AsignacionesAuditor = () => {
     <div className="section1">
       <SidebarAuditor />
       <div className="section2">
-        <Navbar />
         <div className="contenedor">
           <div className="titulo">
             <p>Asignaciones</p>

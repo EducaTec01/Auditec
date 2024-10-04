@@ -2,8 +2,6 @@ import "./preguntas.scss"
 import arrow from "./arrow.png"
 
 import SidebarAuditor from "../../components/sidebarAuditor/SidebarAuditor";
-import Navbar from "../../components/navbar/Navbar";
-
 const Preguntas = () => {
     return (
       <body>
@@ -11,7 +9,6 @@ const Preguntas = () => {
             
         <SidebarAuditor />
         <div className="section2">
-            <Navbar/>
             <div className="titulo">
                 <p>Preguntas e Instrucciones</p>
             </div>

@@ -26,18 +26,9 @@ import SettingsIcon from '@mui/icons-material/Settings';
 const SidebarAuditado   = () => {  
   return (
     <div className="sidebar">
-      <div className="top">
-        <img src={logoImage} alt="Logo" className="logo"/>
-      </div>
       <div className="center">
         <ul>
           <p className="title">Menú</p>
-          <Link to="/homeAuditado" style={{ textDecoration: "none" }}>
-            <li>
-              <DashboardIcon className="icon" />
-              <span>Inicio</span>
-            </li>
-          </Link>
           <Link to="/asignacionesAuditado" style={{ textDecoration: "none" }}>
             <li>
               <CalendarTodayIcon  className="icon" />
@@ -45,7 +36,6 @@ const SidebarAuditado   = () => {
             </li>
           </Link>
         </ul>
-        <hr className="linea" />
       </div>
     </div>
   );

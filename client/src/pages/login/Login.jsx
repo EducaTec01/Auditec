@@ -34,6 +34,7 @@ const Login = () => {
             sessionStorage.setItem('token', result.token);
             sessionStorage.setItem('Acceso', result.Acceso);
             sessionStorage.setItem('id', result.id);
+            sessionStorage.setItem('Nombre', result.Nombre);
             // Redirige al usuario según su tipo de acceso
             switch(result.Acceso) {
               case 'Jefa':

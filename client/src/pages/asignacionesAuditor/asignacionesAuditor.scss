@@ -1,14 +1,15 @@
 body{
-
+    .section1{        
+        height: 90vh !important;
+    }
     .section2 {
         display: flex;
         flex-direction: column;
-    
         .titulo {
             margin: 1% 0 0;
     
             p {
-                font-size: 50px;
+                font-size: 40px;
                 font-weight: 700;
             }
         }

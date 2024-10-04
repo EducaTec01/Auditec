@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SidebarAuditado from "../../components/sidebarAuditado/SidebarAuditado";
 import "./formulario.scss";
-import Navbar from "../../components/navbar/Navbar";
 import { useParams } from 'react-router-dom';
 
 const Auditadoinconformidad = () => {
@@ -59,7 +58,6 @@ const Auditadoinconformidad = () => {
         <div className="vigencias-page">
             <SidebarAuditado />
             <div className="vigencias-content">
-                <Navbar />
                 <h1>Inconformidades del Formulario</h1>
                 <div className="question-list">
                     <h2>Preguntas que generan inconformidad:</h2>

@@ -16,39 +16,66 @@ import DatosAsignacionJefa from "./pages/datosasingacionjefa/datosasingacionjefa
 import AsignacionesAuditado from "./pages/asignacionesauditado/asignacionesauditado"
 import Auditadoinconformidad from "./pages/Auditadoinconformidad/Auditadoinconformidad"
 import AuditadoinconformidadJefa from "./pages/AuditadoinconformidadJefa/AuditadoinconformidadJefa"
+import Navbar from "./components/navbar/Navbar"
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import "./style/dark.scss";
+import "./style/index.scss";
 import Ajustes from "./pages/ajustes/Ajustes";
 import React,{ useContext } from "react";
 import VigenciasComponent from "./pages/Vigencias/Vigencias";
 import VigenciasGComponent from "./pages/VigenciasID/VigenciasID";
-import HomeAuditado from "./pages/homeAuditado/HomeAuditado";
 import HomeAuditor from "./pages/homeAuditor/homeAuditor";
 import AsignacionesAuditor from "./pages/asignacionesAuditor/asignacionesAuditor";
 
 
-
+const Layout = ({ children }) => {
+  return (
+    <div>
+      <Navbar /> {/* Aquí se renderiza el Navbar */}
+      <div className="app__content">
+        {children} {/* Aquí se renderiza el contenido de las rutas */}
+      </div>
+    </div>
+  );
+};
 
 const PrivateRoute = ({ element: Element, ...rest }) => {
   const isAuthenticated = sessionStorage.getItem('token');
   const userAccess = sessionStorage.getItem('Acceso');
 
-  return isAuthenticated && userAccess === 'Jefa' ? <Element {...rest} /> : <Navigate to="/login" />;
+  return isAuthenticated && userAccess === 'Jefa' ? (
+    <Layout>
+      <Element {...rest} />
+    </Layout>
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 const PrivateRoute2 = ({ element: Element, ...rest }) => {
   const isAuthenticated = sessionStorage.getItem('token');
   const userAccess = sessionStorage.getItem('Acceso');
 
-  return isAuthenticated && userAccess === 'Auditor' ? <Element {...rest} /> : <Navigate to="/login" />;
+  return isAuthenticated && userAccess === 'Auditor' ? (
+    <Layout>
+      <Element {...rest} />
+    </Layout>
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 const PrivateRoute3 = ({ element: Element, ...rest }) => {
   const isAuthenticated = sessionStorage.getItem('token');
   const userAccess = sessionStorage.getItem('Acceso');
 
-  return isAuthenticated && userAccess === 'auditado' ? <Element {...rest} /> : <Navigate to="/login" />;
+  return isAuthenticated && userAccess === 'auditado' ? (
+    <Layout>
+      <Element {...rest} />
+    </Layout>
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 const CatchAll = () => {
@@ -62,7 +89,7 @@ const CatchAll = () => {
       case 'Auditor':
         return <Navigate to="/homeAuditor" />;
       case 'auditado':
-        return <Navigate to="/homeAuditado" />;
+        return <Navigate to="/asignacionesAuditado" />;
       default:
         return <Navigate to="/login" />;
     }
@@ -109,7 +136,6 @@ function App() {
             {/* Auditado */}  
             <Route path="/vigenciasComponent" element={<PrivateRoute3 element={VigenciasComponent} />} />
             <Route path="/vigenciasGComponent" element={<PrivateRoute3 element={VigenciasGComponent} />} />
-            <Route path="/homeAuditado" element={<PrivateRoute3 element={HomeAuditado}/>}/>
             <Route path="/asignacionesAuditado" element={<PrivateRoute3 element={AsignacionesAuditado}/>}/>
             <Route path="/Auditadoinconformidad/:id/" element={<PrivateRoute3 element={Auditadoinconformidad} />} />
             

@@ -49,13 +49,12 @@
     font-family: 'Montserrat', sans-serif;
 
     .info-container {
-        padding: 5% 12%;
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
 
         .left {
-            width: 40%;
 
             .left-texto {
                 h1 {
@@ -76,58 +75,20 @@
 
             .left-panel {
                 display: flex;
-                flex-direction: column;
-                align-items: center;
-
+                flex-direction: column; /* Alinea los elementos en horizontal */
+            
                 .contenedor {
+                    margin: 10px;
+                    display: inline-block;
                     background-color: white;
-                    display: flex;
-                    padding: 10px;
-                    margin: 10px 0;
+                    padding: 20px;
                     border-radius: 20px;
-                    width: 85%;
-                    transition: all 0.3s;
-                    cursor: pointer;
-
-                    &:hover {
-                        box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-                    }
-
-                    .logo {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-
-                        img {
-                            width: 80px;
-                            height: auto;
-                            background-color: #ECF3F8;
-                            padding: 15px;
-                            border-radius: 20px;
-                        }
-                    }
-
-                    .logo-info {
-                        padding: 10px;
-                        width: 80%;
-                        margin: 0 5px;
-
-                        h2 {
-                            font-weight: 600;
-                            font-size: 17px;
-                            color: #0c4e94;
-                            line-height: 2;
-                        }
-
-                        p {
-                            font-weight: 400;
-                            font-size: 14px;
-                            color: #333333;
-                            line-height: 1.5;
-                        }
-                    }
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.3s ease;
                 }
             }
+            
+            
         }
 
         .right {
@@ -135,14 +96,10 @@
             align-items: center;
 
             .local {
-                padding: 50px;
-
                 img {
-                    width: 300px;
+                    width: 200px;
                     height: auto;
                     border-radius: 50px;
-                    margin: 0 0 0 70px;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
                 }
             }
         }
@@ -166,3 +123,6 @@
         }
     }
 }
+
+
+

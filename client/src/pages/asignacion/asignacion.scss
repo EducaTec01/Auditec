@@ -5,6 +5,8 @@
 }
 
 .section2 {
+  height: 90vh;
+  overflow-y: scroll;
   margin-left: 20px; /* Separación del sidebar */
   flex: 1; /* Para que el contenido ocupe el espacio restante */
 
@@ -17,7 +19,7 @@
 
     .titulo {
       p {
-        font-size: 50px;
+        font-size: 40px;
         font-weight: 700;
       }
     }

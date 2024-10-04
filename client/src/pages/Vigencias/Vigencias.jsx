@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import SidebarAuditor from "../../components/sidebarAuditor/SidebarAuditor";
-import Navbar from "../../components/navbar/Navbar";
 import "./Vigencias.scss";
 
 const VigenciasComponent = () => {
@@ -51,7 +50,6 @@ const VigenciasComponent = () => {
         <div className="vigencias-page">
             <SidebarAuditor />
             <div className="vigencias-content">
-                <Navbar />
                 <h1>Formulario</h1>
                 <div className="question-list">
                     <h2>Preguntas:</h2>

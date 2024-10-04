@@ -5,7 +5,6 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import SidebarAuditado from "../../components/sidebarAuditado/SidebarAuditado";
-import Navbar from "../../components/navbar/Navbar";
 
 const AsignacionesAuditado = () => {
   const [asignaciones, setAsignaciones] = useState([]);
@@ -56,7 +55,6 @@ const AsignacionesAuditado = () => {
     <div className="section1">
       <SidebarAuditado />
       <div className="section2">
-        <Navbar />
         <div className="contenedor">
           <div className="titulo">
             <p>Asignaciones</p>

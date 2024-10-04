@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
 import Widget from "../../components/widget/Widget";
 import AddIcon from '@mui/icons-material/Add';
 import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
@@ -116,7 +115,6 @@ const Ajustes = () => {
     <div className="ajustes">
       <Sidebar />
       <div className="ajustesContainer">
-        <Navbar />
         <div className="containers">
           <div className="containerL">
             <div className="containersL">

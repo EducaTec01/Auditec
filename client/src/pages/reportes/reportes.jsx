@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./asignacionesJefa.scss";
 import arrow from "./arrow.png";
@@ -70,7 +69,6 @@ const Reportes = () => {
     <div className="section1">
       <Sidebar />
       <div className="section2">
-        <Navbar />
         <div className="contenedor">
           <div className="titulo">
             <p>Reportes</p>

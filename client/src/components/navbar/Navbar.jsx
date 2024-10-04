@@ -1,21 +1,22 @@
-import "./navbar.scss";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
-import { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom'; // Importa useNavigate
-import LogoutIcon from '@mui/icons-material/Logout';
+import React, { useState, useEffect, useRef } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { IoClose, IoMenu } from "react-icons/io5";
+import "./Navbar.scss";
+import Logo from './logo.png';
 
 const Navbar = () => {
-  const [openProfile, setOpenProfile] = useState(false);  
+  const navigate = useNavigate();
+  const location = useLocation(); 
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null); 
+  const [showSubmenu, setShowSubmenu] = useState(false);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [rolUsuario, setRolUsuario] = useState('');
   const [nombreUsuario, setNombreUsuario] = useState('');
-  const navigate = useNavigate(); // Utiliza useNavigate en lugar de useHistory
+
+  const menuRef = useRef(null);
+  const menuToggleRef = useRef(null); 
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,15 +25,20 @@ const Navbar = () => {
 
     // Obtener el rol de usuario y nombre de sessionStorage
     const rol = sessionStorage.getItem('Acceso');
-    const nombre = sessionStorage.getItem('nombre');
+    const nombre = sessionStorage.getItem('Nombre');
     setRolUsuario(rol);
     setNombreUsuario(nombre);
+    console.log(nombre);
 
     return () => clearInterval(interval);
   }, []);
 
-  const handleProfileClick = () => {
-    setOpenProfile(prevState => !prevState);
+  const handleNavigation = (path) => {
+    navigate(path);
+    setDropdownOpen(false); 
+    setShowSubmenu(false); 
+    setActiveDropdown(null); 
+    setMobileMenuOpen(false); 
   };
 
   const handleLogout = () => {
@@ -47,40 +53,71 @@ const Navbar = () => {
     }
   };
 
+  const handleMouseEnter = () => {
+    setDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownOpen(false);
+    setActiveDropdown(null); 
+  };
+
+  const handleSubmenuEnter = () => {
+    setShowSubmenu(true);
+  };
+
+  const handleSubmenuLeave = () => {
+    setShowSubmenu(false);
+  };
+
+  const handleDropdownEnter = (dropdownName) => {
+    setActiveDropdown(dropdownName);
+  };
+
+  const isActive = (path) => location.pathname === path;
+
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        menuToggleRef.current &&
+        !menuToggleRef.current.contains(event.target)
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="navbar">
-      <div className="wrapper">
-        <div className="center-text">  
-          <div className="rol">  
-            <p>{rolUsuario}</p> {/* Mostrar el rol de usuario */}
-          </div>
-          <div className="nombre">  
+    <header className="header">
+      <nav className="nav container">    
+        <div className="nav">  
+          <NavLink to="/about" className="nav__logo">
+            <img src={Logo} alt="Auditec Logo" className="nav__logo-img" />
+          </NavLink>
+          <div className="nav__logo-text">  
             <p>{nombreUsuario}</p>   {/* Mostrar el nombre de usuario */}
           </div>             
-        </div>       
-        
-        <div className="items">     
-          <div className="item center-text">
-            <p>{formatDateTime(currentDateTime)}</p> {/* Muestra fecha y hora en formato personalizado */}
-          </div>      
-          <div className="item">
-            <LogoutIcon className="avatar" onClick={handleLogout} /> {/* Agrega el manejador de evento para cerrar sesión */}
-          </div>
-        </div>
-      </div>
-    </div>
+        </div>          
+        <ul className="nav__list">          
+          <li className="nav__item" onClick={handleLogout}>
+            <span className="nav__link">CERRAR SESIÓN</span>
+          </li>            
+        </ul>        
+      </nav>
+    </header>
   );
-};
-
-// Función para formatear la fecha y hora
-const formatDateTime = (dateTime) => {
-  return dateTime.toLocaleString('es-ES', {
-    month: 'long',   // Mes en formato largo
-    day: '2-digit',  // Día del mes en formato de dos dígitos
-    year: 'numeric', // Año en formato numérico
-    hour: '2-digit', // Hora en formato de dos dígitos
-    minute: '2-digit' // Minuto en formato de dos dígitos
-  });
 };
 
 export default Navbar;

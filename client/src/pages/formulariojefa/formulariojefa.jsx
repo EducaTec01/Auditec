@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./formulario.scss";
-import Navbar from "../../components/navbar/Navbar";
 import { useParams } from 'react-router-dom';
 
 const FormularioJefa = () => {
@@ -99,7 +98,6 @@ const FormularioJefa = () => {
         <div className="vigencias-page">
             <Sidebar />
             <div className="vigencias-content">
-                <Navbar />
                 <h1>Formulario</h1>
                 <div className="question-list">
                     <h2>Preguntas:</h2>

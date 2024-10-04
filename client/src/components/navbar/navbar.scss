@@ -1,47 +1,96 @@
-.navbar {
-  height: 10vh; /* Utiliza unidades de medida relativas para establecer la altura */
+/* Estilos generales del menú */
+.header {
+  width: 100%;
+  min-width: 500px;
+  top: 0;
+  left: 0;
+  background-color: var(--body-color);
+  z-index: var(--z-fixed);  
   border-bottom: 1px solid #ccc;
-  background-color: white;
-  display: flex;
-
-  .wrapper {
-    width: 100%;
-    display: flex;
-    align-items: center; /* Centra verticalmente los elementos dentro de .wrapper */
-    
-
-    .center-text {
-      justify-content: center;
-      text-align: center;
-      margin-left: auto;
-      margin-right: 2vw; /* Utiliza unidades de medida relativas para establecer el margen derecho */
-      font-size: 1.2vw; /* Utiliza unidades de medida relativas para el tamaño de fuente */
-    }
-    .nombre{
-      font-weight: bold;
-    }
-
-    .items {
-      display: flex;
-      align-items: center;
-      margin-right: 2vw; /* Utiliza unidades de medida relativas para establecer el margen derecho */
-
-      .item {
-        display: flex;
-        position: relative;
-        transition: all 0.3s;
-        padding: 0.5vw; /* Utiliza unidades de medida relativas para el padding */
-
-        .avatar {
-          width: 2.5vw; /* Utiliza unidades de medida relativas para el ancho */
-          height: auto; /* Utiliza unidades de medida relativas para la altura */
-        }
-      }
-      .item .avatar:hover {
-        border-radius: 0.5vw;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Define el sombreado con una sombra suave */
-        transform: scale(1.1);
-      }
-    }
-  }
 }
+
+
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between !important;
+  position: relative;  
+  height: calc(var(--header-height) + 1rem);  
+}
+
+.nav__logo {
+  color: var(--title-color);
+  display: flex;  
+  border-right: 2px solid #AA2B27; /* Línea roja debajo del texto */
+}
+
+.nav__logo-text{
+  color: var(--title-color);
+  padding: 10px;
+}
+
+.nav .nav__toggle, .nav__close {
+  font-size: 1.5rem;
+  color: var(--title-color);
+  cursor: pointer;
+}
+
+.nav__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.5rem;
+  height: 4rem;
+  align-items: center;
+}
+
+.nav__item {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  position: relative;
+}
+
+.nav__item:hover {
+  background-color: #ca2128;
+  cursor: pointer;
+}
+
+.nav__item.active .nav__link {
+  color: white; /* Cambia el color a tu preferencia */
+}
+
+.nav__item.active{
+  background-color: #666666;
+}
+
+.nav__link {
+  color: var(--title-color);
+  transition: color 0.4s;
+}
+
+.nav__link:hover {
+  cursor: pointer;
+}
+
+.nav__close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+}
+
+.show-menu {
+  right: 0;
+}
+
+
+.nav__logo-img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+
+
+

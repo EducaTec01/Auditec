@@ -1,5 +1,4 @@
 import SidebarAuditado from "../../components/sidebarAuditado/SidebarAuditado";
-import Navbar from "../../components/navbar/Navbar";
 import "./HomeAuditado.scss";
 import Widget from "../../components/widget/Widget";
 import Featured from "../../components/featured/Featured";
@@ -11,7 +10,6 @@ const HomeAuditado = () => {
     <div className="home">
       <SidebarAuditado/>
       <div className="homeContainer">
-        <Navbar />
         <div className="containers">
           <div className="containerL">
             <div className="widgets">

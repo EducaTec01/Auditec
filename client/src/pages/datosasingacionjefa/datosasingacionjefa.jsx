@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./asignacion.scss";
 
-import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import GeneratePDF from '../../components/GeneratePDF/GeneratePDF';
 
@@ -90,7 +89,6 @@ const DatosAsignacionJefa = () => {
       <div className="section1">
         <Sidebar />
         <div className="section2">
-          <Navbar />
           <div className="encabezado">
             <div className="titulo">
               <p>Asignación #{asignacion.id_auditoria}</p>

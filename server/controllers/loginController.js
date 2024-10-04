@@ -18,14 +18,15 @@ module.exports.login = (req, res) => {
                 // Supongamos que la columna de nivel de acceso en tu tabla se llama 'Acceso'
                 const userAccess = result[0].Acceso;
                 const iduser = result[0].id;
+                const nombre = result[0].nombre;
 
                 // Incluye el nivel de acceso del usuario en el token
-                const token = jwt.sign({ username, Acceso: userAccess, id: iduser}, "Stack", {
+                const token = jwt.sign({ username, Acceso: userAccess, id: iduser, Nombre: nombre}, "Stack", {
                     expiresIn: '60m'  // Establece un tiempo de expiración para el token
                 });
 
                 // Envía el token y el nivel de acceso al cliente
-                res.json({ token, Acceso: userAccess, id: iduser});
+                res.json({ token, Acceso: userAccess, id: iduser, Nombre: nombre});
             } else {
                 console.log('wrong user');
                 res.status(401).json({ message: 'Wrong username or password' });

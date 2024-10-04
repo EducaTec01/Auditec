@@ -24,9 +24,6 @@ const CapacitacionBody = () => {
                         </div>
                         <div className="left-panel">
                             <div className="contenedor">
-                                <div className="logo">
-                                   
-                                </div>
                                 <div className="logo-info">
                                     <h2>Conceptos básicos</h2>
                                     <p>Entiende los principios fundamentales de las auditorías, incluidos los tipos de auditorías, el proceso de auditoría y los roles clave involucrados.</p>
