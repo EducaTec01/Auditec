@@ -120,37 +120,6 @@ const GeneratePDF = () => {
       }
     });
 
-    // Dibujar encabezados de la tabla
-    const headers = ["Horario", "Proceso/Actividad", "Auditor", "Contacto", "Area/Sitio"];
-    let currentX = marginLeft;
-    doc.setFontSize(12); // Restaurar tamaño de fuente para el contenido de la tabla principal
-    headers.forEach((header, index) => {
-      doc.setFillColor(200, 200, 200); // Color de fondo gris para los encabezados
-      doc.rect(currentX, tableStartY, columnWidths[index], 40, 'F');
-      doc.text(header, currentX + cellPadding, tableStartY + 25);
-      currentX += columnWidths[index];
-    });
-
-    // Dibujar datos de la tabla
-    const rowData = [
-      `${new Date(detailedAudit.fecha_final).toLocaleDateString()}`,
-      `Procedimiento: ${detailedAudit.subseccion_nombre}`,
-      detailedAudit.auditor_nombre,
-      detailedAudit.auditado_nombre,
-      detailedAudit.departamento_nombre
-    ];
-
-    let currentY = tableStartY + 40;
-    currentX = marginLeft;
-    const rowHeight = tableHeight - 40; // Ajuste de altura de la fila para ocupar toda la tabla
-
-    rowData.forEach((data, index) => {
-      doc.rect(currentX, currentY, columnWidths[index], rowHeight);
-      const lines = doc.splitTextToSize(data, columnWidths[index] - cellPadding * 2); // Ajuste de texto
-      doc.text(lines, currentX + cellPadding, currentY + 25);
-      currentX += columnWidths[index];
-    });
-
     // Guardar el PDF con el nombre basado en el ID de la auditoría
     doc.save(`auditoriaNo.${id}.pdf`);
   };
