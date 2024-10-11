@@ -5,15 +5,14 @@ import logoImageITT from "../../components/login/ITTLogo.png";
 import logoITT1 from "../../components/login/LogoITT1.png";
 
 const GeneratePDF = () => {
-  const { id } = useParams(); // Obtener el ID de la URL
+  const { id } = useParams();
   const [logosBase64, setLogosBase64] = useState({ logo1: '', logo2: '' });
   const [detailedAudit, setDetailedAudit] = useState(null);
-  const [auditInfo, setAuditInfo] = useState(null); // Nuevo estado para guardar la info del segundo fetch
+  const [auditInfo, setAuditInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Convertir las imágenes a Base64
     const toBase64 = (url) => {
       return fetch(url)
         .then((response) => response.blob())
@@ -31,7 +30,6 @@ const GeneratePDF = () => {
       setLogosBase64({ logo1: base64s[0], logo2: base64s[1] });
     });
 
-    // Obtener detalles de la auditoría
     fetchAuditDetails(id);
   }, [id]);
 
@@ -44,11 +42,10 @@ const GeneratePDF = () => {
         return response.json();
       })
       .then((data) => {
-        setDetailedAudit(data[0]); // Asignar el primer elemento del array
+        setDetailedAudit(data[0]);
         setLoading(false);
         setError(null);
-        // Llamar a la función para obtener información adicional
-        fetchAuditInfo(data[0].id); // Usar el ID del primer fetch para el segundo fetch
+        fetchAuditInfo(data[0].id);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -66,7 +63,7 @@ const GeneratePDF = () => {
         return response.json();
       })
       .then((data) => {
-        setAuditInfo(data); // Guardar la información de las preguntas
+        setAuditInfo(data);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -76,131 +73,154 @@ const GeneratePDF = () => {
   const generatePDF = () => {
     if (!detailedAudit || !auditInfo) return;
 
-    const doc = new jsPDF('l', 'pt', 'a4'); // 'l' para landscape (horizontal)
+    const doc = new jsPDF('p', 'pt', 'a4');
     const pageWidth = doc.internal.pageSize.width;
     const pageHeight = doc.internal.pageSize.height;
-    const marginLeft = 40;
-    const marginTop = 40;
-    const marginBottom = 40;
-    const tableStartY = marginTop + 130; // Posición de inicio de la tabla
-    const cellPadding = 10;
 
-    // Ajuste para las celdas
-    const columnWidths = [
-      (pageWidth - 2 * marginLeft) * 0.1, // 10% de la página
-      (pageWidth - 2 * marginLeft) * 0.3, // 30% de la página
-      (pageWidth - 2 * marginLeft) * 0.2, // 20% de la página
-      (pageWidth - 2 * marginLeft) * 0.2, // 20% de la página
-      (pageWidth - 2 * marginLeft) * 0.2, // 20% de la página
-    ];
-    
-    // Dibujar la tabla superior con logos y textos hardcodeados
-    const headerX = marginLeft;
-    const headerY = marginTop;
-    const headerWidths = [120, 220, 400]; // Ajustar anchos de las columnas
-    const headerCellHeight = 60; // Altura de la primera fila de la tabla de encabezado
+    // Márgenes
+    const marginLeft = 30;
+    const marginRight = 30;
+    const marginTop = 30;
+    const marginBottom = 30;
 
-    // Añadir logos
+    let yOffset = marginTop;
+
+    // Calcular ancho para la tabla
+    const tableWidth = pageWidth - marginLeft - marginRight; // Ancho total de la tabla
+    const headerTableHeight = 100; // Altura fija para el encabezado de la tabla
+
+    // Dibujar la tabla
+    doc.rect(marginLeft, yOffset, tableWidth, headerTableHeight); // Dibujar rectángulo de la tabla
+
+    // Agregar logos
     if (logosBase64.logo1) {
-      doc.addImage(logosBase64.logo1, 'PNG', headerX + 10, headerY + 10, 50, 50);
+      doc.addImage(logosBase64.logo1, 'PNG', marginLeft + 10, yOffset + 10, 50, 50);
     }
     if (logosBase64.logo2) {
-      doc.addImage(logosBase64.logo2, 'PNG', headerX + 70, headerY + 10, 50, 50);
+      doc.addImage(logosBase64.logo2, 'PNG', marginLeft + 70, yOffset + 10, 50, 50);
     }
 
-    // Dibujar bordes de la primera fila del encabezado
-    doc.rect(headerX, headerY, headerWidths[0], headerCellHeight); // Borde primera columna
-    doc.rect(headerX + headerWidths[0], headerY, headerWidths[1], headerCellHeight); // Borde segunda columna
-    doc.rect(headerX + headerWidths[0] + headerWidths[1], headerY, headerWidths[2], headerCellHeight); // Borde tercera columna
+    // Ajustar Y después de los logos
+    yOffset += 60;
 
-    // Añadir texto en la segunda celda del encabezado
-    doc.setFontSize(12);
-    doc.text('Formato para plan de auditorías', headerX + headerWidths[0] + 10, headerY + 30);
+    // Encabezado
+    const titleText = "Formato para informe de auditoría";
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    const titleWidth = doc.getTextWidth(titleText);
+    doc.text(titleText, (pageWidth - titleWidth) / 2, yOffset); // Centrar el título
+    yOffset += 20;
 
-    // Información adicional en la tercera columna (dividida en celdas)
-    const additionalInfo = [
-      { left: 'Responsable: Oficina de Calidad', right: '' },
-      { left: 'Código: ITT-CA-PG-003-02', right: 'Página: 0 de 0' },
-      { left: 'Revisión: 0', right: '' },
-      { left: `Referencia a la Norma ISO-9001:2015 9.2`, right: `Emisión: ${new Date(detailedAudit.fecha_inicio).toLocaleDateString()}` }
+    // Información de la tabla
+    const headerTable = [
+      { label: 'Oficina de calidad', value: 'Oficina de Calidad' },
+      { label: 'Código:', value: 'ITT-CA-PG-003-04' },
+      { label: 'Revisión:', value: '0' },
+      { label: 'Referencia a la Norma ISO-9001:2015 9.2', value: '' },
+      { label: 'Fecha:', value: new Date().toLocaleDateString() }, // Fecha actual
     ];
 
-    let infoY = headerY + headerCellHeight; // Inicio del Y de las celdas de información
-    const infoCellHeight = 20; // Altura de cada celda de información
-    doc.setFontSize(10); // Establecer tamaño de fuente a la mitad
-    additionalInfo.forEach((info, index) => {
-      let cellY = infoY + (index * infoCellHeight);
-      if (info.left) {
-        doc.rect(headerX + headerWidths[0] + headerWidths[1], cellY, headerWidths[2] / 2, infoCellHeight); // Dibujar celdas de la información izquierda
-        doc.text(info.left, headerX + headerWidths[0] + headerWidths[1] + 5, cellY + 15);
+    // Dibujar la tabla
+    yOffset += 10; // Espacio extra antes de la tabla
+    doc.rect(marginLeft, yOffset - 10, tableWidth, headerTable.length * 20 + 10); // Ajustar rectángulo de la tabla
+
+    headerTable.forEach((item, index) => {
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+
+      // Columna izquierda
+      if (item.label) { // Asegúrate de que el label no sea undefined
+        doc.text(item.label, marginLeft, yOffset);
       }
-      if (info.right) {
-        doc.rect(headerX + headerWidths[0] + headerWidths[1] + headerWidths[2] / 2, cellY, headerWidths[2] / 2, infoCellHeight); // Dibujar celdas de la información derecha
-        doc.text(info.right, headerX + headerWidths[0] + headerWidths[1] + headerWidths[2] / 2 + 5, cellY + 15);
+
+      // Columna derecha
+      if (item.value) { // Asegúrate de que el value no sea undefined
+        doc.text(item.value, marginLeft + tableWidth / 2, yOffset);
       }
+
+      // Dibujar líneas
+      if (index < headerTable.length - 1) {
+        doc.line(marginLeft, yOffset + 5, marginLeft + tableWidth, yOffset + 5); // Línea horizontal
+      }
+
+      yOffset += 20; // Espacio entre filas
     });
 
-  // Agregar información adicional solicitada al PDF
-  const infoYStart = infoY + additionalInfo.length * infoCellHeight + 20; // Ajustar Y para la nueva sección
-  doc.setFontSize(12); // Tamaño de fuente para la nueva sección
-  doc.text('Información Adicional', marginLeft, infoYStart); // Título de la nueva sección
+    // Aquí añadimos la nueva tabla
+    const auditDetails = [
+      { label: 'No-Auditoria:', value: id }, 
+      { label: 'Proceso:', value: detailedAudit.seccion_nombre }, 
+      { label: 'Fecha:', value: detailedAudit.fecha_final }, 
+      { label: 'Auditor:', value: detailedAudit.auditor_nombre },
+    ];
 
-  const newInfo = [
-    { label: 'No-Auditoria:', value: id }, // ID del primer fetch
-    { label: 'Proceso:', value: detailedAudit.seccion_nombre },
-    { label: 'Fecha:', value: detailedAudit.fecha_final }, // Asegúrate de que esta propiedad exista
-    { label: 'Auditor:', value: detailedAudit.auditor_nombre }, // Asegúrate de que esta propiedad exista
-    { label: 'Objetivo:', value: 'Reflejar el estado que guarda el Sistema de Gestión de Calidad (SGC) de la institución, presentar los hallazgos y conclusiones de la Auditoría Interna de Calidad practicada y acordar el periodo en el que el auditado presentará la carpeta de evidencias y el plan de acciones correctivas y/o preventivas.' },
-    { label: 'Requisitos:', value: '8.1, 8.2.2, 5.5.1, 8.5.5, 7.1.5, 9.1.1, 8.6, 8.7, 10.2' },
-    { label: 'Gestion del curso:', value: 'Horario, Planeación del curso, instrumentacion didáctica, reporte de proyectos individuales, reporte final, seguimiento gestión del curso y constancia de liberación.' },
-    { label: 'Residencia Profesionales:', value: 'Asignación de asesor interno, asignación de revisores, dictamen de residencias, boleta de residencias y constancia de revisores.' },
-    { label: 'Inscripcion y reinscripcion:', value: 'Asignación de Cargas Académicas.' },
-    { label: 'Servicio No conforme:', value: 'Bitácora de Servicio No conforme (Entrega de planeación a tiempo y seguimiento a la gestión del curso).' },
-    // Nueva información adicional
-    { label: 'Matriz de riesgos y oportunidades:', value: '6.1' },
-    { label: 'Identificación de partes interesadas:', value: '4.2' },
-    { label: 'Objetivos e indicadores:', value: '6.2' },
-    { label: 'Revisión de salones y laboratorios', value: '' },
-    { label: 'Proyectos individuales de Maestros', value: '' },
-    { label: 'Reporte final y carta de liberación', value: '' },
-  ];
+    // Ajustar Y después del encabezado
+    yOffset += 20; // Espacio extra antes de la nueva tabla
 
-  let yOffset = infoYStart + 20; // Espaciado inicial
-  newInfo.forEach((item) => {
-    doc.setFontSize(10);
-    doc.text(`${item.label} ${item.value}`, marginLeft, yOffset);
-    yOffset += 15; // Espacio entre líneas
-  });
+    // Dibujar la nueva tabla
+    doc.rect(marginLeft, yOffset - 10, tableWidth, auditDetails.length * 20 + 10); // Ajustar rectángulo de la nueva tabla
 
-  
-    // Tabla con la información de las preguntas
-    const questionsYStart = yOffset + 20; // Espacio inicial para la tabla
-    const questionsHeader = ['Pregunta', 'Respuesta', 'Observaciones'];
+    auditDetails.forEach((item, index) => {
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
 
-    // Dibujar cabecera de la tabla
-    doc.setFontSize(12);
-    questionsHeader.forEach((header, index) => {
-      doc.text(header, marginLeft + index * columnWidths[index], questionsYStart);
+      // Columna izquierda
+      if (item.label) { // Asegúrate de que el label no sea undefined
+        doc.text(item.label, marginLeft, yOffset);
+      }
+
+      // Columna derecha
+      if (item.value) { // Asegúrate de que el value no sea undefined
+        doc.text(item.value, marginLeft + tableWidth / 2, yOffset);
+      }
+
+      // Dibujar líneas
+      if (index < auditDetails.length - 1) {
+        doc.line(marginLeft, yOffset + 5, marginLeft + tableWidth, yOffset + 5); // Línea horizontal
+      }
+
+      yOffset += 20; // Espacio entre filas
     });
 
-    // Ajustar las preguntas y respuestas, agregando soporte para texto largo
-    if (auditInfo) {
-      auditInfo.forEach((question, index) => {
-        let questionY = questionsYStart + (index + 1) * 15;
-        
-        // Ajustar texto largo
-        const questionText = question.pregunta.length > 60 ? question.pregunta.slice(0, 60) + '...' : question.pregunta;
-        const answerText = question.respuesta.length > 60 ? question.respuesta.slice(0, 60) + '...' : question.respuesta;
-        const observationText = question.observaciones.length > 60 ? question.observaciones.slice(0, 60) + '...' : question.observaciones;
+    // Continuar con el resto del documento
+    yOffset += 10; // Espacio extra después del encabezado
 
-        doc.text(questionText, marginLeft, questionY);
-        doc.text(answerText, marginLeft + columnWidths[1], questionY);
-        doc.text(observationText, marginLeft + columnWidths[1] + columnWidths[2], questionY);
+    // Información adicional larga
+    const newInfo = [
+      { label: 'Objetivo:', value: 'Reflejar el estado que guarda el Sistema de Gestión de Calidad (SGC) de la institución, presentar los hallazgos y conclusiones de la Auditoría Interna de Calidad practicada y acordar el periodo en el que el auditado presentará la carpeta de evidencias y el plan de acciones correctivas y/o preventivas.' },
+      { label: 'Requisitos:', value: '8.1, 8.2.2, 5.5.1, 8.5.5, 7.1.5, 9.1.1, 8.6, 8.7, 10.2' },
+      { label: 'Gestion del curso:', value: 'Horario, Planeación del curso, instrumentacion didáctica, reporte de proyectos individuales, reporte final, seguimiento gestión del curso y constancia de liberación.' },
+      { label: 'Residencia Profesionales:', value: 'Asignación de asesor interno, asignación de revisores, dictamen de residencias, boleta de residencias y constancia de revisores.' },
+      { label: 'Inscripcion y reinscripcion:', value: 'Asignación de Cargas Académicas.' },
+      { label: 'Servicio No conforme:', value: 'Bitácora de Servicio No conforme (Entrega de planeación a tiempo y seguimiento a la gestión del curso).' },
+      { label: 'Matriz de hallazgos:', value: 'Evidencia que se recolecta durante la auditoría, se generará un acta y un informe final, se considerará todo hallazgo para seguimiento, cumplimiento o atención de no conformidades.' }
+    ];
+
+    newInfo.forEach(item => {
+      doc.setFont('helvetica', 'bold');
+      doc.text(item.label, marginLeft, yOffset);
+      doc.setFont('helvetica', 'normal');
+      const textLines = doc.splitTextToSize(item.value, tableWidth);
+      textLines.forEach(line => {
+        doc.text(line, marginLeft + 20, yOffset += 10); // Incrementar el Y para las nuevas líneas
       });
-    }
+      yOffset += 10; // Espacio entre secciones
+    });
 
-    doc.save('auditoria.pdf');
-};
+    // Agregar preguntas
+    doc.setFont('helvetica', 'bold');
+    doc.text("Preguntas:", marginLeft, yOffset);
+    yOffset += 10;
+
+    auditInfo.forEach((question, index) => {
+      doc.setFont('helvetica', 'normal');
+      doc.text(`${index + 1}. ${question.pregunta}`, marginLeft, yOffset);
+      yOffset += 10;
+    });
+
+    // Guardar el documento
+    doc.save(`Auditoría_${detailedAudit.numero_auditoria}.pdf`);
+  };
 
   if (loading) return <div>Cargando...</div>;
   if (error) return <div>Error: {error}</div>;
